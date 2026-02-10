@@ -1,22 +1,13 @@
 import { HeroSection } from '@/components/hero/HeroSection';
 import { JourneySection } from '@/components/journey/JourneySection';
+import { WorkshopSection } from '@/components/workshop/WorkshopSection';
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
       <JourneySection />
-
-      {/* Phase 3: Workshop */}
-      <section
-        id="workshop"
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: '#2E004B' }}
-      >
-        <p className="font-mono text-sm tracking-widest text-[#1E90FF]/40">
-          // WORKSHOP LOADING...
-        </p>
-      </section>
+      <WorkshopSection />
 
       {/* Phase 4: Boss Fight */}
       <section
