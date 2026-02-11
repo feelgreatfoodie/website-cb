@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { getActivePaletteId } from '@/lib/edge-config';
 import { getPalette, type PaletteColors } from '@/config/palettes';
 import { ThemeProvider } from '@/lib/palette-context';
 import './globals.css';
+
+const GA_ID = 'G-N91F3VEKB4';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -62,6 +65,15 @@ export default async function RootLayout({
       className="scroll-smooth"
       style={cssVarsFromPalette(palette.colors) as React.CSSProperties}
     >
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+        </Script>
+      </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
