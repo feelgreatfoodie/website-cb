@@ -60,7 +60,7 @@ src/
 │       └── palette/route.ts             # POST to update Edge Config
 ├── components/
 │   ├── hero/               # HeroSection, RiverScene (Three.js shader river)
-│   ├── journey/            # JourneySection, NoteHighway (particle streams), StreamCard, LootBox
+│   ├── journey/            # JourneySection, NoteHighway (particle streams), StreamCard (with inline skill tags)
 │   ├── competencies/       # CompetencyHubSection, RadialHub (animated SVG)
 │   ├── opento/             # OpenToSection, RoleCard (glass cards + pill tags)
 │   ├── workshop/           # WorkshopSection, ProjectCard, TypewriterCLI

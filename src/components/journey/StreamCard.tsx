@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils/cn';
 
 interface StreamCardProps {
@@ -9,6 +9,7 @@ interface StreamCardProps {
   years: number;
   color: string;
   description: string;
+  skills: readonly string[];
   onHover: (hovered: boolean) => void;
   onClick: () => void;
   isRevealed: boolean;
@@ -19,6 +20,7 @@ export function StreamCard({
   years,
   color,
   description,
+  skills,
   onHover,
   onClick,
   isRevealed,
@@ -28,7 +30,7 @@ export function StreamCard({
   return (
     <motion.button
       className={cn(
-        'glass relative w-full cursor-pointer rounded-xl p-4 text-left transition-all duration-300 sm:p-6',
+        'glass relative flex h-full w-full flex-col cursor-pointer rounded-xl p-4 text-left transition-all duration-300 sm:p-6',
         isRevealed && 'ring-1'
       )}
       style={{
@@ -66,7 +68,7 @@ export function StreamCard({
         </span>
       </div>
 
-      <p className="text-sm leading-relaxed text-foreground/70">
+      <p className="flex-1 text-sm leading-relaxed text-foreground/70">
         {description}
       </p>
 
@@ -78,6 +80,37 @@ export function StreamCard({
           [ CLICK TO REVEAL SKILLS ]
         </div>
       )}
+
+      <AnimatePresence>
+        {isRevealed && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="overflow-hidden"
+          >
+            <div className="flex flex-wrap gap-2 pt-4">
+              {skills.map((skill, i) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                  className="rounded-md px-3 py-1.5 font-mono text-xs tracking-wide"
+                  style={{
+                    background: `${color}18`,
+                    border: `1px solid ${color}44`,
+                    color,
+                  }}
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.button>
   );
 }

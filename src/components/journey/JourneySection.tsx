@@ -4,7 +4,6 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { NoteHighway } from './NoteHighway';
 import { StreamCard } from './StreamCard';
-import { LootBox } from './LootBox';
 import { journey } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useScrollProgress } from '@/lib/hooks/useScrollProgress';
@@ -71,23 +70,19 @@ export function JourneySection() {
           viewport={{ once: true, margin: '-50px' }}
         >
           {journey.streams.map((stream) => (
-            <motion.div key={stream.id} variants={fadeInUp}>
+            <motion.div key={stream.id} variants={fadeInUp} className="h-full">
               <StreamCard
                 label={stream.label}
                 years={stream.years}
                 color={resolveColor(stream.color)}
                 description={stream.description}
+                skills={stream.skills}
                 isRevealed={revealedStreams[stream.id as keyof typeof revealedStreams]}
                 onHover={(h) => handleHover(stream.id, h)}
                 onClick={() => {
                   trackEvent('stream_reveal', { stream_id: stream.id });
                   revealStream(stream.id as keyof typeof revealedStreams);
                 }}
-              />
-              <LootBox
-                skills={stream.skills}
-                color={resolveColor(stream.color)}
-                isOpen={revealedStreams[stream.id as keyof typeof revealedStreams]}
               />
             </motion.div>
           ))}

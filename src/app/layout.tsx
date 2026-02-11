@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'AI/ML Engineer',
     'Technical Account Manager',
     'Technical Solutions Partner',
-    'Data Engineering',
+    'Technical Engineering',
     'Solutions Architecture',
     'GCP Professional Data Engineer',
     'GCP Professional Cloud Architect',
@@ -134,7 +134,7 @@ export default async function RootLayout({
                     'https://medium.com/@christianbourlier',
                   ],
                   knowsAbout: [
-                    'Data Engineering',
+                    'Technical Engineering',
                     'Solutions Architecture',
                     'AI/ML',
                     'Machine Learning',
