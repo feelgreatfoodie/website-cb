@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { footer } from '@/config/content';
 import { palettes } from '@/config/palettes';
 import { usePalette } from '@/lib/palette-context';
+import { trackEvent } from '@/lib/analytics';
 
 function PaletteSwatch({ colors }: { colors: { background: string; accent: string; cta: string; stream1: string } }) {
   return (
@@ -81,6 +82,7 @@ function PaletteSwitcher() {
               <button
                 key={p.id}
                 onClick={() => {
+                  trackEvent('palette_switch', { palette_id: p.id });
                   switchPalette(p.id);
                   setOpen(false);
                 }}

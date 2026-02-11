@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { BlogCard } from './BlogCard';
 import { writing } from '@/config/content';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
+import { trackEvent } from '@/lib/analytics';
 import type { MediumPost } from '@/lib/medium';
 
 export function WritingSection({ posts }: { posts: MediumPost[] }) {
@@ -64,6 +65,7 @@ export function WritingSection({ posts }: { posts: MediumPost[] }) {
             href={writing.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent('blog_cta_click')}
             className="group inline-flex items-center gap-2 font-mono text-sm tracking-wider text-foreground/50 transition-colors hover:text-accent"
           >
             {writing.ctaLabel}

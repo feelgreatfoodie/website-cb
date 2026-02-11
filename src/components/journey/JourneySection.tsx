@@ -10,6 +10,7 @@ import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useScrollProgress } from '@/lib/hooks/useScrollProgress';
 import { usePalette } from '@/lib/palette-context';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
+import { trackEvent } from '@/lib/analytics';
 
 export function JourneySection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -78,9 +79,10 @@ export function JourneySection() {
                 description={stream.description}
                 isRevealed={revealedStreams[stream.id as keyof typeof revealedStreams]}
                 onHover={(h) => handleHover(stream.id, h)}
-                onClick={() =>
-                  revealStream(stream.id as keyof typeof revealedStreams)
-                }
+                onClick={() => {
+                  trackEvent('stream_reveal', { stream_id: stream.id });
+                  revealStream(stream.id as keyof typeof revealedStreams);
+                }}
               />
               <LootBox
                 skills={stream.skills}

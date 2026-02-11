@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "X-Frame-Options",
-            value: "DENY",
+            value: "SAMEORIGIN",
           },
           {
             key: "X-XSS-Protection",
@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' https: data:",
               "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com",
+              "frame-src 'self' https://www.youtube.com",
             ].join("; "),
           },
         ],

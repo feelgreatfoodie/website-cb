@@ -1,17 +1,36 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { RiverScene } from './RiverScene';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/Button';
 import { GlowText } from '@/components/ui/GlowText';
 import { hero } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
+import { trackEvent } from '@/lib/analytics';
+
+function RiverScenePlaceholder() {
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          'linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--accent) 13%, transparent) 50%, var(--background) 100%)',
+      }}
+    />
+  );
+}
+
+const RiverScene = dynamic(
+  () => import('./RiverScene').then((mod) => ({ default: mod.RiverScene })),
+  { ssr: false, loading: () => <RiverScenePlaceholder /> }
+);
 
 export function HeroSection() {
   const startQuest = useQuestStore((s) => s.startQuest);
 
   const handleQuestStart = () => {
+    trackEvent('hero_cta_click');
     startQuest();
     const journeyEl = document.getElementById('journey');
     journeyEl?.scrollIntoView({ behavior: 'smooth' });

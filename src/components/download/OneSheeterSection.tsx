@@ -8,6 +8,7 @@ import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { PDFPreview } from './PDFPreview';
 import { Button } from '@/components/ui/Button';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
+import { trackEvent } from '@/lib/analytics';
 
 export function OneSheeterSection() {
   const { paletteId } = usePalette();
@@ -50,7 +51,10 @@ export function OneSheeterSection() {
             <a
               href={pdfUrl}
               download
-              onClick={() => markDownloaded()}
+              onClick={() => {
+                trackEvent('pdf_download', { palette_id: paletteId });
+                markDownloaded();
+              }}
               className="inline-block"
             >
               <Button variant="primary" type="button">

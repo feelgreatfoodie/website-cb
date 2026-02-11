@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { contact } from '@/config/content';
 import { Button } from '@/components/ui/Button';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
+import { trackEvent } from '@/lib/analytics';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -32,6 +33,7 @@ export function ContactSection() {
     e.preventDefault();
     if (!canSubmit) return;
 
+    trackEvent('contact_form_submit');
     setFormState('submitting');
     setErrorMsg('');
 
@@ -58,6 +60,7 @@ export function ContactSection() {
       }
 
       setFormState('success');
+      trackEvent('contact_form_success');
       setName('');
       setEmail('');
       setPhone('');

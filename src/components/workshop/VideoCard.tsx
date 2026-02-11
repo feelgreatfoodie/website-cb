@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { trackEvent } from '@/lib/analytics';
 
 interface VideoCardProps {
   title: string;
@@ -41,7 +42,10 @@ export function VideoCard({
         ) : (
           <button
             type="button"
-            onClick={() => setPlaying(true)}
+            onClick={() => {
+              trackEvent('video_play', { video_id: videoId, video_title: title });
+              setPlaying(true);
+            }}
             className="absolute inset-0 h-full w-full cursor-pointer"
             aria-label={`Play ${title}`}
           >
