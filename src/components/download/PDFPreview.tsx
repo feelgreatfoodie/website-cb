@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface PDFPreviewProps {
   previewSrc: string;
@@ -54,14 +54,16 @@ function PlaceholderDoc() {
 export function PDFPreview({ previewSrc, alt }: PDFPreviewProps) {
   const [imgFailed, setImgFailed] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapperRef, { once: true });
 
   return (
     <motion.div
+      ref={wrapperRef}
       className="relative mx-auto w-48 sm:w-56"
       style={{ perspective: '800px' }}
       initial={{ opacity: 0, rotateY: -15 }}
-      whileInView={{ opacity: 1, rotateY: -5 }}
-      viewport={{ once: true }}
+      animate={isInView ? { opacity: 1, rotateY: -5 } : { opacity: 0, rotateY: -15 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
       whileHover={{ rotateY: 0, scale: 1.05 }}
     >

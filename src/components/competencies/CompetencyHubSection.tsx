@@ -19,12 +19,12 @@ export function CompetencyHubSection() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <motion.p
+          <motion.h2
             variants={fadeInUp}
             className="mb-4 font-mono text-xs tracking-[0.4em] text-accent/60"
           >
             {competencies.title}
-          </motion.p>
+          </motion.h2>
         </motion.div>
 
         {/* Radial SVG hub — scales naturally via viewBox on all sizes */}

@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { usePalette } from '@/lib/palette-context';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
@@ -89,121 +90,121 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
     );
   }
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapperRef, { once: true });
+
   return (
-    <svg
-      viewBox="0 0 400 400"
-      className="mx-auto w-full max-w-3xl"
-      role="img"
-      aria-label="Core competencies radial diagram"
-    >
-      {/* Connecting lines */}
-      {positions.map((pos, i) => (
-        <motion.line
-          key={`line-${items[i].id}`}
-          x1={cx}
-          y1={cy}
-          x2={pos.x}
-          y2={pos.y}
+    <div ref={wrapperRef}>
+      <svg
+        viewBox="0 0 400 400"
+        className="mx-auto w-full max-w-3xl"
+        role="img"
+        aria-label="Core competencies radial diagram"
+      >
+        {/* Connecting lines */}
+        {positions.map((pos, i) => (
+          <motion.line
+            key={`line-${items[i].id}`}
+            x1={cx}
+            y1={cy}
+            x2={pos.x}
+            y2={pos.y}
+            stroke={colors.accent}
+            strokeOpacity={0.3}
+            strokeWidth={1.5}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={isInView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+            transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
+          />
+        ))}
+
+        {/* Center circle */}
+        <motion.circle
+          cx={cx}
+          cy={cy}
+          r={centerRadius}
+          fill={colors.backgroundLight}
           stroke={colors.accent}
-          strokeOpacity={0.3}
-          strokeWidth={1.5}
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
+          strokeWidth={2}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          style={{ transformOrigin: `${cx}px ${cy}px` }}
         />
-      ))}
+        <motion.text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fill={colors.foreground}
+          fontSize={9}
+          fontFamily="var(--font-jetbrains-mono)"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          CHRISTIAN
+        </motion.text>
+        <motion.text
+          x={cx}
+          y={cy + 8}
+          textAnchor="middle"
+          fill={colors.foreground}
+          fontSize={9}
+          fontFamily="var(--font-jetbrains-mono)"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.35 }}
+        >
+          BOURLIER
+        </motion.text>
 
-      {/* Center circle */}
-      <motion.circle
-        cx={cx}
-        cy={cy}
-        r={centerRadius}
-        fill={colors.backgroundLight}
-        stroke={colors.accent}
-        strokeWidth={2}
-        initial={{ scale: 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        style={{ transformOrigin: `${cx}px ${cy}px` }}
-      />
-      <motion.text
-        x={cx}
-        y={cy - 6}
-        textAnchor="middle"
-        fill={colors.foreground}
-        fontSize={9}
-        fontFamily="var(--font-jetbrains-mono)"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-      >
-        CHRISTIAN
-      </motion.text>
-      <motion.text
-        x={cx}
-        y={cy + 8}
-        textAnchor="middle"
-        fill={colors.foreground}
-        fontSize={9}
-        fontFamily="var(--font-jetbrains-mono)"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.35 }}
-      >
-        BOURLIER
-      </motion.text>
-
-      {/* Satellites */}
-      {positions.map((pos, i) => {
-        const item = items[i];
-        return (
-          <motion.g
-            key={item.id}
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6 + i * 0.12, duration: 0.4, ease: 'backOut' }}
-            style={{ transformOrigin: `${pos.x}px ${pos.y}px` }}
-            whileHover={{ scale: 1.12 }}
-            className="cursor-default"
-          >
-            <circle
-              cx={pos.x}
-              cy={pos.y}
-              r={satRadius}
-              fill={colors.backgroundLight}
-              stroke={satelliteColors[i]}
-              strokeWidth={2}
-            />
-            {iconPaths[item.icon] && (
-              <path
-                d={iconPaths[item.icon]}
-                fill={satelliteColors[i]}
-                opacity={0.5}
-                transform={`translate(${pos.x - 12}, ${pos.y - 22}) scale(1)`}
-              />
-            )}
-            <text
-              x={pos.x}
-              y={pos.y + 6}
-              textAnchor="middle"
-              fill={colors.foreground}
-              fontSize={7.5}
-              fontFamily="var(--font-jetbrains-mono)"
+        {/* Satellites */}
+        {positions.map((pos, i) => {
+          const item = items[i];
+          return (
+            <motion.g
+              key={item.id}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+              transition={{ delay: 0.6 + i * 0.12, duration: 0.4, ease: 'backOut' }}
+              style={{ transformOrigin: `${pos.x}px ${pos.y}px` }}
+              whileHover={{ scale: 1.12 }}
+              className="cursor-default"
             >
-              {item.label.split(' ').map((word, wi) => (
-                <tspan key={wi} x={pos.x} dy={wi === 0 ? 0 : 12}>
-                  {word}
-                </tspan>
-              ))}
-            </text>
-          </motion.g>
-        );
-      })}
-    </svg>
+              <circle
+                cx={pos.x}
+                cy={pos.y}
+                r={satRadius}
+                fill={colors.backgroundLight}
+                stroke={satelliteColors[i]}
+                strokeWidth={2}
+              />
+              {iconPaths[item.icon] && (
+                <path
+                  d={iconPaths[item.icon]}
+                  fill={satelliteColors[i]}
+                  opacity={0.5}
+                  transform={`translate(${pos.x - 12}, ${pos.y - 22}) scale(1)`}
+                />
+              )}
+              <text
+                x={pos.x}
+                y={pos.y + 6}
+                textAnchor="middle"
+                fill={colors.foreground}
+                fontSize={7.5}
+                fontFamily="var(--font-jetbrains-mono)"
+              >
+                {item.label.split(' ').map((word, wi) => (
+                  <tspan key={wi} x={pos.x} dy={wi === 0 ? 0 : 12}>
+                    {word}
+                  </tspan>
+                ))}
+              </text>
+            </motion.g>
+          );
+        })}
+      </svg>
+    </div>
   );
 }

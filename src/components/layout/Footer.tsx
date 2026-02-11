@@ -14,7 +14,7 @@ function SignatureReveal() {
   const prefersReduced = useReducedMotion();
 
   return (
-    <div ref={ref} className="relative mx-auto mb-6 h-24 w-full max-w-xs sm:mb-8 sm:h-[21rem] sm:max-w-[78rem]">
+    <div ref={ref} className="relative mx-auto mb-6 h-[6.6rem] w-full max-w-[22rem] sm:mb-8 sm:h-[21rem] sm:max-w-[78rem]">
       <img
         src="/signature-white.png"
         alt="Christian Bourlier signature"
@@ -90,11 +90,11 @@ export function Footer() {
         {/* Contact links */}
         <motion.div
           variants={fadeInUp}
-          className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:mb-8 sm:gap-6"
+          className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:mb-8 sm:flex-nowrap sm:gap-6"
         >
           <a
             href={`mailto:${footer.links.email}`}
-            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
               {footer.links.email}
@@ -105,7 +105,7 @@ export function Footer() {
 
           <a
             href={`tel:${footer.links.phone.replace(/[^\d+]/g, '')}`}
-            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
               {footer.links.phone}
@@ -118,7 +118,7 @@ export function Footer() {
             href={footer.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
               LinkedIn
@@ -131,7 +131,7 @@ export function Footer() {
             href={footer.links.medium}
             target="_blank"
             rel="noopener noreferrer"
-            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
               Medium
@@ -143,7 +143,7 @@ export function Footer() {
           <a
             href={pdfUrl}
             download
-            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
               One-Sheeter
