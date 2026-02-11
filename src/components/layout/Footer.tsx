@@ -69,19 +69,21 @@ export function Footer() {
           className="mb-6 flex flex-wrap items-center justify-center gap-1.5 sm:mb-10 sm:gap-3"
           aria-label="Footer navigation"
         >
-          {footer.sections.map((section, i) => (
-            <span key={section.anchor} className="flex items-center gap-3">
-              <a
-                href={section.anchor}
-                className="font-mono text-xs tracking-wider text-foreground/40 transition-colors hover:text-accent"
-              >
-                {section.label}
-              </a>
-              {i < footer.sections.length - 1 && (
-                <span className="text-foreground/10">·</span>
-              )}
-            </span>
-          ))}
+          {footer.sections
+            .filter((s) => s.label !== 'One-Sheeter' && s.label !== 'Contact')
+            .map((section, i, arr) => (
+              <span key={section.anchor} className="flex items-center gap-3">
+                <a
+                  href={section.anchor}
+                  className="font-mono text-xs tracking-wider text-foreground/40 transition-colors hover:text-accent"
+                >
+                  {section.label}
+                </a>
+                {i < arr.length - 1 && (
+                  <span className="text-foreground/10">·</span>
+                )}
+              </span>
+            ))}
         </motion.nav>
 
         {/* Signature animation */}
