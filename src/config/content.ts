@@ -157,6 +157,7 @@ export const workshop = {
       whyNow: 'Privacy regs accelerating — marketers need trust.',
       tags: ['Marketing Analytics', 'Privacy-First', 'ML'],
       image: '/optimeasure-dashboard.png',
+      url: 'https://optimeasure.io',
     },
     {
       name: 'CacheBash',

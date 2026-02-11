@@ -53,6 +53,7 @@ export function WorkshopSection() {
                 whyNow={project.whyNow}
                 tags={project.tags}
                 image={'image' in project ? project.image : undefined}
+                url={'url' in project ? project.url : undefined}
               />
             </motion.div>
           ))}

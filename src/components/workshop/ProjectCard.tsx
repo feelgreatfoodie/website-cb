@@ -11,6 +11,7 @@ interface ProjectCardProps {
   whyNow: string;
   tags: readonly string[];
   image?: string;
+  url?: string;
 }
 
 export function ProjectCard({
@@ -20,6 +21,7 @@ export function ProjectCard({
   whyNow,
   tags,
   image,
+  url,
 }: ProjectCardProps) {
   const [showImage, setShowImage] = useState(false);
 
@@ -87,11 +89,21 @@ export function ProjectCard({
         ))}
       </div>
 
-      {!showImage && (
+      {showImage && url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-4 block text-center font-mono text-[10px] tracking-wider text-cta transition-colors hover:text-accent"
+        >
+          [ EXPERIENCE IT LIVE &rarr; ]
+        </a>
+      ) : !showImage ? (
         <div className="mt-4 text-center font-mono text-[10px] tracking-wider text-cta/50">
           {image ? '[ CLICK TO SEE PREVIEW ]' : '[ PREVIEW COMING SOON ]'}
         </div>
-      )}
+      ) : null}
     </motion.div>
   );
 }
