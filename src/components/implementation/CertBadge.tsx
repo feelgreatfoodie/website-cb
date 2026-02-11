@@ -19,11 +19,11 @@ export function CertBadge({ name, badge }: CertBadgeProps) {
       variants={fadeInUp}
       className="flex flex-col items-center gap-3"
     >
-      <div className="glass flex h-32 w-32 items-center justify-center rounded-xl">
+      <div className="glass flex h-24 w-24 items-center justify-center rounded-xl sm:h-32 sm:w-32">
         <img
           src={badge}
           alt={name}
-          className="h-24 w-24 object-contain"
+          className="h-16 w-16 object-contain sm:h-24 sm:w-24"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = 'none';
           }}

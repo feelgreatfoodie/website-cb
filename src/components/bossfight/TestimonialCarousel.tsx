@@ -83,7 +83,7 @@ export function TestimonialCarousel({
       aria-label="Testimonials"
       aria-roledescription="carousel"
     >
-      <div className="relative min-h-[200px]">
+      <div className="relative min-h-[220px] sm:min-h-[200px]">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.blockquote
             key={index}
@@ -93,10 +93,10 @@ export function TestimonialCarousel({
             animate="center"
             exit="exit"
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="glass rounded-xl p-8 text-center"
+            className="glass rounded-xl p-5 text-center sm:p-8"
             aria-label={`Testimonial ${index + 1} of ${testimonials.length}`}
           >
-            <p className="mb-4 text-lg italic leading-relaxed text-foreground/80">
+            <p className="mb-4 text-base italic leading-relaxed text-foreground/80 sm:text-lg">
               &ldquo;{current.quote}&rdquo;
             </p>
             <footer className="font-mono text-sm text-accent">

@@ -40,7 +40,7 @@ export function KonamiOverlay() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 1.5, opacity: 0 }}
               transition={{ duration: 0.5, ease: 'backOut' }}
-              className="rounded-2xl bg-black/80 px-12 py-8 backdrop-blur-lg"
+              className="rounded-2xl bg-black/80 px-6 py-6 backdrop-blur-lg sm:px-12 sm:py-8"
             >
               <p className="font-mono text-2xl font-bold tracking-[0.2em] text-cta sm:text-4xl">
                 CHEAT CODE ACTIVATED

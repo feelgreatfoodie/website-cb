@@ -14,7 +14,7 @@ function SignatureReveal() {
   const prefersReduced = useReducedMotion();
 
   return (
-    <div ref={ref} className="relative mx-auto mb-8 h-[21rem] w-[78rem] max-w-full">
+    <div ref={ref} className="relative mx-auto mb-6 h-24 w-full max-w-xs sm:mb-8 sm:h-[21rem] sm:max-w-[78rem]">
       <img
         src="/signature-white.png"
         alt="Christian Bourlier signature"
@@ -66,7 +66,7 @@ export function Footer() {
         {/* Section nav */}
         <motion.nav
           variants={fadeInUp}
-          className="mb-10 flex flex-wrap items-center justify-center gap-4"
+          className="mb-6 flex flex-wrap items-center justify-center gap-2 sm:mb-10 sm:gap-4"
           aria-label="Footer navigation"
         >
           {footer.sections.map((section, i) => (
@@ -90,7 +90,7 @@ export function Footer() {
         {/* Contact links */}
         <motion.div
           variants={fadeInUp}
-          className="mb-8 flex flex-wrap items-center justify-center gap-6"
+          className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:mb-8 sm:gap-6"
         >
           <a
             href={`mailto:${footer.links.email}`}
@@ -131,7 +131,7 @@ export function Footer() {
           <a
             href={pdfUrl}
             download
-            className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-transparent px-5 py-2 font-mono text-xs tracking-wider text-accent transition-all duration-300 hover:border-accent/60 hover:bg-accent/10"
+            className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-transparent px-4 py-2.5 font-mono text-xs tracking-wider text-accent transition-all duration-300 hover:border-accent/60 hover:bg-accent/10 sm:px-5"
           >
             Download One-Sheeter
           </a>

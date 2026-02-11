@@ -28,14 +28,14 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
 
       <motion.div
-        className="relative z-10 mx-auto max-w-4xl px-6 text-center"
+        className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6"
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
       >
         <motion.h1
           variants={fadeInUp}
-          className="mb-2 font-mono text-5xl font-bold tracking-[0.2em] text-foreground sm:text-6xl lg:text-7xl"
+          className="mb-2 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-5xl sm:tracking-[0.2em] md:text-6xl lg:text-7xl"
         >
           {hero.headline}
         </motion.h1>
@@ -57,7 +57,7 @@ export function HeroSection() {
           <Button
             variant="primary"
             onClick={handleQuestStart}
-            className="text-lg px-10 py-4"
+            className="text-base px-8 py-3 sm:text-lg sm:px-10 sm:py-4"
             aria-label="Start exploring Christian Bourlier's quest"
           >
             {hero.cta}

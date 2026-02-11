@@ -17,12 +17,12 @@ The site doubles as a technical showcase: shader-based river animation, GPU part
 | **Header** | `Header` | Sticky glass header with contact icons, section nav, and palette switcher dropdown. |
 | **Hero** | `HeroSection` + `RiverScene` | Animated headline over a GLSL shader river with floating particles. CTA scrolls to Journey. |
 | **Journey** | `JourneySection` + `NoteHighway` | Three skill stream cards (Data / Sales / Poker) with click-to-reveal loot boxes. Background has Three.js ambient particle streams. |
-| **Competencies** | `CompetencyHubSection` + `RadialHub` | Animated SVG radial hub-and-spoke diagram (desktop) with 6 core competencies orbiting a center node. Falls back to 2-column card grid on mobile. |
+| **Competencies** | `CompetencyHubSection` + `RadialHub` | Animated SVG radial hub-and-spoke diagram with 6 core competencies orbiting a center node. Scales naturally via `viewBox` on all screen sizes. |
 | **Open To** | `OpenToSection` + `RoleCard` | 4 glass cards for target roles (Solutions Architect, AI/ML Solutions Engineer, TAM, AI Strategist) with "what I bring" pill tags. |
 | **Workshop** | `WorkshopSection` + `TypewriterCLI` | Three project cards (OptiMeasure, CacheBash, AI Portal) with a looping terminal typewriter demo. |
 | **Boss Fight** | `BossFightSection` + `TestimonialCarousel` | Animated equation reveal, SVG architecture flow diagram, and 6-testimonial auto-advancing carousel with LinkedIn recommendations. |
 | **Implementation** | `ImplementationSection` + `SkillPill` + `CertBadge` | 16 category-colored skill pills (language/cloud/data/ai) and GCP certification badges (PDE, PCA). |
-| **One-Sheeter** | `OneSheeterSection` + `PDFPreview` | Palette-matched PDF download. Serves the correct one-sheeter for the active palette from `/public/onesheets/`. |
+| **One-Sheeter** | `OneSheeterSection` + `PDFPreview` | Palette-matched PDF download with thumbnail preview. Serves the correct one-sheeter for the active palette from `/public/onesheets/`, with PNG previews in `/public/onesheet-previews/`. |
 | **Footer** | `Footer` | Signature animation reveal, section nav, contact links, download CTA, and hidden admin gear icon. |
 
 ## Tech Stack
@@ -121,7 +121,7 @@ Each palette defines 8 semantic color roles:
 
 ## One-Sheeter System
 
-8 palette-matched PDF one-sheeters are served from `/public/onesheets/`. The download button automatically selects the correct PDF based on the active palette. Mapping is defined in `src/config/onesheet-map.ts`.
+8 palette-matched PDF one-sheeters are served from `/public/onesheets/`, each with a PNG thumbnail preview in `/public/onesheet-previews/`. The download section displays a 3D-tilted preview image above the CTA button, with a glow effect underneath. The download button automatically selects the correct PDF based on the active palette. Both PDF and preview mappings are defined in `src/config/onesheet-map.ts`.
 
 ## Easter Eggs
 
@@ -160,9 +160,20 @@ npm run dev
 
 Hosted on Vercel. Pushes to `main` auto-deploy. All environment variables must be set in the Vercel dashboard across production, preview, and development environments.
 
+## Mobile Responsiveness
+
+All sections are fully responsive with a mobile-first approach using Tailwind breakpoint utilities:
+
+- **Typography:** Headings scale from `text-2xl` (mobile) through `sm:text-3xl` to `md:text-4xl` (desktop). Hero headline scales from `text-3xl` to `lg:text-7xl`.
+- **Spacing:** Section padding uses `py-16 sm:py-24`, horizontal padding uses `px-4 sm:px-6`. Gaps and margins scale proportionally at each breakpoint.
+- **Cards:** Glass cards use `p-4 sm:p-6` padding. Skill pills use smaller text and padding on mobile.
+- **Header:** Touch-friendly icon targets (`h-10 w-10` on mobile, auto on desktop). Palette switcher dropdown uses `w-[calc(100vw-2rem)]` to fit mobile screens.
+- **Cert badges:** Scale from `h-24 w-24` to `sm:h-32 sm:w-32`.
+- **Section heights:** `min-h-[70vh] sm:min-h-screen` prevents excessive scrolling on mobile.
+- **Radial hub:** SVG `viewBox` scales naturally across all screen sizes with no fallback grid needed.
+
 ## Roadmap
 
-- **Preview thumbnails** — Generate PNG previews of each palette's one-sheeter for the download section
 - **Additional palettes** — Seasonal or event-specific themes
 - **CMS for content** — Move copy from `content.ts` to a headless CMS for non-dev editing
 - **Blog / writing section** — Long-form content on data engineering, sales, and poker strategy

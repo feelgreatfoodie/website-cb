@@ -28,7 +28,7 @@ export function StreamCard({
   return (
     <motion.button
       className={cn(
-        'glass relative w-full cursor-pointer rounded-xl p-6 text-left transition-all duration-300',
+        'glass relative w-full cursor-pointer rounded-xl p-4 text-left transition-all duration-300 sm:p-6',
         isRevealed && 'ring-1'
       )}
       style={{

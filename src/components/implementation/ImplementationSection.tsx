@@ -8,10 +8,10 @@ import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 
 export function ImplementationSection() {
   return (
-    <section id="implementation" className="relative bg-background py-24">
-      <div className="mx-auto max-w-4xl px-6">
+    <section id="implementation" className="relative bg-background py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <motion.div
-          className="mb-16 text-center"
+          className="mb-8 text-center sm:mb-16"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -19,7 +19,7 @@ export function ImplementationSection() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-4 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
+            className="mb-4 font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {implementation.title}
           </motion.h2>
@@ -32,7 +32,7 @@ export function ImplementationSection() {
         </motion.div>
 
         {/* Skill pills grid */}
-        <div className="mb-16 flex flex-wrap justify-center gap-3">
+        <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-16 sm:gap-3">
           {implementation.skills.map((skill, i) => (
             <SkillPill
               key={skill.name}
@@ -45,7 +45,7 @@ export function ImplementationSection() {
 
         {/* Certifications */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-8"
+          className="flex flex-wrap items-center justify-center gap-4 sm:gap-8"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"

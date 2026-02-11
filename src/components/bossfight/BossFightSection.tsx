@@ -15,11 +15,11 @@ export function BossFightSection() {
   return (
     <section
       id="bossfight"
-      className="relative min-h-screen bg-background py-24"
+      className="relative min-h-[70vh] bg-background py-16 sm:min-h-screen sm:py-24"
     >
-      <div className="mx-auto max-w-4xl px-6">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <motion.div
-          className="mb-16 text-center"
+          className="mb-8 text-center sm:mb-16"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -27,7 +27,7 @@ export function BossFightSection() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-8 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
+            className="mb-6 font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:mb-8 sm:text-3xl md:text-4xl"
           >
             {bossfight.title}
           </motion.h2>
@@ -42,13 +42,13 @@ export function BossFightSection() {
         </motion.div>
 
         {/* Equation reveal */}
-        <div className="mb-16">
+        <div className="mb-8 sm:mb-16">
           <EquationVisual isRevealed={equationRevealed} />
         </div>
 
         {/* Architecture map */}
         <motion.div
-          className="mb-16"
+          className="mb-8 sm:mb-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

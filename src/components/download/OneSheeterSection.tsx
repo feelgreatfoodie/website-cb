@@ -18,8 +18,8 @@ export function OneSheeterSection() {
     onesheetPreviewMap['porto-data-streams'];
 
   return (
-    <section id="onesheeter" className="relative bg-background py-24">
-      <div className="mx-auto max-w-4xl px-6">
+    <section id="onesheeter" className="relative bg-background py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <motion.div
           className="text-center"
           variants={staggerContainer}
@@ -29,7 +29,7 @@ export function OneSheeterSection() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-4 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
+            className="mb-4 font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {oneSheeter.title}
           </motion.h2>

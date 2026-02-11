@@ -19,7 +19,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <motion.div
-      className="glass group rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40"
+      className="glass group rounded-xl p-4 transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40 sm:p-6"
     >
       <h3 className="mb-1 font-mono text-lg font-bold text-cta">
         {name}

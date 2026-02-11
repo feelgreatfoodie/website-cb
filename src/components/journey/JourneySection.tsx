@@ -36,13 +36,13 @@ export function JourneySection() {
     <section
       id="journey"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-background py-24"
+      className="relative min-h-[70vh] overflow-hidden bg-background py-16 sm:min-h-screen sm:py-24"
     >
       <NoteHighway scrollSpeed={scrollProgress} pausedStreams={pausedStreams} />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <motion.div
-          className="mb-16 text-center"
+          className="mb-8 text-center sm:mb-16"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -56,14 +56,14 @@ export function JourneySection() {
           </motion.p>
           <motion.h2
             variants={fadeInUp}
-            className="font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
+            className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {journey.title}
           </motion.h2>
         </motion.div>
 
         <motion.div
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-4 sm:gap-6 md:grid-cols-3"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"

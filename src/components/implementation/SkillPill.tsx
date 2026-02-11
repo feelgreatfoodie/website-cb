@@ -28,7 +28,7 @@ export function SkillPill({ name, category, index }: SkillPillProps) {
         scale: 1.08,
         boxShadow: `0 0 16px color-mix(in srgb, ${color} 40%, transparent)`,
       }}
-      className="inline-flex items-center rounded-full px-4 py-2 font-mono text-xs font-semibold tracking-wide transition-shadow"
+      className="inline-flex items-center rounded-full px-3 py-1.5 font-mono text-[11px] font-semibold tracking-wide transition-shadow sm:px-4 sm:py-2 sm:text-xs"
       style={{
         border: `1px solid color-mix(in srgb, ${color} 40%, transparent)`,
         background: `color-mix(in srgb, ${color} 10%, transparent)`,
