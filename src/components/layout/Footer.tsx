@@ -66,11 +66,11 @@ export function Footer() {
         {/* Section nav */}
         <motion.nav
           variants={fadeInUp}
-          className="mb-6 flex flex-wrap items-center justify-center gap-2 sm:mb-10 sm:gap-4"
+          className="mb-6 flex flex-wrap items-center justify-center gap-1.5 sm:mb-10 sm:gap-3"
           aria-label="Footer navigation"
         >
           {footer.sections.map((section, i) => (
-            <span key={section.anchor} className="flex items-center gap-4">
+            <span key={section.anchor} className="flex items-center gap-3">
               <a
                 href={section.anchor}
                 className="font-mono text-xs tracking-wider text-foreground/40 transition-colors hover:text-accent"
@@ -124,22 +124,36 @@ export function Footer() {
               LinkedIn
             </span>
           </a>
-        </motion.div>
 
-        {/* Download CTA */}
-        <motion.div variants={fadeInUp} className="mb-8">
+          <span className="text-foreground/20">|</span>
+
+          <a
+            href={footer.links.medium}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
+          >
+            <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
+              Medium
+            </span>
+          </a>
+
+          <span className="text-foreground/20">|</span>
+
           <a
             href={pdfUrl}
             download
-            className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-transparent px-4 py-2.5 font-mono text-xs tracking-wider text-accent transition-all duration-300 hover:border-accent/60 hover:bg-accent/10 sm:px-5"
+            className="group font-mono text-sm text-foreground/60 transition-all duration-300 hover:text-accent"
           >
-            Download One-Sheeter
+            <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
+              One-Sheeter
+            </span>
           </a>
         </motion.div>
 
         <motion.p
           variants={fadeInUp}
-          className="font-mono text-xs text-foreground/20"
+          className="mt-2 font-mono text-xs text-foreground/20"
         >
           {footer.links.website}
         </motion.p>

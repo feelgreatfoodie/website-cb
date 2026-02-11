@@ -216,10 +216,24 @@ export const implementation = {
   ],
 } as const;
 
+export const writing = {
+  title: 'LATEST WRITING',
+  subtitle: 'Thoughts on data, AI, and building things that matter.',
+  ctaLabel: 'View all posts on Medium',
+  profileUrl: 'https://medium.com/@christianbourlier',
+} as const;
+
 export const oneSheeter = {
   title: 'GRAB THE ONE-SHEETER',
   subtitle: 'Print-ready. Take me with you.',
   ctaLabel: 'Download PDF',
+} as const;
+
+export const contact = {
+  title: "LET'S CONNECT",
+  subtitle: 'Drop a line. I\'ll follow up.',
+  ctaLabel: 'Send Message',
+  successMessage: 'Message sent — I\'ll be in touch soon.',
 } as const;
 
 export const footer = {
@@ -228,6 +242,7 @@ export const footer = {
     email: 'christianbourlier@gmail.com',
     phone: '(310) 963-5282',
     linkedin: 'https://linkedin.com/in/christianbourlier',
+    medium: 'https://medium.com/@christianbourlier',
     website: 'christianbourlier.com',
   },
   sections: [
@@ -238,6 +253,8 @@ export const footer = {
     { label: 'Workshop', anchor: '#workshop' },
     { label: 'Boss Fight', anchor: '#bossfight' },
     { label: 'Skills', anchor: '#implementation' },
+    { label: 'Writing', anchor: '#writing' },
     { label: 'One-Sheeter', anchor: '#onesheeter' },
+    { label: 'Contact', anchor: '#contact' },
   ],
 } as const;
