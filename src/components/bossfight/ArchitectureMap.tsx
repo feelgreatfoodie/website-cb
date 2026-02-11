@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { bossfight } from '@/config/content';
+import { usePalette } from '@/lib/palette-context';
 
 interface ArchitectureMapProps {
   isVisible: boolean;
@@ -14,6 +15,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
   const totalWidth = steps.length * nodeWidth + (steps.length - 1) * gap;
   const svgWidth = Math.max(totalWidth + 40, 400);
   const svgHeight = 100;
+  const { colors } = usePalette();
 
   return (
     <div className="mx-auto w-full max-w-2xl overflow-x-auto">
@@ -35,7 +37,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
                   y1={centerY}
                   x2={x - 2}
                   y2={centerY}
-                  stroke="#1E90FF"
+                  stroke={colors.accent}
                   strokeWidth="2"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={
@@ -51,7 +53,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
               {i > 0 && (
                 <motion.polygon
                   points={`${x - 8},${centerY - 4} ${x - 2},${centerY} ${x - 8},${centerY + 4}`}
-                  fill="#1E90FF"
+                  fill={colors.accent}
                   initial={{ opacity: 0 }}
                   animate={isVisible ? { opacity: 0.6 } : { opacity: 0 }}
                   transition={{ delay: i * 0.3 + 0.5, duration: 0.2 }}
@@ -65,8 +67,8 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
                 width={nodeWidth}
                 height={40}
                 rx={8}
-                fill="rgba(75, 0, 130, 0.4)"
-                stroke="#1E90FF"
+                fill={`${colors.backgroundLight}66`}
+                stroke={colors.accent}
                 strokeWidth="1"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={
@@ -86,7 +88,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
                 x={x + nodeWidth / 2}
                 y={centerY + 5}
                 textAnchor="middle"
-                fill="#F8F9FA"
+                fill={colors.foreground}
                 fontSize="13"
                 fontFamily="monospace"
                 letterSpacing="0.05em"

@@ -1,22 +1,14 @@
 @import "tailwindcss";
 
-:root {
-  --porto-dusk: #2E004B;
-  --porto-dusk-light: #4B0082;
-  --river-reflection: #1E90FF;
-  --terracotta: #E2725B;
-  --mist-white: #F8F9FA;
-  --stream-cyan: #00FFFF;
-  --stream-magenta: #FF00FF;
-  --stream-gold: #FFD700;
-
-  --background: var(--porto-dusk);
-  --foreground: var(--mist-white);
-}
-
 @theme inline {
   --color-background: var(--background);
+  --color-bg-light: var(--background-light);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-cta: var(--cta);
+  --color-stream1: var(--stream1);
+  --color-stream2: var(--stream2);
+  --color-stream3: var(--stream3);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
 }
@@ -32,15 +24,15 @@ body {
 
 /* Glassmorphism card */
 .glass {
-  background: rgba(75, 0, 130, 0.25);
+  background: color-mix(in srgb, var(--background-light) 25%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(30, 144, 255, 0.15);
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 .glass:hover {
-  border-color: rgba(30, 144, 255, 0.35);
-  box-shadow: 0 0 30px rgba(30, 144, 255, 0.1);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 /* Bloom / glow text */
@@ -56,20 +48,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--porto-dusk);
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--river-reflection);
+  background: var(--accent);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--terracotta);
+  background: var(--cta);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(30, 144, 255, 0.3);
-  color: var(--mist-white);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--foreground);
 }

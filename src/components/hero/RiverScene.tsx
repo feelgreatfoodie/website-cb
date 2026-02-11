@@ -7,11 +7,13 @@ import { createRiverMesh, updateRiverTime } from '@/lib/three/river-shader';
 import { ParticleSystem } from '@/lib/three/particle-system';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { useDeviceType } from '@/lib/hooks/useDeviceType';
+import { usePalette } from '@/lib/palette-context';
 
 export function RiverScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReduced = useReducedMotion();
   const device = useDeviceType();
+  const { colors, int: intColors } = usePalette();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,28 +25,32 @@ export function RiverScene() {
     });
 
     // Add subtle ambient light
-    const ambient = new THREE.AmbientLight(0x1e90ff, 0.3);
+    const ambient = new THREE.AmbientLight(intColors.accent, 0.3);
     manager.scene.add(ambient);
 
-    // Create river
-    const river = createRiverMesh();
+    // Create river with palette colors
+    const river = createRiverMesh(12, 8, 128, {
+      deep: intColors.background,
+      light: intColors.accent,
+      accent: intColors.stream1,
+    });
     manager.scene.add(river);
 
     // Create particles
     const particles = new ParticleSystem({
       count: device.particleCount,
       spread: { x: 10, y: 4, z: 6 },
-      color: new THREE.Color(0x1e90ff),
+      color: new THREE.Color(intColors.accent),
       size: device.type === 'mobile' ? 0.04 : 0.03,
       speed: 0.2,
     });
     manager.scene.add(particles.points);
 
-    // Second particle layer (cyan accents)
+    // Second particle layer (stream1 accents)
     const accentParticles = new ParticleSystem({
       count: Math.floor(device.particleCount * 0.3),
       spread: { x: 8, y: 3, z: 4 },
-      color: new THREE.Color(0x00ffff),
+      color: new THREE.Color(intColors.stream1),
       size: 0.02,
       speed: 0.15,
     });
@@ -75,15 +81,14 @@ export function RiverScene() {
       accentParticles.dispose();
       manager.dispose();
     };
-  }, [prefersReduced, device]);
+  }, [prefersReduced, device, intColors]);
 
   if (prefersReduced) {
     return (
       <div
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(135deg, #2E004B 0%, #1E90FF22 50%, #2E004B 100%)',
+          background: `linear-gradient(135deg, ${colors.background} 0%, ${colors.accent}22 50%, ${colors.background} 100%)`,
         }}
       />
     );

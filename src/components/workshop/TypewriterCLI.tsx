@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { usePalette } from '@/lib/palette-context';
 
 interface TypewriterCLIProps {
   commands: readonly string[];
@@ -18,6 +19,7 @@ export function TypewriterCLI({
   const [currentLine, setCurrentLine] = useState('');
   const [cursorVisible, setCursorVisible] = useState(true);
   const terminalRef = useRef<HTMLDivElement>(null);
+  const { colors } = usePalette();
 
   useEffect(() => {
     let cancelled = false;
@@ -82,11 +84,11 @@ export function TypewriterCLI({
       transition={{ duration: 0.6 }}
     >
       {/* Title bar */}
-      <div className="flex items-center gap-2 border-b border-[#1E90FF]/10 px-4 py-2.5">
-        <div className="h-2.5 w-2.5 rounded-full bg-[#E2725B]" />
-        <div className="h-2.5 w-2.5 rounded-full bg-[#FFD700]" />
-        <div className="h-2.5 w-2.5 rounded-full bg-[#00FFFF]" />
-        <span className="ml-2 font-mono text-[10px] tracking-wider text-[#F8F9FA]/30">
+      <div className="flex items-center gap-2 border-b border-accent/10 px-4 py-2.5">
+        <div className="h-2.5 w-2.5 rounded-full" style={{ background: colors.cta }} />
+        <div className="h-2.5 w-2.5 rounded-full" style={{ background: colors.stream3 }} />
+        <div className="h-2.5 w-2.5 rounded-full" style={{ background: colors.stream1 }} />
+        <span className="ml-2 font-mono text-[10px] tracking-wider text-foreground/30">
           cachebash
         </span>
       </div>
@@ -97,16 +99,16 @@ export function TypewriterCLI({
         className="h-40 overflow-y-auto p-4 font-mono text-sm leading-relaxed"
       >
         {lines.map((line, i) => (
-          <div key={i} className="text-[#00FFFF]/70">
+          <div key={i} className="text-stream1/70">
             {line}
           </div>
         ))}
-        <div className="text-[#00FFFF]">
-          <span className="text-[#E2725B]">$ </span>
+        <div className="text-stream1">
+          <span className="text-cta">$ </span>
           {currentLine}
           <span
             className={`inline-block w-2 ${
-              cursorVisible ? 'bg-[#00FFFF]' : 'bg-transparent'
+              cursorVisible ? 'bg-stream1' : 'bg-transparent'
             }`}
           >
             &nbsp;

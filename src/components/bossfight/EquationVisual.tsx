@@ -3,15 +3,17 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlowText } from '@/components/ui/GlowText';
 import { bossfight } from '@/config/content';
+import { usePalette } from '@/lib/palette-context';
 
 interface EquationVisualProps {
   isRevealed: boolean;
 }
 
-const colors = ['#00FFFF', '#FF00FF', '#FFD700', '#1E90FF'];
-
 export function EquationVisual({ isRevealed }: EquationVisualProps) {
   const elements = bossfight.equation;
+  const { colors } = usePalette();
+
+  const equationColors = [colors.stream1, colors.stream2, colors.stream3, colors.accent];
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
@@ -34,13 +36,13 @@ export function EquationVisual({ isRevealed }: EquationVisualProps) {
                 }}
               >
                 {isOperator && !isResult && (
-                  <span className="font-mono text-xl text-[#F8F9FA]/40">+</span>
+                  <span className="font-mono text-xl text-foreground/40">+</span>
                 )}
                 {isResult && (
-                  <span className="font-mono text-xl text-[#E2725B]">=</span>
+                  <span className="font-mono text-xl text-cta">=</span>
                 )}
                 <GlowText
-                  color={isResult ? '#E2725B' : colors[i % colors.length]}
+                  color={isResult ? colors.cta : equationColors[i % equationColors.length]}
                   intensity={isResult ? 'high' : 'medium'}
                   className={`font-mono text-sm tracking-wide sm:text-base ${
                     isResult ? 'text-lg font-bold sm:text-xl' : ''

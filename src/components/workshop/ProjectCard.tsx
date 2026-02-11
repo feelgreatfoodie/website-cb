@@ -19,31 +19,27 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <motion.div
-      className="glass group rounded-xl p-6 transition-all duration-300"
-      whileHover={{
-        boxShadow: '0 0 40px rgba(30, 144, 255, 0.15)',
-        borderColor: 'rgba(30, 144, 255, 0.4)',
-      }}
+      className="glass group rounded-xl p-6 transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40"
     >
-      <h3 className="mb-1 font-mono text-lg font-bold text-[#E2725B]">
+      <h3 className="mb-1 font-mono text-lg font-bold text-cta">
         {name}
       </h3>
-      <p className="mb-4 text-sm text-[#F8F9FA]/60">{description}</p>
+      <p className="mb-4 text-sm text-foreground/60">{description}</p>
 
       <div className="mb-3">
-        <span className="font-mono text-[10px] tracking-[0.3em] text-[#1E90FF]/50">
+        <span className="font-mono text-[10px] tracking-[0.3em] text-accent/50">
           PROBLEM
         </span>
-        <p className="mt-1 text-sm leading-relaxed text-[#F8F9FA]/80">
+        <p className="mt-1 text-sm leading-relaxed text-foreground/80">
           {problem}
         </p>
       </div>
 
       <div className="mb-4">
-        <span className="font-mono text-[10px] tracking-[0.3em] text-[#1E90FF]/50">
+        <span className="font-mono text-[10px] tracking-[0.3em] text-accent/50">
           WHY NOW
         </span>
-        <p className="mt-1 text-sm leading-relaxed text-[#F8F9FA]/80">
+        <p className="mt-1 text-sm leading-relaxed text-foreground/80">
           {whyNow}
         </p>
       </div>
@@ -52,7 +48,7 @@ export function ProjectCard({
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-md bg-[#1E90FF]/10 px-2 py-1 font-mono text-[10px] tracking-wide text-[#1E90FF]/70"
+            className="rounded-md bg-accent/10 px-2 py-1 font-mono text-[10px] tracking-wide text-accent/70"
           >
             {tag}
           </span>

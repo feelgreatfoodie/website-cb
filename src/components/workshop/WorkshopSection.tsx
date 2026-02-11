@@ -12,8 +12,7 @@ export function WorkshopSection() {
   return (
     <section
       id="workshop"
-      className="relative min-h-screen py-24"
-      style={{ background: '#2E004B' }}
+      className="relative min-h-screen bg-background py-24"
     >
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
@@ -25,13 +24,13 @@ export function WorkshopSection() {
         >
           <motion.p
             variants={fadeInUp}
-            className="mb-2 font-mono text-xs tracking-[0.4em] text-[#E2725B]"
+            className="mb-2 font-mono text-xs tracking-[0.4em] text-cta"
           >
             {workshop.tagline}
           </motion.p>
           <motion.h2
             variants={fadeInUp}
-            className="font-mono text-3xl font-bold tracking-[0.15em] text-[#F8F9FA] sm:text-4xl"
+            className="font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
           >
             {workshop.title}
           </motion.h2>

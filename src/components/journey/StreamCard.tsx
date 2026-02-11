@@ -66,7 +66,7 @@ export function StreamCard({
         </span>
       </div>
 
-      <p className="text-sm leading-relaxed text-[#F8F9FA]/70">
+      <p className="text-sm leading-relaxed text-foreground/70">
         {description}
       </p>
 

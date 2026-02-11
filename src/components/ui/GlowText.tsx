@@ -2,6 +2,7 @@
 
 import { cn } from '@/lib/utils/cn';
 import { motion, type HTMLMotionProps } from 'framer-motion';
+import { usePalette } from '@/lib/palette-context';
 
 interface GlowTextProps extends HTMLMotionProps<'span'> {
   color?: string;
@@ -15,22 +16,24 @@ const intensityMap = {
 };
 
 export function GlowText({
-  color = '#1E90FF',
+  color,
   intensity = 'medium',
   className,
   children,
   ...props
 }: GlowTextProps) {
+  const { colors } = usePalette();
+  const resolvedColor = color ?? colors.cta;
   const alpha = intensityMap[intensity];
 
   return (
     <motion.span
       className={cn('inline-block', className)}
       style={{
-        color,
-        textShadow: `0 0 10px ${color}${Math.round(parseFloat(alpha) * 255)
+        color: resolvedColor,
+        textShadow: `0 0 10px ${resolvedColor}${Math.round(parseFloat(alpha) * 255)
           .toString(16)
-          .padStart(2, '0')}, 0 0 40px ${color}${Math.round(
+          .padStart(2, '0')}, 0 0 40px ${resolvedColor}${Math.round(
           parseFloat(alpha) * 0.5 * 255
         )
           .toString(16)

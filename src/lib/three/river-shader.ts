@@ -46,7 +46,18 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-export function createRiverMesh(width = 12, depth = 8, segments = 128): THREE.Mesh {
+interface RiverColors {
+  deep: number;
+  light: number;
+  accent: number;
+}
+
+export function createRiverMesh(
+  width = 12,
+  depth = 8,
+  segments = 128,
+  colors?: RiverColors
+): THREE.Mesh {
   const geometry = new THREE.PlaneGeometry(width, depth, segments, segments);
   geometry.rotateX(-Math.PI * 0.45);
 
@@ -56,9 +67,9 @@ export function createRiverMesh(width = 12, depth = 8, segments = 128): THREE.Me
     uniforms: {
       uTime: { value: 0 },
       uAmplitude: { value: 0.08 },
-      uColorDeep: { value: new THREE.Color(0x2e004b) },
-      uColorLight: { value: new THREE.Color(0x1e90ff) },
-      uColorAccent: { value: new THREE.Color(0x00ffff) },
+      uColorDeep: { value: new THREE.Color(colors?.deep ?? 0x2e004b) },
+      uColorLight: { value: new THREE.Color(colors?.light ?? 0x1e90ff) },
+      uColorAccent: { value: new THREE.Color(colors?.accent ?? 0x00ffff) },
     },
     transparent: true,
     side: THREE.DoubleSide,

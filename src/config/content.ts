@@ -13,7 +13,7 @@ export const journey = {
       id: 'data',
       label: 'Data Engineering',
       years: 8,
-      color: '#00FFFF',
+      color: 'stream1',
       skills: ['Python', 'SQL', 'GCP', 'BigQuery', 'Data Modeling'],
       description:
         'Architecture, ETL/ELT pipelines, 60M+ daily records, attribution models for Fortune 500 clients.',
@@ -22,7 +22,7 @@ export const journey = {
       id: 'sales',
       label: 'Sales Leadership',
       years: 20,
-      color: '#FF00FF',
+      color: 'stream2',
       skills: [
         'Enterprise Sales',
         'Solution Selling',
@@ -37,7 +37,7 @@ export const journey = {
       id: 'poker',
       label: 'Professional Poker',
       years: 10,
-      color: '#FFD700',
+      color: 'stream3',
       skills: [
         'Risk Assessment',
         'Pattern Recognition',

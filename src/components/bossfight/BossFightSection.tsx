@@ -14,8 +14,7 @@ export function BossFightSection() {
   return (
     <section
       id="bossfight"
-      className="relative min-h-screen py-24"
-      style={{ background: '#2E004B' }}
+      className="relative min-h-screen bg-background py-24"
     >
       <div className="mx-auto max-w-4xl px-6">
         <motion.div
@@ -27,7 +26,7 @@ export function BossFightSection() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-8 font-mono text-3xl font-bold tracking-[0.15em] text-[#F8F9FA] sm:text-4xl"
+            className="mb-8 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
           >
             {bossfight.title}
           </motion.h2>
@@ -54,7 +53,7 @@ export function BossFightSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <p className="mb-6 text-center font-mono text-xs tracking-[0.4em] text-[#1E90FF]/60">
+          <p className="mb-6 text-center font-mono text-xs tracking-[0.4em] text-accent/60">
             {bossfight.approach.title}
           </p>
           <ArchitectureMap isVisible={equationRevealed} />
@@ -69,7 +68,7 @@ export function BossFightSection() {
             {bossfight.approach.taglines.map((line) => (
               <p
                 key={line}
-                className="font-mono text-sm text-[#F8F9FA]/50"
+                className="font-mono text-sm text-foreground/50"
               >
                 → {line}
               </p>
@@ -85,12 +84,12 @@ export function BossFightSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <p className="mb-4 text-lg italic leading-relaxed text-[#F8F9FA]/80">
+          <p className="mb-4 text-lg italic leading-relaxed text-foreground/80">
             &ldquo;{bossfight.testimonial.quote}&rdquo;
           </p>
-          <footer className="font-mono text-sm text-[#1E90FF]">
+          <footer className="font-mono text-sm text-accent">
             — {bossfight.testimonial.author},{' '}
-            <span className="text-[#F8F9FA]/50">
+            <span className="text-foreground/50">
               {bossfight.testimonial.role}
             </span>
           </footer>

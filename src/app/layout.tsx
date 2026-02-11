@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import { getActivePaletteId } from '@/lib/edge-config';
+import { getPalette, type PaletteColors } from '@/config/palettes';
+import { ThemeProvider } from '@/lib/palette-context';
 import './globals.css';
 
 const inter = Inter({
@@ -32,17 +35,37 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+function cssVarsFromPalette(colors: PaletteColors): Record<string, string> {
+  return {
+    '--background': colors.background,
+    '--background-light': colors.backgroundLight,
+    '--accent': colors.accent,
+    '--cta': colors.cta,
+    '--foreground': colors.foreground,
+    '--stream1': colors.stream1,
+    '--stream2': colors.stream2,
+    '--stream3': colors.stream3,
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const paletteId = await getActivePaletteId();
+  const palette = getPalette(paletteId);
+
   return (
-    <html lang="en" className="scroll-smooth">
+    <html
+      lang="en"
+      className="scroll-smooth"
+      style={cssVarsFromPalette(palette.colors) as React.CSSProperties}
+    >
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider colors={palette.colors}>{children}</ThemeProvider>
       </body>
     </html>
   );

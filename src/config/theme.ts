@@ -1,23 +1,38 @@
+/**
+ * Legacy theme re-exports — components that still import from here
+ * get the default palette values. Prefer using usePalette() context
+ * or Tailwind semantic classes instead.
+ */
+export { palettes, getPalette, getAllPalettes, hexToInt, DEFAULT_PALETTE_ID } from './palettes';
+export type { PaletteColors, Palette } from './palettes';
+
+import { palettes } from './palettes';
+
+const defaultColors = palettes[0].colors;
+
+/** @deprecated Use Tailwind semantic classes or usePalette() */
 export const colors = {
-  portoDusk: '#2E004B',
-  portoDuskLight: '#4B0082',
-  riverReflection: '#1E90FF',
-  terracotta: '#E2725B',
-  mistWhite: '#F8F9FA',
-  streamCyan: '#00FFFF',
-  streamMagenta: '#FF00FF',
-  streamGold: '#FFD700',
+  portoDusk: defaultColors.background,
+  portoDuskLight: defaultColors.backgroundLight,
+  riverReflection: defaultColors.accent,
+  terracotta: defaultColors.cta,
+  mistWhite: defaultColors.foreground,
+  streamCyan: defaultColors.stream1,
+  streamMagenta: defaultColors.stream2,
+  streamGold: defaultColors.stream3,
 } as const;
 
+/** @deprecated Use usePalette() + computed glow styles */
 export const glows = {
-  river: '0 0 20px rgba(30, 144, 255, 0.4), 0 0 60px rgba(30, 144, 255, 0.2)',
-  terracotta: '0 0 20px rgba(226, 114, 91, 0.4), 0 0 60px rgba(226, 114, 91, 0.2)',
-  cyan: '0 0 20px rgba(0, 255, 255, 0.4), 0 0 60px rgba(0, 255, 255, 0.2)',
-  magenta: '0 0 20px rgba(255, 0, 255, 0.4), 0 0 60px rgba(255, 0, 255, 0.2)',
-  gold: '0 0 20px rgba(255, 215, 0, 0.4), 0 0 60px rgba(255, 215, 0, 0.2)',
+  river: `0 0 20px color-mix(in srgb, var(--accent) 40%, transparent), 0 0 60px color-mix(in srgb, var(--accent) 20%, transparent)`,
+  terracotta: `0 0 20px color-mix(in srgb, var(--cta) 40%, transparent), 0 0 60px color-mix(in srgb, var(--cta) 20%, transparent)`,
+  cyan: `0 0 20px color-mix(in srgb, var(--stream1) 40%, transparent), 0 0 60px color-mix(in srgb, var(--stream1) 20%, transparent)`,
+  magenta: `0 0 20px color-mix(in srgb, var(--stream2) 40%, transparent), 0 0 60px color-mix(in srgb, var(--stream2) 20%, transparent)`,
+  gold: `0 0 20px color-mix(in srgb, var(--stream3) 40%, transparent), 0 0 60px color-mix(in srgb, var(--stream3) 20%, transparent)`,
 } as const;
 
+/** @deprecated Use usePalette() for dynamic gradient strings */
 export const gradients = {
-  heroBg: `linear-gradient(180deg, ${colors.portoDusk} 0%, ${colors.portoDuskLight} 100%)`,
-  riverStatic: `linear-gradient(135deg, ${colors.portoDusk} 0%, ${colors.riverReflection}33 50%, ${colors.portoDusk} 100%)`,
+  heroBg: `linear-gradient(180deg, var(--background) 0%, var(--background-light) 100%)`,
+  riverStatic: `linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--accent) 20%, transparent) 50%, var(--background) 100%)`,
 } as const;

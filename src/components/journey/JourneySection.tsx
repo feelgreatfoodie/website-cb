@@ -8,12 +8,14 @@ import { LootBox } from './LootBox';
 import { journey } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useScrollProgress } from '@/lib/hooks/useScrollProgress';
+import { usePalette } from '@/lib/palette-context';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 
 export function JourneySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollProgress = useScrollProgress(sectionRef);
   const { revealedStreams, revealStream } = useQuestStore();
+  const { colors } = usePalette();
 
   const [pausedStreams, setPausedStreams] = useState({
     data: false,
@@ -25,12 +27,16 @@ export function JourneySection() {
     setPausedStreams((prev) => ({ ...prev, [streamId]: hovered }));
   };
 
+  // Resolve semantic color keys to actual hex values
+  const resolveColor = (key: string) => {
+    return colors[key as keyof typeof colors] ?? key;
+  };
+
   return (
     <section
       id="journey"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden py-24"
-      style={{ background: '#2E004B' }}
+      className="relative min-h-screen overflow-hidden bg-background py-24"
     >
       <NoteHighway scrollSpeed={scrollProgress} pausedStreams={pausedStreams} />
 
@@ -44,13 +50,13 @@ export function JourneySection() {
         >
           <motion.p
             variants={fadeInUp}
-            className="mb-2 font-mono text-xs tracking-[0.4em] text-[#1E90FF]"
+            className="mb-2 font-mono text-xs tracking-[0.4em] text-accent"
           >
             {journey.subtitle}
           </motion.p>
           <motion.h2
             variants={fadeInUp}
-            className="font-mono text-3xl font-bold tracking-[0.15em] text-[#F8F9FA] sm:text-4xl"
+            className="font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl"
           >
             {journey.title}
           </motion.h2>
@@ -68,7 +74,7 @@ export function JourneySection() {
               <StreamCard
                 label={stream.label}
                 years={stream.years}
-                color={stream.color}
+                color={resolveColor(stream.color)}
                 description={stream.description}
                 isRevealed={revealedStreams[stream.id as keyof typeof revealedStreams]}
                 onHover={(h) => handleHover(stream.id, h)}
@@ -78,7 +84,7 @@ export function JourneySection() {
               />
               <LootBox
                 skills={stream.skills}
-                color={stream.color}
+                color={resolveColor(stream.color)}
                 isOpen={revealedStreams[stream.id as keyof typeof revealedStreams]}
               />
             </motion.div>

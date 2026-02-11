@@ -11,11 +11,11 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    'bg-[#E2725B] text-white hover:bg-[#d4654e] shadow-[0_0_20px_rgba(226,114,91,0.4)]',
+    'bg-cta text-white hover:brightness-110 shadow-[0_0_20px_color-mix(in_srgb,var(--cta)_40%,transparent)]',
   secondary:
-    'bg-transparent border border-[#1E90FF] text-[#1E90FF] hover:bg-[#1E90FF]/10 shadow-[0_0_15px_rgba(30,144,255,0.2)]',
+    'bg-transparent border border-accent text-accent hover:bg-accent/10 shadow-[0_0_15px_color-mix(in_srgb,var(--accent)_20%,transparent)]',
   ghost:
-    'bg-transparent text-[#F8F9FA] hover:text-[#1E90FF] hover:bg-white/5',
+    'bg-transparent text-foreground hover:text-accent hover:bg-white/5',
 };
 
 export function Button({
@@ -30,7 +30,7 @@ export function Button({
       whileTap={{ scale: 0.97 }}
       className={cn(
         'rounded-lg px-6 py-3 font-semibold tracking-wide transition-colors duration-200',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E90FF]',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
         variantStyles[variant],
         className
       )}

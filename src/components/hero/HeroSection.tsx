@@ -20,13 +20,12 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
-      style={{ background: '#2E004B' }}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background"
     >
       <RiverScene />
 
       {/* Overlay gradient for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#2E004B] via-transparent to-[#2E004B]/60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
 
       <motion.div
         className="relative z-10 mx-auto max-w-4xl px-6 text-center"
@@ -36,24 +35,22 @@ export function HeroSection() {
       >
         <motion.h1
           variants={fadeInUp}
-          className="mb-2 font-mono text-5xl font-bold tracking-[0.2em] text-[#F8F9FA] sm:text-6xl lg:text-7xl"
+          className="mb-2 font-mono text-5xl font-bold tracking-[0.2em] text-foreground sm:text-6xl lg:text-7xl"
         >
           {hero.headline}
         </motion.h1>
 
         <motion.p
           variants={fadeInUp}
-          className="mb-8 font-mono text-sm tracking-[0.3em] text-[#1E90FF] sm:text-base"
+          className="mb-8 font-mono text-sm tracking-[0.3em] text-accent sm:text-base"
         >
           {hero.subheadline}
         </motion.p>
 
         <motion.p variants={fadeInUp} className="mb-12 text-xl sm:text-2xl">
-          <span className="text-[#F8F9FA]">I build the system </span>
-          <GlowText color="#E2725B" intensity="high">
-            AND
-          </GlowText>
-          <span className="text-[#F8F9FA]"> close the deal.</span>
+          <span className="text-foreground">I build the system </span>
+          <GlowText intensity="high">AND</GlowText>
+          <span className="text-foreground"> close the deal.</span>
         </motion.p>
 
         <motion.div variants={fadeInUp}>
@@ -78,9 +75,9 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="h-10 w-6 rounded-full border-2 border-[#1E90FF]/40 p-1"
+          className="h-10 w-6 rounded-full border-2 border-accent/40 p-1"
         >
-          <div className="mx-auto h-2 w-1 rounded-full bg-[#1E90FF]" />
+          <div className="mx-auto h-2 w-1 rounded-full bg-accent" />
         </motion.div>
       </motion.div>
     </section>
