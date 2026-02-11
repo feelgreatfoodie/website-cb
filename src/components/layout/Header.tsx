@@ -152,8 +152,22 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        {/* Left: contact links */}
+        {/* Left: home + contact links */}
         <div className="flex items-center gap-4 sm:gap-3">
+          <a
+            href="#hero"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
+            title="Back to top"
+          >
+            <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <path d="M3 12l9-9 9 9" />
+              <path d="M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10" />
+            </svg>
+          </a>
           <a
             href={`mailto:${footer.links.email}`}
             className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
