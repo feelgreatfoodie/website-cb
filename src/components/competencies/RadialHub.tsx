@@ -183,12 +183,12 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
                   d={iconPaths[item.icon]}
                   fill={satelliteColors[i]}
                   opacity={0.5}
-                  transform={`translate(${pos.x - 12}, ${pos.y - 22}) scale(1)`}
+                  transform={`translate(${pos.x - 12}, ${pos.y - 26}) scale(1)`}
                 />
               )}
               <text
                 x={pos.x}
-                y={pos.y + 6}
+                y={pos.y + 10}
                 textAnchor="middle"
                 fill={colors.foreground}
                 fontSize={7.5}
