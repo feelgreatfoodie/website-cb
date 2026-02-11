@@ -4,7 +4,12 @@ import Google from 'next-auth/providers/google';
 const ALLOWED_EMAIL = 'christianbourlier@gmail.com';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
   callbacks: {
     async signIn({ profile }) {
       return profile?.email === ALLOWED_EMAIL;
