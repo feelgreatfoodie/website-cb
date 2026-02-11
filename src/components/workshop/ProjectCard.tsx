@@ -1,6 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProjectCardProps {
   name: string;
@@ -8,6 +10,7 @@ interface ProjectCardProps {
   problem: string;
   whyNow: string;
   tags: readonly string[];
+  image?: string;
 }
 
 export function ProjectCard({
@@ -16,11 +19,38 @@ export function ProjectCard({
   problem,
   whyNow,
   tags,
+  image,
 }: ProjectCardProps) {
+  const [showImage, setShowImage] = useState(false);
+
   return (
     <motion.div
-      className="glass group rounded-xl p-4 transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40 sm:p-6"
+      className="glass group flex h-full flex-col rounded-xl p-4 transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40 sm:p-6 cursor-pointer"
+      onClick={() => setShowImage(!showImage)}
     >
+      <AnimatePresence>
+        {image && showImage && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="-mx-4 -mt-4 mb-4 overflow-hidden rounded-t-xl sm:-mx-6 sm:-mt-6 sm:mb-6"
+          >
+            <div className="aspect-[2/1] rounded-lg bg-black/30 p-[10px]">
+              <Image
+                src={image}
+                alt={`${name} screenshot`}
+                width={800}
+                height={400}
+                className="h-full w-full rounded object-contain"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <h3 className="mb-1 font-mono text-lg font-bold text-cta">
         {name}
       </h3>
@@ -44,6 +74,8 @@ export function ProjectCard({
         </p>
       </div>
 
+      <div className="flex-1" />
+
       <div className="flex flex-wrap gap-1.5">
         {tags.map((tag) => (
           <span
@@ -54,6 +86,12 @@ export function ProjectCard({
           </span>
         ))}
       </div>
+
+      {!showImage && (
+        <div className="mt-4 text-center font-mono text-[10px] tracking-wider text-cta/50">
+          {image ? '[ CLICK TO SEE PREVIEW ]' : '[ PREVIEW COMING SOON ]'}
+        </div>
+      )}
     </motion.div>
   );
 }

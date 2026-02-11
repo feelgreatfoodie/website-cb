@@ -6,6 +6,7 @@ import { footer } from '@/config/content';
 import { palettes } from '@/config/palettes';
 import { usePalette } from '@/lib/palette-context';
 import { trackEvent } from '@/lib/analytics';
+import { useReducedMotionToggle } from '@/lib/hooks/useReducedMotion';
 
 function PaletteSwatch({ colors }: { colors: { background: string; accent: string; cta: string; stream1: string } }) {
   return (
@@ -103,6 +104,31 @@ function PaletteSwitcher() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function MotionToggle() {
+  const { isReduced, toggle } = useReducedMotionToggle();
+
+  return (
+    <button
+      onClick={toggle}
+      className="flex h-10 w-10 items-center justify-center rounded-lg border border-accent/20 bg-transparent transition-all hover:border-accent/40 sm:h-auto sm:w-auto sm:px-3 sm:py-1.5"
+      aria-label={isReduced ? 'Enable animations' : 'Disable animations'}
+      title={isReduced ? 'Animations off' : 'Animations on'}
+    >
+      {isReduced ? (
+        <svg className="h-4 w-4 text-foreground/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M8 12h8" />
+        </svg>
+      ) : (
+        <svg className="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+      )}
+    </button>
   );
 }
 
@@ -224,8 +250,9 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right: palette switcher + hamburger */}
+        {/* Right: a11y toggle + palette switcher + hamburger */}
         <div className="flex items-center gap-2">
+          <MotionToggle />
           <PaletteSwitcher />
           <button
             onClick={() => setMenuOpen(!menuOpen)}

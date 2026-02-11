@@ -45,13 +45,14 @@ export function WorkshopSection() {
           viewport={{ once: true, margin: '-50px' }}
         >
           {workshop.projects.map((project) => (
-            <motion.div key={project.name} variants={fadeInUp}>
+            <motion.div key={project.name} variants={fadeInUp} className="h-full">
               <ProjectCard
                 name={project.name}
                 description={project.description}
                 problem={project.problem}
                 whyNow={project.whyNow}
                 tags={project.tags}
+                image={'image' in project ? project.image : undefined}
               />
             </motion.div>
           ))}

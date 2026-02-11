@@ -1,13 +1,5 @@
 import { HeroSection } from '@/components/hero/HeroSection';
-import { JourneySection } from '@/components/journey/JourneySection';
-import { CompetencyHubSection } from '@/components/competencies/CompetencyHubSection';
-import { OpenToSection } from '@/components/opento/OpenToSection';
-import { WorkshopSection } from '@/components/workshop/WorkshopSection';
-import { BossFightSection } from '@/components/bossfight/BossFightSection';
-import { ImplementationSection } from '@/components/implementation/ImplementationSection';
-import { WritingSection } from '@/components/writing/WritingSection';
-import { OneSheeterSection } from '@/components/download/OneSheeterSection';
-import { ContactSection } from '@/components/contact/ContactSection';
+import { BelowFold } from '@/components/layout/BelowFold';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { ScrollProgress } from '@/components/layout/ScrollProgress';
@@ -28,15 +20,7 @@ export default async function Home() {
       <CursorTrail />
       <main>
         <HeroSection />
-        <JourneySection />
-        <CompetencyHubSection />
-        <OpenToSection />
-        <WorkshopSection />
-        <BossFightSection />
-        <ImplementationSection />
-        <WritingSection posts={posts} />
-        <OneSheeterSection />
-        <ContactSection />
+        <BelowFold posts={posts} />
       </main>
       <Footer />
     </>

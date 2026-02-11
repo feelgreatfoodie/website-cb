@@ -156,6 +156,7 @@ export const workshop = {
         'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
       whyNow: 'Privacy regs accelerating — marketers need trust.',
       tags: ['Marketing Analytics', 'Privacy-First', 'ML'],
+      image: '/optimeasure-dashboard.png',
     },
     {
       name: 'CacheBash',
@@ -164,6 +165,7 @@ export const workshop = {
         'Claude Code users are desk-bound — step away and lose momentum/context.',
       whyNow: "AI-assisted dev exploding, async doesn't exist.",
       tags: ['Mobile', 'CLI', 'Developer Tools'],
+      image: '/cachebash-icon.png',
       cliCommands: [
         'cachebash sync --remote',
         'cachebash run "npm test"',
@@ -178,6 +180,7 @@ export const workshop = {
         "People adopt AI tools but can't systematically integrate into workflows.",
       whyNow: "Everyone's experimenting, few compound gains.",
       tags: ['AI/ML', 'Enterprise', 'Integration'],
+      image: '/ai-augmentation-hub.png',
     },
   ],
   videos: [

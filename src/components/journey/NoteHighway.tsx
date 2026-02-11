@@ -93,20 +93,7 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
   }, [pausedStreams]);
 
   if (prefersReduced) {
-    const hexColors = [colors.stream1, colors.stream2, colors.stream3];
-    return (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex gap-8">
-          {STREAM_IDS.map((id, i) => (
-            <div
-              key={id}
-              className="h-32 w-1 rounded-full opacity-40"
-              style={{ background: hexColors[i] }}
-            />
-          ))}
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
