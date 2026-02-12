@@ -20,21 +20,27 @@ npx playwright test  # E2E tests
 - **3D**: Three.js (hero river scene, NoteHighway particles)
 - **Animation**: Framer Motion
 - **State**: Zustand (quest state, reduced motion)
-- **Analytics**: GA4 (gated behind cookie consent)
-- **API**: Google Sheets (contact form), Medium RSS (blog posts)
+- **Auth**: NextAuth v5 (admin dashboard), `SessionProvider` via `SessionWrapper.tsx`
+- **AI**: Gemini 2.0 Flash via `@google/generative-ai` (chatbot + problem solver); falls back to `MockProvider` if `GOOGLE_AI_API_KEY` not set
+- **Analytics**: GA4 (geo-aware consent — opt-out default, GDPR-only banner)
+- **API**: Google Sheets (contact form), Medium RSS (blog posts), `/api/chat` (AI), `/api/analytics` (mock MVP)
 - **CI**: GitHub Actions (lint, typecheck, test, build)
 
 ### Section Order (single page)
-1. Hero — 3D river scene, headline, CTA
-2. Journey — Three stream cards (Data/Sales/Poker) with skill reveals
+1. Hero — 3D river scene, headline, CTA, visitor-intent messaging
+2. Journey — Three stream cards (Data/Sales/Poker) with skill reveals + career timeline
 3. Competencies — Radial hub SVG
 4. Open To — 4 role cards
-5. Workshop — Project cards (click-to-unfurl previews) + video demos
-6. Boss Fight — Testimonial carousel, equation reveal, architecture map
-7. Implementation — Skills pills + GCP cert badges
+5. Workshop — Project cards (click-to-unfurl previews, LiveStatusBadge) + video demos
+6. Boss Fight — Testimonial carousel (tap-to-pause, progress indicator), equation reveal, architecture map
+7. Implementation — Skills pills + GCP cert badges + PipelineDemo
 8. Writing — Medium blog cards (fetched via RSS)
-9. One-Sheeter — PDF preview + download
-10. Contact — Form → Google Sheets
+9. One-Sheeter — PDF preview + download (themed print styles)
+10. Contact — Integrated Problem Solver + contact form → Google Sheets
+
+### Additional Routes
+- `/admin` — Palette management + analytics dashboard (auth-gated)
+- `/experience` — Persona picker (Recruiter/Client/Collaborator) — built but not linked in nav
 
 ### Key Patterns
 
@@ -44,7 +50,11 @@ npx playwright test  # E2E tests
 
 **Glassmorphism**: `.glass` utility class in `globals.css` — semi-transparent bg with backdrop-blur and accent border.
 
-**Cookie Consent**: GA4 scripts only load after user accepts via `CookieConsent.tsx`. Analytics helpers (`trackEvent`, `reportWebVitals`) gracefully no-op when `window.gtag` is undefined.
+**Cookie Consent (Geo-Aware)**: Opt-out by default for most visitors. GDPR regions (detected via `Intl.DateTimeFormat` timezone) see a slim consent banner requiring opt-in. `useAnalyticsToggle()` hook powers the "Analytics Settings" link in the footer. Analytics helpers (`trackEvent`, `reportWebVitals`) gracefully no-op when `window.gtag` is undefined.
+
+**AI Chatbot + Problem Solver**: `ChatWidget` (floating) and integrated `ProblemSolver` (in Contact section) both call `/api/chat`. Rate limited at 15 req/hr/IP in production. System prompt in `src/lib/ai/provider.ts` contains full LinkedIn career history. Requires `GOOGLE_AI_API_KEY` env var for Gemini; falls back to canned regex `MockProvider`.
+
+**LiveStatusBadge**: Shows project status (Concept/In Development/Beta/Live) + progress bar on Workshop cards. Config in `src/config/live-status.ts`.
 
 **Toast Notifications**: `ToastProvider` wraps the app. Use `useToast()` hook from any client component. Auto-dismiss after 2.5s.
 
@@ -54,22 +64,28 @@ npx playwright test  # E2E tests
 ```
 src/
   app/            # Pages, layout, globals, API routes, error boundaries
+    admin/        # Admin dashboard (page.tsx, AdminTabs.tsx, PaletteGrid.tsx)
+    api/          # chat/, analytics/, contact/, presence/ routes
+    experience/   # Persona picker route (page.tsx, layout.tsx)
   components/
-    hero/         # HeroSection, RiverScene, CanvasErrorBoundary
-    journey/      # JourneySection, StreamCard, NoteHighway
+    admin/        # AnalyticsDashboard
+    hero/         # HeroSection, RiverScene, CanvasErrorBoundary, AvailabilityPill*, MetricsBar*
+    journey/      # JourneySection, StreamCard, NoteHighway, Timeline
     competencies/ # CompetencyHubSection, RadialHub
     opento/       # OpenToSection, RoleCard
-    workshop/     # WorkshopSection, ProjectCard, TypewriterCLI, VideoCard
+    workshop/     # WorkshopSection, ProjectCard, TypewriterCLI, VideoCard, ProductSandbox*
     bossfight/    # BossFightSection, TestimonialCarousel, EquationVisual
-    implementation/ # ImplementationSection, CertBadge
+    implementation/ # ImplementationSection, CertBadge, PipelineDemo
     writing/      # WritingSection, BlogCard
     download/     # OneSheeterSection, PDFPreview
-    contact/      # ContactSection
-    layout/       # Header, Footer, ScrollProgress, BelowFold, WebVitals
-    ui/           # Button, GlowText, CursorTrail, KonamiOverlay, ScrollToTop, CookieConsent, Toast
-  config/         # content.ts (all copy), palettes.ts, onesheet-map.ts
+    contact/      # ContactSection (integrated Problem Solver)
+    experience/   # ExperienceFlow*, PersonaPicker*
+    layout/       # Header, Footer, SessionWrapper, ScrollProgress, BelowFold, WebVitals
+    ui/           # Button, GlowText, CursorTrail, KonamiOverlay, ScrollToTop, CookieConsent, Toast, ChatWidget, SmartCTA, LiveStatusBadge
+  config/         # content.ts, palettes.ts, onesheet-map.ts, live-status.ts, timeline.ts
   lib/
-    hooks/        # useReducedMotion, useActiveSection, useQuestStore, etc.
+    ai/           # provider.ts (GeminiProvider + MockProvider + system prompt)
+    hooks/        # useReducedMotion, useActiveSection, useQuestStore, useEngagementTracker, useLiveStatus, useVisitorIntent, etc.
     three/        # SceneManager, river-shader, particle-system, ambient-stream
     analytics.ts  # trackEvent wrapper
     web-vitals.ts # CWV reporting to GA4
@@ -77,6 +93,7 @@ src/
     palette-context.tsx
   types/          # gtag.d.ts
 ```
+\* = built but not yet wired into the live site
 
 ## Anti-Patterns to Avoid
 
@@ -92,7 +109,13 @@ src/
 
 6. **Don't hide sections on data fetch failure**. Show ghost/placeholder cards instead (see `WritingSection` fallback pattern). Keep nav anchors and CTAs always accessible.
 
-7. **Gate analytics behind consent**. Never load GA scripts unconditionally. Use `CookieConsent.tsx` pattern — localStorage flag + conditional `<Script>` rendering.
+7. **Gate analytics behind consent**. Never load GA scripts unconditionally. Use `CookieConsent.tsx` geo-aware pattern — GDPR regions require opt-in, others opt-out.
+
+8. **Next.js 16 uses `proxy.ts`, not `middleware.ts`**. Creating `middleware.ts` will 404 the entire site if `proxy.ts` already exists. Always use `proxy.ts` for request interception.
+
+9. **`useToast()` returns the function directly**, not `{ addToast }`. Destructuring will break.
+
+10. **Framer Motion `height: 0 → auto` with `overflow-hidden`** clips delayed child animations. Prefer simple opacity fades for containers with staggered children.
 
 ## Accessibility Checklist
 - [x] Skip link ("Skip to main content")
@@ -104,6 +127,8 @@ src/
 - [x] Alt text on all images
 - [x] `aria-live="polite"` on toast container
 - [x] `role="region"` + `aria-roledescription="carousel"` on testimonials
+- [x] Carousel: tap-to-pause (mobile), spacebar toggle, pause/play icon
+- [x] Admin: `role="tablist"` + `aria-selected` on tab buttons
 
 ## SEO
 - JSON-LD: Person, WebSite, BreadcrumbList, 3x Review schemas
