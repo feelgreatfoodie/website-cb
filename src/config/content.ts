@@ -180,7 +180,7 @@ export const workshop = {
       problem:
         'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
       whyNow: 'Privacy regs accelerating — marketers need trust.',
-      tags: ['Marketing Analytics', 'Privacy-First', 'ML'],
+      tags: ['Marketing Analytics', 'Privacy-First'],
       image: '/optimeasure-dashboard.webp',
       url: 'https://optimeasure.io',
     },

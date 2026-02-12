@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LiveStatusBadge } from '@/components/ui/LiveStatusBadge';
 import { trackEvent } from '@/lib/analytics';
 
 interface ProjectCardProps {
@@ -98,24 +99,29 @@ export function ProjectCard({
         ))}
       </div>
 
-      {showImage && url ? (
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => {
-            e.stopPropagation();
-            trackEvent('project_cta_click', { project: name, url: url! });
-          }}
-          className="mt-4 block text-center font-mono text-[11px] tracking-wider text-cta transition-colors hover:text-accent"
-        >
-          [ EXPERIENCE IT LIVE &rarr; ]
-        </a>
-      ) : !showImage ? (
+      {showImage ? (
+        <div className="mt-4 flex items-center justify-between">
+          <LiveStatusBadge projectName={name} />
+          {url && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.stopPropagation();
+                trackEvent('project_cta_click', { project: name, url: url! });
+              }}
+              className="font-mono text-[11px] tracking-wider text-cta transition-colors hover:text-accent"
+            >
+              [ EXPERIENCE IT LIVE &rarr; ]
+            </a>
+          )}
+        </div>
+      ) : (
         <div className="mt-4 text-center font-mono text-[11px] tracking-wider text-cta/50">
           {image ? '[ CLICK TO SEE PREVIEW ]' : '[ PREVIEW COMING SOON ]'}
         </div>
-      ) : null}
+      )}
     </motion.button>
   );
 }

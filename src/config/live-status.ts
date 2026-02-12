@@ -6,8 +6,8 @@ export interface ProjectStatus {
 export const liveStatus = {
   currentlyExploring: 'Agent-based AI architectures',
   projects: {
-    OptiMeasure: { status: 'Beta' as const, progress: 75 },
-    CacheBash: { status: 'In Development' as const, progress: 40 },
-    'AI-Augmentation Portal': { status: 'Concept' as const, progress: 15 },
+    OptiMeasure: { status: 'Live' as const, progress: 100 },
+    CacheBash: { status: 'Beta' as const, progress: 65 },
+    'AI-Augmentation Portal': { status: 'In Development' as const, progress: 35 },
   },
 };
