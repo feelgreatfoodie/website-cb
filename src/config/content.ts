@@ -119,28 +119,28 @@ export const openTo = {
   subtitle: 'Roles where I deliver the most impact.',
   roles: [
     {
-      title: 'Solutions Architect',
+      title: 'AI Strategist',
       description:
-        'Designing end-to-end technical solutions that bridge business needs and engineering reality.',
-      brings: ['System Design', 'Client-Facing', 'GCP/Cloud'],
+        'Guiding organizations from AI experimentation to operational integration.',
+      brings: ['AI Roadmaps', 'Change Mgmt', 'Executive Comms', 'Use Case Prioritization', 'Organizational Readiness', 'Pilot-to-Production', 'Executive Education'],
     },
     {
       title: 'AI/ML Solutions Engineer',
       description:
         'Building and deploying AI-powered products that solve real problems, not science projects.',
-      brings: ['Python/ML', 'Rapid Prototyping', 'Production AI'],
+      brings: ['Rapid Prototyping', 'Production AI', 'Prompt Engineering', 'Workflow Automation', 'Model Evaluation', 'Data Strategy', 'Human-in-the-Loop'],
+    },
+    {
+      title: 'Solutions Architect',
+      description:
+        'Designing end-to-end technical solutions that bridge business needs and engineering reality.',
+      brings: ['System Design', 'Client-Facing', 'Discovery', 'Integration Architecture', 'Technical Risk Assessment'],
     },
     {
       title: 'Technical Account Manager',
       description:
         'The bridge between product teams and enterprise clients — technical depth with relationship trust.',
-      brings: ['Enterprise Sales', 'Data Engineering', 'Stakeholder Mgmt'],
-    },
-    {
-      title: 'AI Strategist',
-      description:
-        'Guiding organizations from AI experimentation to operational integration.',
-      brings: ['AI Roadmaps', 'Change Mgmt', 'Executive Comms'],
+      brings: ['Enterprise Sales', 'Stakeholder Mgmt', 'Trust Building', 'Customer Advocacy', 'Solution Scoping'],
     },
   ],
 } as const;
@@ -156,7 +156,7 @@ export const workshop = {
         'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
       whyNow: 'Privacy regs accelerating — marketers need trust.',
       tags: ['Marketing Analytics', 'Privacy-First', 'ML'],
-      image: '/optimeasure-dashboard.png',
+      image: '/optimeasure-dashboard.webp',
       url: 'https://optimeasure.io',
     },
     {
@@ -166,7 +166,7 @@ export const workshop = {
         'Claude Code users are desk-bound — step away and lose momentum/context.',
       whyNow: "AI-assisted dev exploding, async doesn't exist.",
       tags: ['Mobile', 'CLI', 'Developer Tools'],
-      image: '/cachebash-icon.png',
+      image: '/cachebash-icon.webp',
       cliCommands: [
         'cachebash sync --remote',
         'cachebash run "npm test"',
@@ -181,7 +181,7 @@ export const workshop = {
         "People adopt AI tools but can't systematically integrate into workflows.",
       whyNow: "Everyone's experimenting, few compound gains.",
       tags: ['AI/ML', 'Enterprise', 'Integration'],
-      image: '/ai-augmentation-hub.png',
+      image: '/ai-augmentation-hub.webp',
     },
   ],
   videos: [
