@@ -310,8 +310,8 @@ export const contact = {
 export const footer = {
   signoff: '',
   links: {
-    email: 'christianbourlier@gmail.com',
-    phone: '(310) 963-5282',
+    // Base64-encoded to prevent scraping from static HTML
+    emailEncoded: 'Y2hyaXN0aWFuYm91cmxpZXJAZ21haWwuY29t',
     linkedin: 'https://linkedin.com/in/christianbourlier',
     medium: 'https://medium.com/@christianbourlier',
     website: 'christianbourlier.com',

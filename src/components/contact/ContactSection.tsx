@@ -21,6 +21,7 @@ export function ContactSection() {
   const [linkedin, setLinkedin] = useState('');
   const [company, setCompany] = useState('');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
   const [formState, setFormState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -48,6 +49,7 @@ export function ContactSection() {
           linkedin: linkedin.trim() || undefined,
           company: company.trim() || undefined,
           message: message.trim() || undefined,
+          website: website || undefined, // honeypot
         }),
       });
 
@@ -107,6 +109,18 @@ export function ContactSection() {
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
         >
+          {/* Honeypot — hidden from humans, bots auto-fill */}
+          <div className="absolute -left-[9999px]" aria-hidden="true">
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+
           {/* Row 1: Name + Email */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
             <label className="block">
@@ -116,6 +130,7 @@ export function ContactSection() {
               <input
                 type="text"
                 required
+                maxLength={200}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
@@ -129,6 +144,7 @@ export function ContactSection() {
               <input
                 type="email"
                 required
+                maxLength={254}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
@@ -145,6 +161,7 @@ export function ContactSection() {
               </span>
               <input
                 type="tel"
+                maxLength={30}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="(555) 123-4567"
@@ -157,6 +174,7 @@ export function ContactSection() {
               </span>
               <input
                 type="url"
+                maxLength={300}
                 value={linkedin}
                 onChange={(e) => setLinkedin(e.target.value)}
                 placeholder="https://linkedin.com/in/you"
@@ -173,6 +191,7 @@ export function ContactSection() {
               </span>
               <input
                 type="text"
+                maxLength={200}
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="Acme Corp"
@@ -192,6 +211,7 @@ export function ContactSection() {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="What's on your mind?"
                 rows={4}
+                maxLength={5000}
                 className={`${inputClass} resize-none`}
               />
             </label>

@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import { getActivePaletteId } from '@/lib/edge-config';
 import { getPalette, type PaletteColors } from '@/config/palettes';
 import { ThemeProvider } from '@/lib/palette-context';
+import { WebVitals } from '@/components/layout/WebVitals';
 import './globals.css';
 
 const GA_ID = 'G-N91F3VEKB4';
@@ -222,6 +223,7 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <WebVitals />
         <ThemeProvider paletteId={paletteId} colors={palette.colors}>{children}</ThemeProvider>
       </body>
     </html>

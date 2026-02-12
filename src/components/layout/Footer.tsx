@@ -95,22 +95,16 @@ export function Footer() {
           className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:mb-8 sm:flex-nowrap sm:gap-6"
         >
           <a
-            href={`mailto:${footer.links.email}`}
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              const decoded = atob(footer.links.emailEncoded);
+              window.location.href = `mailto:${decoded}`;
+            }}
             className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
           >
             <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
-              {footer.links.email}
-            </span>
-          </a>
-
-          <span className="text-foreground/20">|</span>
-
-          <a
-            href={`tel:${footer.links.phone.replace(/[^\d+]/g, '')}`}
-            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
-          >
-            <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
-              {footer.links.phone}
+              Email Me
             </span>
           </a>
 

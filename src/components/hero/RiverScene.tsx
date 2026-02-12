@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { SceneManager } from '@/lib/three/scene-manager';
 import { createRiverMesh, updateRiverTime } from '@/lib/three/river-shader';
@@ -11,9 +11,33 @@ import { usePalette } from '@/lib/palette-context';
 
 export function RiverScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const managerRef = useRef<SceneManager | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
   const prefersReduced = useReducedMotion();
   const device = useDeviceType();
   const { colors, int: intColors } = usePalette();
+
+  // Pause render loop when off-screen
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const manager = managerRef.current;
+    if (!manager) return;
+    if (isVisible) {
+      manager.start();
+    } else {
+      manager.stop();
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -62,6 +86,7 @@ export function RiverScene() {
       accentParticles.update(delta);
     });
 
+    managerRef.current = manager;
     manager.start();
 
     const handleResize = () => {
@@ -80,6 +105,7 @@ export function RiverScene() {
       particles.dispose();
       accentParticles.dispose();
       manager.dispose();
+      managerRef.current = null;
     };
   }, [prefersReduced, device, intColors]);
 

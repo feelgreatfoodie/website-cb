@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { auth } from '@/lib/auth';
-import { getPalette } from '@/config/palettes';
+import { palettes } from '@/config/palettes';
+
+const paletteSchema = z.object({
+  paletteId: z.string().refine(
+    (id) => palettes.some((p) => p.id === id),
+    { message: 'Invalid palette ID.' }
+  ),
+});
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -8,11 +16,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { paletteId } = (await req.json()) as { paletteId: string };
-  const palette = getPalette(paletteId);
-  if (!palette) {
-    return NextResponse.json({ error: 'Invalid palette' }, { status: 400 });
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
+
+  const result = paletteSchema.safeParse(body);
+  if (!result.success) {
+    return NextResponse.json({ error: result.error.issues[0]?.message ?? 'Invalid input.' }, { status: 400 });
+  }
+
+  const { paletteId } = result.data;
 
   const edgeConfigId = process.env.EDGE_CONFIG_ID;
   const vercelToken = process.env.VERCEL_API_TOKEN;
@@ -46,8 +62,9 @@ export async function POST(req: Request) {
 
   if (!res.ok) {
     const text = await res.text();
+    console.error('Edge Config update failed:', text);
     return NextResponse.json(
-      { error: 'Failed to update Edge Config', detail: text },
+      { error: 'Failed to update Edge Config' },
       { status: 500 }
     );
   }

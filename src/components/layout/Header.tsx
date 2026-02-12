@@ -55,7 +55,7 @@ function PaletteSwitcher() {
         aria-expanded={open}
       >
         <PaletteSwatch colors={current.colors} />
-        <span className="hidden sm:inline">{current.name}</span>
+        <span className="hidden xl:inline">{current.name}</span>
         <svg
           className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`}
           viewBox="0 0 12 12"
@@ -179,7 +179,7 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Left: home + contact links */}
-        <div className="flex items-center gap-4 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-3">
           <a
             href="#hero"
             onClick={(e) => {
@@ -195,9 +195,14 @@ export function Header() {
             </svg>
           </a>
           <a
-            href={`mailto:${footer.links.email}`}
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              const decoded = atob(footer.links.emailEncoded);
+              window.location.href = `mailto:${decoded}`;
+            }}
             className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
-            title={footer.links.email}
+            title="Send email"
           >
             <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -205,19 +210,10 @@ export function Header() {
             </svg>
           </a>
           <a
-            href={`tel:${footer.links.phone.replace(/[^\d+]/g, '')}`}
-            className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
-            title={footer.links.phone}
-          >
-            <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-          </a>
-          <a
             href={footer.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
+            className="hidden sm:flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
             title="LinkedIn"
           >
             <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -228,7 +224,7 @@ export function Header() {
             href={footer.links.medium}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
+            className="hidden sm:flex h-10 w-10 items-center justify-center rounded-lg font-mono text-[10px] tracking-wider text-foreground/40 transition-colors hover:text-accent sm:h-auto sm:w-auto"
             title="Medium"
           >
             <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -238,7 +234,7 @@ export function Header() {
         </div>
 
         {/* Center: section nav (hidden on small screens) */}
-        <nav className="hidden items-center gap-4 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-4 xl:flex" aria-label="Main navigation">
           {navLinks.map((s) => (
             <a
               key={s.anchor}
@@ -256,7 +252,7 @@ export function Header() {
           <PaletteSwitcher />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-accent/10 md:hidden"
+            className="relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-accent/10 xl:hidden"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
@@ -289,7 +285,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[64px] bottom-0 z-40 bg-background/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-x-0 top-[64px] bottom-0 z-40 bg-background/95 backdrop-blur-xl xl:hidden"
           >
             <nav className="flex flex-col items-center gap-1 px-6 pt-8" aria-label="Mobile navigation">
               {navLinks.map((s, i) => (

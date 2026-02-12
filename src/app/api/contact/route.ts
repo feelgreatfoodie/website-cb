@@ -1,12 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { google } from 'googleapis';
+import { sheets } from '@googleapis/sheets';
+import { GoogleAuth } from 'google-auth-library';
+import { z } from 'zod';
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const contactSchema = z.object({
+  name: z.string().min(1, 'Name is required.').max(200),
+  email: z.string().email('A valid email is required.').max(254),
+  phone: z.string().max(30).optional(),
+  linkedin: z
+    .string()
+    .max(300)
+    .refine((v) => !v || /^https?:\/\/(www\.)?linkedin\.com\//i.test(v), {
+      message: 'Please provide a valid LinkedIn URL.',
+    })
+    .optional(),
+  company: z.string().max(200).optional(),
+  message: z.string().max(5000).optional(),
+  website: z.string().optional(), // honeypot
+});
 
-// Simple in-memory rate limiter: IP → [timestamps]
+// In-memory rate limiter with pruning (note: resets on serverless cold start)
 const rateMap = new Map<string, number[]>();
 const RATE_LIMIT = 3;
 const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_ENTRIES = 1000;
+
+function pruneRateMap() {
+  if (rateMap.size <= MAX_ENTRIES) return;
+  const now = Date.now();
+  for (const [ip, timestamps] of rateMap) {
+    const recent = timestamps.filter((t) => now - t < RATE_WINDOW_MS);
+    if (recent.length === 0) {
+      rateMap.delete(ip);
+    } else {
+      rateMap.set(ip, recent);
+    }
+  }
+}
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -20,6 +50,7 @@ function recordRequest(ip: string) {
   const timestamps = rateMap.get(ip) ?? [];
   timestamps.push(Date.now());
   rateMap.set(ip, timestamps);
+  pruneRateMap();
 }
 
 async function appendToSheet(row: string[]) {
@@ -31,7 +62,7 @@ async function appendToSheet(row: string[]) {
     throw new Error('Google Sheets environment variables are not configured.');
   }
 
-  const auth = new google.auth.GoogleAuth({
+  const auth = new GoogleAuth({
     credentials: {
       client_email: clientEmail,
       private_key: privateKey.replace(/\\n/g, '\n'),
@@ -39,9 +70,9 @@ async function appendToSheet(row: string[]) {
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
-  const sheets = google.sheets({ version: 'v4', auth });
+  const client = sheets({ version: 'v4', auth });
 
-  await sheets.spreadsheets.values.append({
+  await client.spreadsheets.values.append({
     spreadsheetId,
     range: 'Sheet1!A:G',
     valueInputOption: 'USER_ENTERED',
@@ -66,7 +97,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: Record<string, unknown>;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
@@ -76,28 +107,18 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { name, email, phone, linkedin, company, message } = body as {
-    name?: string;
-    email?: string;
-    phone?: string;
-    linkedin?: string;
-    company?: string;
-    message?: string;
-  };
-
-  // Validation
-  if (!name || typeof name !== 'string' || name.trim().length === 0) {
-    return NextResponse.json(
-      { error: 'Name is required.' },
-      { status: 400 }
-    );
+  // Validate with Zod
+  const result = contactSchema.safeParse(body);
+  if (!result.success) {
+    const firstError = result.error.issues[0]?.message ?? 'Invalid input.';
+    return NextResponse.json({ error: firstError }, { status: 400 });
   }
 
-  if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
-    return NextResponse.json(
-      { error: 'A valid email is required.' },
-      { status: 400 }
-    );
+  const { name, email, phone, linkedin, company, message, website } = result.data;
+
+  // Honeypot — bots fill this hidden field, humans don't
+  if (website) {
+    return NextResponse.json({ success: true }); // fake success
   }
 
   // Append to sheet
@@ -106,10 +127,10 @@ export async function POST(request: NextRequest) {
     timestamp,
     name.trim(),
     email.trim(),
-    typeof phone === 'string' ? phone.trim() : '',
-    typeof linkedin === 'string' ? linkedin.trim() : '',
-    typeof company === 'string' ? company.trim() : '',
-    typeof message === 'string' ? message.trim() : '',
+    phone?.trim() ?? '',
+    linkedin?.trim() ?? '',
+    company?.trim() ?? '',
+    message?.trim() ?? '',
   ];
 
   try {
