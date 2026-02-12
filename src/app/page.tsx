@@ -6,6 +6,8 @@ import { ScrollProgress } from '@/components/layout/ScrollProgress';
 import { KonamiOverlay } from '@/components/ui/KonamiOverlay';
 import { CursorTrail } from '@/components/ui/CursorTrail';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
+import { SmartCTA } from '@/components/ui/SmartCTA';
+import { ChatWidget } from '@/components/ui/ChatWidget';
 import { getMediumPosts } from '@/lib/medium';
 
 export const revalidate = 3600;
@@ -26,6 +28,8 @@ export default async function Home() {
       <KonamiOverlay />
       <CursorTrail />
       <ScrollToTop />
+      <SmartCTA />
+      <ChatWidget />
       <main id="main-content">
         <HeroSection />
         <BelowFold posts={posts} />

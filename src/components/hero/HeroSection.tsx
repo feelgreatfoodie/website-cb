@@ -1,12 +1,14 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { CanvasErrorBoundary } from './CanvasErrorBoundary';
 import { Button } from '@/components/ui/Button';
 import { GlowText } from '@/components/ui/GlowText';
-import { hero } from '@/config/content';
+import { hero, intentOverrides } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
+import { useVisitorIntent } from '@/lib/hooks/useVisitorIntent';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 import { trackEvent } from '@/lib/analytics';
 import { useToast } from '@/components/ui/Toast';
@@ -31,6 +33,20 @@ const RiverScene = dynamic(
 export function HeroSection() {
   const startQuest = useQuestStore((s) => s.startQuest);
   const toast = useToast();
+  const intent = useVisitorIntent();
+  const hasTrackedIntent = useRef(false);
+
+  // Track visitor intent once on mount
+  useEffect(() => {
+    if (intent !== 'default' && !hasTrackedIntent.current) {
+      hasTrackedIntent.current = true;
+      trackEvent('visitor_intent', { intent });
+    }
+  }, [intent]);
+
+  const overrides = intentOverrides[intent] ?? {};
+  const subheadline = overrides.subheadline ?? hero.subheadline;
+  const ctaLabel = overrides.ctaLabel ?? hero.cta;
 
   const handleQuestStart = () => {
     trackEvent('hero_cta_click');
@@ -69,7 +85,7 @@ export function HeroSection() {
           variants={fadeInUp}
           className="mb-8 font-mono text-sm tracking-[0.3em] text-accent sm:text-base"
         >
-          {hero.subheadline}
+          {subheadline}
         </motion.p>
 
         <motion.p variants={fadeInUp} className="mb-12 text-xl sm:text-2xl">
@@ -85,7 +101,7 @@ export function HeroSection() {
             className="text-base px-8 py-3 sm:text-lg sm:px-10 sm:py-4"
             aria-label="Start exploring Christian Bourlier's quest"
           >
-            {hero.cta}
+            {ctaLabel}
           </Button>
         </motion.div>
       </motion.div>

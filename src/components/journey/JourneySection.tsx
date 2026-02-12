@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { NoteHighway } from './NoteHighway';
 import { StreamCard } from './StreamCard';
-import { journey } from '@/config/content';
+import { journey, streamTestimonials } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useScrollProgress } from '@/lib/hooks/useScrollProgress';
 import { usePalette } from '@/lib/palette-context';
@@ -14,7 +14,7 @@ import { trackEvent } from '@/lib/analytics';
 export function JourneySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollProgress = useScrollProgress(sectionRef);
-  const { revealedStreams, revealStream } = useQuestStore();
+  const { revealedStreams, revealStream, toggleStream } = useQuestStore();
   const { colors } = usePalette();
 
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export function JourneySection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.25 }
     );
 
     observer.observe(el);
@@ -109,8 +109,9 @@ export function JourneySection() {
                 onHover={(h) => handleHover(stream.id, h)}
                 onClick={() => {
                   trackEvent('stream_reveal', { stream_id: stream.id });
-                  revealStream(stream.id as keyof typeof revealedStreams);
+                  toggleStream(stream.id as keyof typeof revealedStreams);
                 }}
+                testimonial={streamTestimonials[stream.id]}
               />
             </motion.div>
           ))}

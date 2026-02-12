@@ -28,6 +28,7 @@ interface QuestState {
   setPhase: (phase: QuestPhase) => void;
   setScrollProgress: (progress: number) => void;
   revealStream: (stream: keyof RevealedStreams) => void;
+  toggleStream: (stream: keyof RevealedStreams) => void;
   revealEquation: () => void;
   startQuest: () => void;
   visitSection: (section: string) => void;
@@ -46,6 +47,10 @@ export const useQuestStore = create<QuestState>((set) => ({
   setPhase: (phase) => set({ phase }),
   setScrollProgress: (scrollProgress) => set({ scrollProgress }),
   revealStream: (stream) =>
+    set((state) => ({
+      revealedStreams: { ...state.revealedStreams, [stream]: true },
+    })),
+  toggleStream: (stream) =>
     set((state) => ({
       revealedStreams: { ...state.revealedStreams, [stream]: !state.revealedStreams[stream] },
     })),

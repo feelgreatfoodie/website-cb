@@ -2,7 +2,14 @@ export const hero = {
   headline: 'CHRISTIAN BOURLIER',
   subheadline: 'TECHNICAL SOLUTIONS PARTNER',
   hook: 'I build the system AND close the deal.',
-  cta: 'Quest Start',
+  cta: 'Journey Onward',
+  availability: 'Open to opportunities',
+  metrics: [
+    { value: 8, suffix: '+', label: 'YRS ENGINEERING' },
+    { value: 20, suffix: '+', label: 'YRS SALES' },
+    { value: 3, suffix: '', label: 'PRODUCTS SHIPPING' },
+    { value: 2, suffix: '', label: 'GCP CERTS' },
+  ],
 } as const;
 
 export const journey = {
@@ -101,6 +108,24 @@ export const journey = {
     },
   ],
 } as const;
+
+export const streamTestimonials: Record<string, { quote: string; author: string; role: string }> = {
+  data: {
+    quote: 'A highly skilled senior data engineer with strong expertise in pipelining complex data sources, GCP, BQML and the broader Google ecosystem.',
+    author: 'Brianna Mersey',
+    role: 'VP Data',
+  },
+  sales: {
+    quote: "One of the smartest, hardest working, inspiring, and motivating team leaders I've ever hired.",
+    author: 'Malek Bishawi',
+    role: 'Global Sales & Business Development',
+  },
+  poker: {
+    quote: 'He is a born leader, a man of true integrity and loyalty, and he brings out the best in those around him.',
+    author: 'Matthew Walvick',
+    role: 'Healthcare Technology Physician',
+  },
+};
 
 export const competencies = {
   title: 'CORE COMPETENCIES',
@@ -306,6 +331,36 @@ export const contact = {
   ctaLabel: 'Send Message',
   successMessage: 'Message sent — I\'ll be in touch soon.',
 } as const;
+
+export const smartCta = {
+  stages: [
+    { sections: ['journey', 'competencies', 'opento'], label: "See What I'm Building", target: '#workshop', icon: 'arrow' },
+    { sections: ['workshop'], label: 'The Proof', target: '#bossfight', icon: 'eye' },
+    { sections: ['bossfight', 'implementation'], label: 'Grab the One-Sheeter', target: '#onesheeter', icon: 'download' },
+    { sections: ['writing', 'onesheeter'], label: "Let's Connect", target: '#contact', icon: 'envelope' },
+  ],
+  hiddenSections: ['hero', 'contact'],
+} as const;
+
+export const intentOverrides: Record<string, {
+  subheadline?: string;
+  availability?: string;
+  ctaLabel?: string;
+}> = {
+  recruiter: {
+    subheadline: 'SOLUTIONS ARCHITECT & DATA ENGINEER',
+    availability: 'Available for Q2 2026 engagements',
+  },
+  client: {
+    subheadline: 'TECHNICAL SOLUTIONS PARTNER',
+    availability: 'Booking discovery calls',
+    ctaLabel: 'See My Work',
+  },
+  engineer: {
+    subheadline: 'FULL-STACK ENGINEER & ARCHITECT',
+    availability: 'Open to collaborations',
+  },
+};
 
 /** Decode the obfuscated email address at runtime */
 export function decodeEmail(): string {
