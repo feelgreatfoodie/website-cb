@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { NoteHighway } from './NoteHighway';
 import { StreamCard } from './StreamCard';
+import { Timeline } from './Timeline';
 import { journey, streamTestimonials } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useScrollProgress } from '@/lib/hooks/useScrollProgress';
@@ -116,6 +117,11 @@ export function JourneySection() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Career Timeline */}
+        <div className="mt-12 sm:mt-16">
+          <Timeline />
+        </div>
       </div>
     </section>
   );
