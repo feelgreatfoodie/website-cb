@@ -64,13 +64,13 @@ export function JourneySection() {
     <section
       id="journey"
       ref={sectionRef}
-      className="relative min-h-[70vh] overflow-hidden bg-background py-16 sm:min-h-screen sm:py-24"
+      className="relative overflow-hidden bg-background py-12 sm:py-16"
     >
       <NoteHighway scrollSpeed={scrollProgress} pausedStreams={pausedStreams} />
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <motion.div
-          className="mb-8 text-center sm:mb-16"
+          className="mb-6 text-center sm:mb-10"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -92,7 +92,7 @@ export function JourneySection() {
 
         <motion.div
           ref={cardsRef}
-          className="grid gap-4 sm:gap-6 md:grid-cols-3"
+          className="grid gap-3 sm:gap-4 md:grid-cols-3"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -119,7 +119,7 @@ export function JourneySection() {
         </motion.div>
 
         {/* Career Timeline */}
-        <div className="mt-12 sm:mt-16">
+        <div className="mt-8 sm:mt-10">
           <Timeline />
         </div>
       </div>

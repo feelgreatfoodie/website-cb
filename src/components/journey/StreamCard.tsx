@@ -32,7 +32,7 @@ export function StreamCard({
   return (
     <motion.button
       className={cn(
-        'glass relative flex h-full w-full flex-col cursor-pointer rounded-xl p-4 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:p-6',
+        'glass relative flex h-full w-full flex-col cursor-pointer rounded-xl p-3 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:p-4',
         isRevealed && 'ring-1'
       )}
       style={{
@@ -56,7 +56,7 @@ export function StreamCard({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <div className="mb-3 flex items-baseline justify-between">
+      <div className="mb-2 flex items-baseline justify-between">
         <span
           className="font-mono text-xs tracking-[0.3em] uppercase"
           style={{ color }}
@@ -64,15 +64,15 @@ export function StreamCard({
           {label}
         </span>
         <span
-          className="font-mono text-3xl font-bold bloom-text"
+          className="font-mono text-2xl font-bold bloom-text"
           style={{ color }}
         >
           {years}
-          <span className="ml-1 text-sm font-normal opacity-60">yrs</span>
+          <span className="ml-1 text-xs font-normal opacity-60">yrs</span>
         </span>
       </div>
 
-      <p className="flex-1 text-sm leading-relaxed text-foreground/70">
+      <p className="flex-1 text-xs leading-relaxed text-foreground/70 sm:text-sm">
         {description}
       </p>
 
@@ -93,14 +93,14 @@ export function StreamCard({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-wrap gap-2 pt-4">
+            <div className="flex flex-wrap gap-1.5 pt-3">
               {skills.map((skill, i) => (
                 <motion.span
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}
-                  className="rounded-md px-3 py-1.5 font-mono text-xs tracking-wide"
+                  className="rounded-md px-2 py-1 font-mono text-[11px] tracking-wide"
                   style={{
                     background: `${color}18`,
                     border: `1px solid ${color}44`,
@@ -119,10 +119,10 @@ export function StreamCard({
                   delay: skills.length * 0.05 + 0.15,
                   duration: 0.4,
                 }}
-                className="mt-4 border-l-2 pl-3"
+                className="mt-[20px] border-l-2 pl-3"
                 style={{ borderColor: `${color}AA` }}
               >
-                <p className="text-[12px] italic leading-relaxed text-foreground/60 sm:text-[13px]">
+                <p className="text-[11px] italic leading-snug text-foreground/60 sm:text-[12px]">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
                 <footer className="mt-1 text-[11px]">
