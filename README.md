@@ -20,7 +20,7 @@ The site doubles as a technical showcase: shader-based river animation, GPU part
 | **Competencies** | `CompetencyHubSection` + `RadialHub` | Animated SVG radial hub-and-spoke diagram with 6 core competencies orbiting a center node. Scales naturally via `viewBox` on all screen sizes. |
 | **Open To** | `OpenToSection` + `RoleCard` | 4 glass cards for target roles (Solutions Architect, AI/ML Solutions Engineer, TAM, AI Strategist) with "what I bring" pill tags. |
 | **Workshop** | `WorkshopSection` + `TypewriterCLI` | Three project cards (OptiMeasure, CacheBash, AI Portal) with a looping terminal typewriter demo. |
-| **Boss Fight** | `BossFightSection` + `TestimonialCarousel` | Animated equation reveal, SVG architecture flow diagram, and 6-testimonial auto-advancing carousel with LinkedIn recommendations. |
+| **Endgame** | `BossFightSection` + `TestimonialCarousel` | Animated equation reveal, SVG architecture flow diagram, and 6-testimonial auto-advancing carousel with LinkedIn recommendations. |
 | **Implementation** | `ImplementationSection` + `SkillPill` + `CertBadge` | 16 category-colored skill pills (language/cloud/data/ai) and GCP certification badges (PDE, PCA). |
 | **One-Sheeter** | `OneSheeterSection` + `PDFPreview` | Palette-matched PDF download with thumbnail preview. Serves the correct one-sheeter for the active palette from `/public/onesheets/`, with PNG previews in `/public/onesheet-previews/`. |
 | **Contact** | `ContactSection` | Glass-card contact form (Name, Email, Phone, LinkedIn, Company, Message). Submissions POST to `/api/contact` and append to a Google Sheet via service account. |
