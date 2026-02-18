@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils/cn';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 import { trackEvent } from '@/lib/analytics';
+import { useScrollReveal } from '@/lib/hooks/useScrollReveal';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -37,6 +38,8 @@ function parseResponse(text: string): SolverResult {
 }
 
 export function ContactSection() {
+  const { ref: formRef, isVisible: formVisible } = useScrollReveal({ threshold: 0.1, rootMargin: '-50px' });
+
   // Challenge / Problem Solver state
   const [challenge, setChallenge] = useState('');
   const [solverResult, setSolverResult] = useState<SolverResult | null>(null);
@@ -162,12 +165,9 @@ export function ContactSection() {
           </motion.h2>
         </motion.div>
 
-        <motion.div
-          className="glass rounded-2xl p-6 sm:p-8"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+        <div
+          ref={formRef}
+          className={cn('glass rounded-2xl p-6 sm:p-8 scroll-reveal', formVisible && 'visible')}
         >
           <form onSubmit={handleSubmitContact}>
             {/* Honeypot */}
@@ -427,7 +427,7 @@ export function ContactSection() {
               )}
             </div>
           </form>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
