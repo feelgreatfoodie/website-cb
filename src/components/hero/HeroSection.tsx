@@ -17,13 +17,35 @@ import { useToast } from '@/components/ui/Toast';
 
 function RiverScenePlaceholder() {
   return (
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          'linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--accent) 13%, transparent) 50%, var(--background) 100%)',
-      }}
-    />
+    <div className="absolute inset-0" style={{ background: 'var(--background)' }}>
+      <style>{`
+        @keyframes rsFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .rs-particle { animation: none !important; }
+        }
+      `}</style>
+      <div className="rs-particle" style={{
+        position: 'absolute', width: '6px', height: '6px', borderRadius: '50%',
+        background: 'var(--stream1)', opacity: 0.4,
+        top: '35%', left: '25%',
+        animation: 'rsFloat 4s ease-in-out infinite',
+      }} />
+      <div className="rs-particle" style={{
+        position: 'absolute', width: '4px', height: '4px', borderRadius: '50%',
+        background: 'var(--stream2)', opacity: 0.3,
+        top: '55%', left: '65%',
+        animation: 'rsFloat 5s ease-in-out infinite 1s',
+      }} />
+      <div className="rs-particle" style={{
+        position: 'absolute', width: '5px', height: '5px', borderRadius: '50%',
+        background: 'var(--stream1)', opacity: 0.35,
+        top: '70%', left: '40%',
+        animation: 'rsFloat 6s ease-in-out infinite 2s',
+      }} />
+    </div>
   );
 }
 
