@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/lib/palette-context';
 import { WebVitals } from '@/components/layout/WebVitals';
 import { CookieConsent } from '@/components/ui/CookieConsent';
 import { ToastProvider } from '@/components/ui/Toast';
-import { SessionWrapper } from '@/components/layout/SessionWrapper';
 import { getStructuredData } from '@/lib/seo/structured-data';
 import './globals.css';
 
@@ -129,11 +128,9 @@ export default async function RootLayout({
       >
         <WebVitals />
         <CookieConsent />
-        <SessionWrapper>
-          <ThemeProvider paletteId={paletteId} colors={palette.colors}>
-            <ToastProvider>{children}</ToastProvider>
-          </ThemeProvider>
-        </SessionWrapper>
+        <ThemeProvider paletteId={paletteId} colors={palette.colors}>
+          <ToastProvider>{children}</ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

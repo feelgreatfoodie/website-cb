@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import { footer, decodeEmail } from '@/config/content';
 import { useActiveSection } from '@/lib/hooks/useActiveSection';
 import { PaletteSwitcher } from './PaletteSwitcher';
@@ -16,8 +15,6 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const activeSection = useActiveSection();
-  const { data: session } = useSession();
-  const isAdmin = !!session?.user;
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
 
@@ -182,15 +179,6 @@ export function Header() {
           >
             Let&apos;s Connect
           </a>
-          {isAdmin && (
-            <a
-              href="/admin"
-              className="rounded-lg px-3 py-1.5 font-mono text-[11px] tracking-wider text-accent/70 transition-colors hover:bg-accent/10 hover:text-accent"
-              title="Admin Dashboard"
-            >
-              Admin
-            </a>
-          )}
           <PaletteSwitcher />
           <MotionToggle />
           <button
