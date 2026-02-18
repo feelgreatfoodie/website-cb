@@ -62,12 +62,14 @@ export function ProjectCard({
         )}
       </AnimatePresence>
 
-      <h3 className="mb-1 font-mono text-lg font-bold text-cta">
-        {name}
-      </h3>
-      <p className="mb-4 text-sm text-foreground/60">{description}</p>
+      <div className="flex-1">
+        <h3 className="mb-1 font-mono text-lg font-bold text-cta">
+          {name}
+        </h3>
+        <p className="text-sm text-foreground/60">{description}</p>
+      </div>
 
-      <div className="mb-3">
+      <div className="flex-1">
         <span className="font-mono text-[11px] tracking-[0.3em] text-accent/70">
           PROBLEM
         </span>
@@ -76,7 +78,7 @@ export function ProjectCard({
         </p>
       </div>
 
-      <div className="mb-4">
+      <div className="flex-1">
         <span className="font-mono text-[11px] tracking-[0.3em] text-accent/70">
           WHY NOW
         </span>
@@ -84,8 +86,6 @@ export function ProjectCard({
           {whyNow}
         </p>
       </div>
-
-      <div className="flex-1" />
 
       <div className="flex flex-wrap gap-1.5">
         {tags.map((tag) => (
