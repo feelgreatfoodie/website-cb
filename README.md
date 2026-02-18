@@ -127,7 +127,7 @@ Each palette defines 8 semantic color roles:
 6. Palette switches update CSS variables, React context, and `localStorage` simultaneously
 7. No flash of wrong theme — server-rendered colors load first, visitor override applies on hydration
 
-**Available palettes:** Porto Data Streams, Azulejo Algorithms, Nazare Wavefronts, Pastel de Nata, Autumn AI, Forest Floor, Mediterranean Code, Oceanic Insights.
+**Available palettes:** Nazaré Wavefronts (dark) and Pastel de Nata (light).
 
 ## One-Sheeter System
 

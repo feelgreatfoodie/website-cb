@@ -1,6 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {},
+  webpack(config) {
+    config.optimization.splitChunks = {
+      ...config.optimization.splitChunks,
+      cacheGroups: {
+        ...config.optimization.splitChunks?.cacheGroups,
+        three: {
+          test: /[\\/]node_modules[\\/]three[\\/]/,
+          name: 'three',
+          chunks: 'all',
+          priority: 30,
+        },
+      },
+    };
+    return config;
+  },
   images: {
     remotePatterns: [
       {

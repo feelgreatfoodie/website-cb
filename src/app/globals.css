@@ -60,6 +60,17 @@ body {
   background: var(--cta);
 }
 
+/* Hero scroll indicator animations */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Selection */
 ::selection {
   background: color-mix(in srgb, var(--accent) 30%, transparent);

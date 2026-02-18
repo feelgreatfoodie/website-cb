@@ -33,7 +33,7 @@ const JourneySection = dynamic(
 );
 const CompetencyHubSection = dynamic(
   () => import('@/components/competencies/CompetencyHubSection').then((m) => ({ default: m.CompetencyHubSection })),
-  { loading: () => <SectionPlaceholder height="min-h-[60vh]" /> }
+  { ssr: false, loading: () => <SectionPlaceholder height="min-h-[60vh]" /> }
 );
 const OpenToSection = dynamic(
   () => import('@/components/opento/OpenToSection').then((m) => ({ default: m.OpenToSection })),
@@ -41,11 +41,11 @@ const OpenToSection = dynamic(
 );
 const WorkshopSection = dynamic(
   () => import('@/components/workshop/WorkshopSection').then((m) => ({ default: m.WorkshopSection })),
-  { loading: () => <SectionPlaceholder height="min-h-[60vh]" /> }
+  { ssr: false, loading: () => <SectionPlaceholder height="min-h-[60vh]" /> }
 );
 const BossFightSection = dynamic(
   () => import('@/components/bossfight/BossFightSection').then((m) => ({ default: m.BossFightSection })),
-  { loading: () => <SectionPlaceholder height="min-h-[40vh]" /> }
+  { ssr: false, loading: () => <SectionPlaceholder height="min-h-[40vh]" /> }
 );
 const ImplementationSection = dynamic(
   () => import('@/components/implementation/ImplementationSection').then((m) => ({ default: m.ImplementationSection })),

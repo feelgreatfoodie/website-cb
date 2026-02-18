@@ -1,24 +1,28 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { SceneManager } from '@/lib/three/scene-manager';
-import { createRiverMesh, updateRiverTime } from '@/lib/three/river-shader';
-import { ParticleSystem } from '@/lib/three/particle-system';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { useDeviceType } from '@/lib/hooks/useDeviceType';
 import { usePalette } from '@/lib/palette-context';
 
 export function RiverScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const managerRef = useRef<SceneManager | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
-  const [webglFailed] = useState(() => !SceneManager.isWebGLAvailable());
+  const managerRef = useRef<import('@/lib/three/scene-manager').SceneManager | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [initialized, setInitialized] = useState(false);
+  const [webglFailed, setWebglFailed] = useState(false);
   const prefersReduced = useReducedMotion();
   const device = useDeviceType();
   const { colors, int: intColors } = usePalette();
 
-  // Pause render loop when off-screen
+  // Check WebGL on mount
+  useEffect(() => {
+    import('@/lib/three/scene-manager').then(({ SceneManager }) => {
+      if (!SceneManager.isWebGLAvailable()) setWebglFailed(true);
+    });
+  }, []);
+
+  // Observe visibility
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -30,6 +34,7 @@ export function RiverScene() {
     return () => observer.disconnect();
   }, []);
 
+  // Start/stop render loop based on visibility
   useEffect(() => {
     const manager = managerRef.current;
     if (!manager) return;
@@ -40,9 +45,18 @@ export function RiverScene() {
     }
   }, [isVisible]);
 
-  useEffect(() => {
+  // Deferred init — only create meshes/materials when first visible
+  const initScene = useCallback(async () => {
     const canvas = canvasRef.current;
-    if (!canvas || prefersReduced) return;
+    if (!canvas || initialized || prefersReduced || webglFailed) return;
+
+    const [THREE, { SceneManager }, { createRiverMesh, updateRiverTime }, { ParticleSystem }] =
+      await Promise.all([
+        import('three'),
+        import('@/lib/three/scene-manager'),
+        import('@/lib/three/river-shader'),
+        import('@/lib/three/particle-system'),
+      ]);
 
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const manager = new SceneManager({
@@ -56,15 +70,16 @@ export function RiverScene() {
     const ambient = new THREE.AmbientLight(intColors.accent, 0.3);
     manager.scene.add(ambient);
 
-    // Create river with palette colors
-    const river = createRiverMesh(12, 8, 128, {
+    // Create river with palette colors — simplified geometry on mobile
+    const segments = device.type === 'mobile' ? 64 : 128;
+    const river = createRiverMesh(12, 8, segments, {
       deep: intColors.background,
       light: intColors.accent,
       accent: intColors.stream1,
     });
     manager.scene.add(river);
 
-    // Create particles
+    // Create particles — reduced count on mobile
     const particles = new ParticleSystem({
       count: device.particleCount,
       spread: { x: 10, y: 4, z: 6 },
@@ -103,6 +118,7 @@ export function RiverScene() {
 
     handleResize();
     window.addEventListener('resize', handleResize);
+    setInitialized(true);
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -111,7 +127,17 @@ export function RiverScene() {
       manager.dispose();
       managerRef.current = null;
     };
-  }, [prefersReduced, device, intColors]);
+  }, [initialized, prefersReduced, webglFailed, device, intColors]);
+
+  // Trigger init when first visible
+  useEffect(() => {
+    if (isVisible && !initialized && !prefersReduced && !webglFailed) {
+      const cleanup = initScene();
+      return () => {
+        cleanup?.then((fn) => fn?.());
+      };
+    }
+  }, [isVisible, initialized, prefersReduced, webglFailed, initScene]);
 
   if (prefersReduced || webglFailed) {
     return (

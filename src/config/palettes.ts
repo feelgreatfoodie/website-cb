@@ -33,21 +33,6 @@ export const palettes: Palette[] = [
     },
   },
   {
-    id: 'azulejo-algorithms',
-    name: 'Azulejo Algorithms',
-    category: 'portuguese',
-    colors: {
-      background: '#0A1628',
-      backgroundLight: '#132244',
-      accent: '#0047AB',
-      cta: '#FFB800',
-      foreground: '#F2F7FF',
-      stream1: '#0047AB',
-      stream2: '#2F4F4F',
-      stream3: '#FFB800',
-    },
-  },
-  {
     id: 'pastel-de-nata',
     name: 'Pastel de Nata',
     category: 'portuguese',
@@ -80,13 +65,11 @@ export function hexToInt(hex: string): number {
 }
 
 export const onesheetMap: Record<string, string> = {
-  'azulejo-algorithms': '/onesheets/onesheeter-azulejo-algorithms.pdf',
   'nazare-wavefronts': '/onesheets/onesheeter-nazare-wavefronts.pdf',
   'pastel-de-nata': '/onesheets/onesheeter-pastel-de-nata.pdf',
 };
 
 export const onesheetPreviewMap: Record<string, string> = {
-  'azulejo-algorithms': '/onesheet-previews/preview-azulejo-algorithms.png',
   'nazare-wavefronts': '/onesheet-previews/preview-nazare-wavefronts.png',
   'pastel-de-nata': '/onesheet-previews/preview-pastel-de-nata.png',
 };

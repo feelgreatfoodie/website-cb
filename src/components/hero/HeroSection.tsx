@@ -106,21 +106,12 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="h-10 w-6 rounded-full border-2 border-accent/40 p-1"
-        >
+      {/* Scroll indicator — CSS animation to avoid FM in critical path */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-[fadeIn_1s_2s_both]">
+        <div className="h-10 w-6 rounded-full border-2 border-accent/40 p-1 animate-[scrollBounce_2s_ease-in-out_infinite]">
           <div className="mx-auto h-2 w-1 rounded-full bg-accent" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

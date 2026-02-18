@@ -1,6 +1,6 @@
 export const hero = {
   headline: 'CHRISTIAN BOURLIER',
-  subheadline: 'TECHNICAL SOLUTIONS PARTNER',
+  subheadline: 'AI SOLUTIONS ARCHITECT',
   hook: 'I build the system AND close the deal.',
   cta: 'Journey Onward',
   availability: 'Open to opportunities',
@@ -13,8 +13,8 @@ export const hero = {
 } as const;
 
 export const journey = {
-  title: 'THE RARE COMBINATION',
-  subtitle: 'Three streams. One operator.',
+  title: 'THREE STREAMS',
+  subtitle: 'Where they converge is where it gets interesting.',
   streams: [
     {
       id: 'data',
@@ -144,28 +144,57 @@ export const openTo = {
   subtitle: 'Roles where I deliver the most impact.',
   roles: [
     {
-      title: 'AI Strategist',
+      title: 'AI Strategy & Transformation Lead',
       description:
-        'Guiding organizations from AI experimentation to operational integration.',
-      brings: ['AI Roadmaps', 'Change Mgmt', 'Executive Comms', 'Use Case Prioritization', 'Organizational Readiness', 'Pilot-to-Production', 'Executive Education'],
+        'Defining AI roadmaps that connect technical capability to business outcomes. Not just what AI can do — what it should do for your organization.',
+      brings: [
+        'AI Roadmaps',
+        'Change Management',
+        'Executive Education',
+        'Use Case Prioritization',
+        'Pilot-to-Production',
+        'Organizational Readiness',
+        'ROI Frameworks',
+      ],
     },
     {
       title: 'AI/ML Solutions Engineer',
       description:
-        'Building and deploying AI-powered products that solve real problems, not science projects.',
-      brings: ['Rapid Prototyping', 'Production AI', 'Prompt Engineering', 'Workflow Automation', 'Model Evaluation', 'Data Strategy', 'Human-in-the-Loop'],
+        'Building production ML systems end-to-end. From data pipelines through model serving, with the engineering rigor to keep them running at scale.',
+      brings: [
+        'Production AI',
+        'Rapid Prototyping',
+        'Prompt Engineering',
+        'Data Pipelines',
+        'Model Evaluation',
+        'Workflow Automation',
+        'Human-in-the-Loop',
+      ],
     },
     {
       title: 'Solutions Architect',
       description:
-        'Designing end-to-end technical solutions that bridge business needs and engineering reality.',
-      brings: ['System Design', 'Client-Facing', 'Discovery', 'Integration Architecture', 'Technical Risk Assessment'],
+        'Designing cloud-native data architectures on GCP. BigQuery, Dataform, Cloud Functions, Vertex AI — the full stack, tailored to your constraints.',
+      brings: [
+        'System Design',
+        'GCP Architecture',
+        'Client-Facing Discovery',
+        'Integration Planning',
+        'Technical Risk Assessment',
+      ],
     },
     {
       title: 'Technical Account Manager',
       description:
-        'The bridge between product teams and enterprise clients — technical depth with relationship trust.',
-      brings: ['Enterprise Sales', 'Stakeholder Mgmt', 'Trust Building', 'Customer Advocacy', 'Solution Scoping'],
+        'Bridging the gap between technical teams and executive stakeholders. Two decades of sales meets deep engineering fluency.',
+      brings: [
+        'Enterprise Relationships',
+        'Stakeholder Management',
+        'Trust Building',
+        'Customer Advocacy',
+        'Solution Scoping',
+        'Contract Expansion',
+      ],
     },
   ],
 } as const;
@@ -186,11 +215,11 @@ export const workshop = {
     },
     {
       name: 'CacheBash',
-      description: 'Mobile app to connect mobile to desktop CLI',
+      description: 'Async dispatch for AI agents — monitor, message, and respond from your phone.',
       problem:
-        'Claude Code users are desk-bound — step away and lose momentum/context.',
-      whyNow: "AI-assisted dev exploding, async doesn't exist.",
-      tags: ['Mobile', 'CLI', 'Developer Tools'],
+        'AI coding agents need you at your desk. Step away and the conversation stops — questions unanswered, sessions stalled, momentum lost.',
+      whyNow: 'AI-assisted development is exploding. The tooling assumes you never leave your chair.',
+      tags: ['MCP Server', 'Mobile', 'AI DevTools'],
       image: '/cachebash-icon.webp',
       url: 'https://rezzed.ai/cachebash',
       cliCommands: [
@@ -334,16 +363,16 @@ export const intentOverrides: Record<string, {
   ctaLabel?: string;
 }> = {
   recruiter: {
-    subheadline: 'SOLUTIONS ARCHITECT & DATA ENGINEER',
+    subheadline: 'AI SOLUTIONS ARCHITECT & DATA ENGINEER',
     availability: 'Available for Q2 2026 engagements',
   },
   client: {
-    subheadline: 'TECHNICAL SOLUTIONS PARTNER',
+    subheadline: 'AI SOLUTIONS ARCHITECT',
     availability: 'Booking discovery calls',
     ctaLabel: 'See My Work',
   },
   engineer: {
-    subheadline: 'FULL-STACK ENGINEER & ARCHITECT',
+    subheadline: 'AI ARCHITECT & FULL-STACK ENGINEER',
     availability: 'Open to collaborations',
   },
 };
