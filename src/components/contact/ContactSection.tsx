@@ -62,7 +62,7 @@ export function ContactSection() {
 
     setAnalyzing(true);
     setSolverResult(null);
-    trackEvent('problem_solver_submit');
+    trackEvent('problem_solver_submit', { challenge: challenge.trim() });
 
     try {
       const response = await fetch('/api/chat', {
@@ -185,7 +185,7 @@ export function ContactSection() {
             {/* Step 1: Challenge */}
             <div>
               <label htmlFor="challenge-input" className="mb-1.5 block font-mono text-xs tracking-wider text-foreground/60">
-                Describe your challenge
+                Describe your challenge — Answered NOW by AI
               </label>
               <textarea
                 id="challenge-input"

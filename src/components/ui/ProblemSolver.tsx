@@ -37,7 +37,7 @@ export function ProblemSolver() {
 
     setIsLoading(true);
     setResult(null);
-    trackEvent('problem_solver_submit');
+    trackEvent('problem_solver_submit', { challenge: input.trim() });
 
     try {
       const response = await fetch('/api/chat', {
@@ -84,7 +84,7 @@ export function ProblemSolver() {
       {/* Input Card */}
       <div className="glass rounded-lg border border-accent/30 p-6">
         <label htmlFor="challenge-input" className="block text-[15px] font-semibold text-foreground mb-3">
-          Describe your challenge in 1-2 sentences
+          Describe your challenge — Answered NOW by AI
         </label>
         <textarea
           id="challenge-input"
@@ -104,7 +104,7 @@ export function ProblemSolver() {
             'disabled:opacity-50 disabled:cursor-not-allowed',
             'resize-none'
           )}
-          aria-label="Describe your challenge"
+          aria-label="Describe your challenge — Answered NOW by AI"
         />
         <div className="flex items-center justify-between mt-3">
           <span className="text-[11px] text-foreground/50">
