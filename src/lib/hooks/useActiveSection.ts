@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const SECTION_IDS = [
   'hero', 'journey', 'competencies', 'opento', 'workshop',
@@ -9,18 +9,25 @@ const SECTION_IDS = [
 
 export function useActiveSection(): string {
   const [active, setActive] = useState('hero');
+  const ticking = useRef(false);
 
   useEffect(() => {
     const handler = () => {
-      const offset = window.innerHeight * 0.3;
-      let current = 'hero';
-      for (const id of SECTION_IDS) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop - offset <= window.scrollY) {
-          current = id;
-        }
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(() => {
+          const offset = window.innerHeight * 0.3;
+          let current = 'hero';
+          for (const id of SECTION_IDS) {
+            const el = document.getElementById(id);
+            if (el && el.offsetTop - offset <= window.scrollY) {
+              current = id;
+            }
+          }
+          setActive(current);
+          ticking.current = false;
+        });
       }
-      setActive(current);
     };
 
     window.addEventListener('scroll', handler, { passive: true });
