@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { sheets } from '@googleapis/sheets';
+import { GoogleAuth } from 'google-auth-library';
 import { getAIProvider, type AIMessage } from '@/lib/ai/provider';
 
 const chatSchema = z.object({
@@ -18,6 +20,29 @@ const isDev = process.env.NODE_ENV === 'development';
 const RATE_LIMIT = isDev ? 100 : 15;
 const RATE_WINDOW_MS = isDev ? 5 * 60 * 1000 : 60 * 60 * 1000; // 5min dev, 1hr prod
 const MAX_ENTRIES = 1000;
+
+// Fun facts served when AI can't answer well
+const funFacts = [
+  'Christian once turned the worst-performing Verizon store into #1 in the region.',
+  'Before engineering, Christian played professional poker for a decade.',
+  'Christian was featured in Card Player Magazine during his poker career.',
+  'CacheBash started because Christian got tired of being desk-bound while using Claude Code.',
+  'Christian holds both GCP Professional Data Engineer and Cloud Architect certifications.',
+  'Christian scaled a vacation rental portfolio from 10 to 50 properties in two years.',
+  'The first app Christian co-founded was a React Native travel app called Let\'s Go!',
+  'Christian has built pipelines processing 60M+ records per day on GCP.',
+  'Christian speaks both English and French fluently.',
+  'Christian led $1M+ contract expansions at Monks through technical demos alone.',
+  'OptiMeasure was born from frustration with black-box attribution tools that self-inflate results.',
+  'Christian\'s approach: diagnose first, build second. POCs in days, not quarters.',
+  'Christian believes the best engineers are the ones who can also close the deal.',
+  'Three Bears Data was co-founded to bridge the gap between AI hype and real implementation.',
+  'Christian\'s poker background taught him that knowing when to fold matters as much as knowing when to bet.',
+];
+
+function getRandomFunFact(): string {
+  return funFacts[Math.floor(Math.random() * funFacts.length)];
+}
 
 function pruneRateMap() {
   if (rateMap.size <= MAX_ENTRIES) return;
@@ -45,6 +70,50 @@ function recordRequest(ip: string) {
   timestamps.push(Date.now());
   rateMap.set(ip, timestamps);
   pruneRateMap();
+}
+
+async function logChatToSheet(
+  question: string,
+  answer: string,
+  success: boolean,
+  ip: string
+) {
+  const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+
+  if (!clientEmail || !privateKey || !spreadsheetId) return;
+
+  try {
+    const auth = new GoogleAuth({
+      credentials: {
+        client_email: clientEmail,
+        private_key: privateKey.replace(/\\n/g, '\n'),
+      },
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const client = sheets({ version: 'v4', auth });
+
+    await client.spreadsheets.values.append({
+      spreadsheetId,
+      range: 'ChatLog!A:E',
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [
+          [
+            new Date().toISOString(),
+            ip,
+            question,
+            answer.slice(0, 500),
+            success ? 'ok' : 'fallback',
+          ],
+        ],
+      },
+    });
+  } catch (err) {
+    console.error('Chat log to sheet failed:', err);
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -84,6 +153,10 @@ export async function POST(request: NextRequest) {
 
   const { messages, context } = result.data;
 
+  // Extract the latest user question for logging
+  const lastUserMessage =
+    [...messages].reverse().find((m) => m.role === 'user')?.content ?? '';
+
   // Prepend system message for solver context
   const processedMessages: AIMessage[] = [...messages];
   if (context === 'solver') {
@@ -99,12 +172,22 @@ export async function POST(request: NextRequest) {
     const provider = getAIProvider();
     const message = await provider.chat(processedMessages);
     recordRequest(ip);
+
+    // Log conversation (fire-and-forget)
+    logChatToSheet(lastUserMessage, message, true, ip);
+
     return NextResponse.json({ message });
   } catch (err) {
     console.error('AI provider error:', err);
-    return NextResponse.json(
-      { error: 'Failed to generate response. Please try again.' },
-      { status: 500 }
-    );
+
+    // Serve a fun fact instead of a generic error
+    const funFact = getRandomFunFact();
+    const fallbackMessage = `I'm having trouble answering that right now. Here's a fun fact instead: ${funFact}`;
+    recordRequest(ip);
+
+    // Log the fallback (fire-and-forget)
+    logChatToSheet(lastUserMessage, fallbackMessage, false, ip);
+
+    return NextResponse.json({ message: fallbackMessage });
   }
 }

@@ -175,14 +175,14 @@ export const workshop = {
   tagline: 'POCs in days, not quarters.',
   projects: [
     {
-      name: 'OptiMeasure',
-      description: 'Cookieless attribution engine — MMM lite',
+      name: 'Rezzed.ai',
+      description: 'Tools for developers who code with AI',
       problem:
-        'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
-      whyNow: 'Privacy regs accelerating — marketers need trust.',
-      tags: ['Marketing Analytics', 'Privacy-First'],
-      image: '/optimeasure-dashboard.webp',
-      url: 'https://optimeasure.io',
+        'AI-assisted development is exploding but tooling for multi-agent orchestration barely exists.',
+      whyNow: 'Developers need infrastructure that keeps up with how they actually build.',
+      tags: ['AI/ML', 'Developer Tools', 'MCP'],
+      image: '/cachebash-icon.webp',
+      url: 'https://rezzed.ai',
     },
     {
       name: 'CacheBash',
@@ -192,6 +192,7 @@ export const workshop = {
       whyNow: "AI-assisted dev exploding, async doesn't exist.",
       tags: ['Mobile', 'CLI', 'Developer Tools'],
       image: '/cachebash-icon.webp',
+      url: 'https://rezzed.ai/cachebash',
       cliCommands: [
         'cachebash sync --remote',
         'cachebash run "npm test"',
@@ -200,13 +201,14 @@ export const workshop = {
       ],
     },
     {
-      name: 'AI-Augmentation Portal',
-      description: 'SPA to empower AI workflows in everyday tasks',
+      name: 'OptiMeasure',
+      description: 'Cookieless attribution engine — MMM lite',
       problem:
-        "People adopt AI tools but can't systematically integrate into workflows.",
-      whyNow: "Everyone's experimenting, few compound gains.",
-      tags: ['AI/ML', 'Enterprise', 'Integration'],
-      image: '/ai-augmentation-hub.webp',
+        'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
+      whyNow: 'Privacy regs accelerating — marketers need trust.',
+      tags: ['Marketing Analytics', 'Privacy-First'],
+      image: '/optimeasure-dashboard.webp',
+      url: 'https://optimeasure.io',
     },
   ],
 } as const;

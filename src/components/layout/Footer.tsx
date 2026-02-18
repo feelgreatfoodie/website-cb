@@ -14,6 +14,14 @@ function SignatureReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const prefersReduced = useReducedMotion();
+  const { colors } = usePalette();
+
+  // Detect light background: if R+G+B > 382 (of 765), signature needs darkening
+  const bg = colors.background;
+  const r = parseInt(bg.slice(1, 3), 16);
+  const g = parseInt(bg.slice(3, 5), 16);
+  const b = parseInt(bg.slice(5, 7), 16);
+  const isLightBg = r + g + b > 382;
 
   return (
     <div ref={ref} className="relative mx-auto mb-6 h-[6.6rem] w-full max-w-[22rem] sm:mb-8 sm:h-[21rem] sm:max-w-[78rem]">
@@ -23,14 +31,15 @@ function SignatureReveal() {
         fill
         sizes="(max-width: 640px) 22rem, 78rem"
         className="object-contain"
-        style={
-          prefersReduced || !isInView
+        style={{
+          ...(isLightBg ? { filter: 'brightness(0)' } : {}),
+          ...(prefersReduced || !isInView
             ? {}
             : {
                 clipPath: 'inset(0 0 0 0)',
                 animation: 'signatureReveal 1.5s ease-out forwards',
-              }
-        }
+              }),
+        }}
         onError={(e) => {
           (e.target as HTMLImageElement).style.display = 'none';
         }}
