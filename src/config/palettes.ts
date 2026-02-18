@@ -18,6 +18,21 @@ export interface Palette {
 
 export const palettes: Palette[] = [
   {
+    id: 'pastel-de-nata',
+    name: 'Pastel de Nata',
+    category: 'portuguese',
+    colors: {
+      background: '#FFF8F0',
+      backgroundLight: '#F5EDE3',
+      accent: '#E3A018',
+      cta: '#00CED1',
+      foreground: '#2C1810',
+      stream1: '#00CED1',
+      stream2: '#E3A018',
+      stream3: '#8B6E52',
+    },
+  },
+  {
     id: 'nazare-wavefronts',
     name: 'Nazaré Wavefronts',
     category: 'portuguese',
@@ -33,23 +48,38 @@ export const palettes: Palette[] = [
     },
   },
   {
-    id: 'pastel-de-nata',
-    name: 'Pastel de Nata',
+    id: 'azulejo-algorithms',
+    name: 'Azulejo Algorithms',
     category: 'portuguese',
     colors: {
-      background: '#FFF8F0',
-      backgroundLight: '#F5EDE3',
-      accent: '#E3A018',
-      cta: '#00CED1',
-      foreground: '#2C1810',
-      stream1: '#00CED1',
-      stream2: '#E3A018',
-      stream3: '#8B6E52',
+      background: '#0A1628',
+      backgroundLight: '#132244',
+      accent: '#0047AB',
+      cta: '#FFB800',
+      foreground: '#F2F7FF',
+      stream1: '#0047AB',
+      stream2: '#2F4F4F',
+      stream3: '#FFB800',
+    },
+  },
+  {
+    id: 'porto-data-streams',
+    name: 'Porto Data Streams',
+    category: 'portuguese',
+    colors: {
+      background: '#2E004B',
+      backgroundLight: '#4B0082',
+      accent: '#1E90FF',
+      cta: '#E2725B',
+      foreground: '#F8F9FA',
+      stream1: '#00FFFF',
+      stream2: '#FF00FF',
+      stream3: '#FFD700',
     },
   },
 ];
 
-export const DEFAULT_PALETTE_ID = 'nazare-wavefronts';
+export const DEFAULT_PALETTE_ID = 'pastel-de-nata';
 
 export function getPalette(id: string): Palette {
   return palettes.find((p) => p.id === id) ?? palettes[0];
@@ -65,11 +95,15 @@ export function hexToInt(hex: string): number {
 }
 
 export const onesheetMap: Record<string, string> = {
-  'nazare-wavefronts': '/onesheets/onesheeter-nazare-wavefronts.pdf',
   'pastel-de-nata': '/onesheets/onesheeter-pastel-de-nata.pdf',
+  'nazare-wavefronts': '/onesheets/onesheeter-nazare-wavefronts.pdf',
+  'azulejo-algorithms': '/onesheets/onesheeter-azulejo-algorithms.pdf',
+  'porto-data-streams': '/onesheets/onesheeter-porto-data-streams.pdf',
 };
 
 export const onesheetPreviewMap: Record<string, string> = {
-  'nazare-wavefronts': '/onesheet-previews/preview-nazare-wavefronts.webp',
   'pastel-de-nata': '/onesheet-previews/preview-pastel-de-nata.webp',
+  'nazare-wavefronts': '/onesheet-previews/preview-nazare-wavefronts.webp',
+  'azulejo-algorithms': '/onesheet-previews/preview-azulejo-algorithms.webp',
+  'porto-data-streams': '/onesheet-previews/preview-porto-data-streams.webp',
 };

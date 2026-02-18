@@ -137,6 +137,11 @@ export default async function RootLayout({
             __html: `if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')})}`,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `console.log('%cBom dia from Christian Bourlier.%c\\n\\nYou have entered the wine cellars and are allowed to enjoy a glass of port while you are here. Please drop me a line if you\\'d like to fill your cup further.','font-size:16px;font-weight:bold;color:#E3A018;','font-size:13px;color:#8B6E52;');`,
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}

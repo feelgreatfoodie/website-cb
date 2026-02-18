@@ -171,6 +171,21 @@ export function Header() {
           </a>
         </div>
 
+        {/* Desktop nav links — hidden on mobile, inline on lg+ */}
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+          {navLinks.map((s) => (
+            <a
+              key={s.anchor}
+              href={s.anchor}
+              className={`font-mono text-[11px] tracking-[0.15em] transition-colors hover:text-accent ${
+                s.anchor === `#${activeSection}` ? 'text-accent' : 'text-foreground/60'
+              }`}
+            >
+              {s.label}
+            </a>
+          ))}
+        </nav>
+
         {/* Right: Let's Connect CTA + PaletteSwitcher + MotionToggle + hamburger */}
         <div className="flex items-center gap-2">
           <a
@@ -184,7 +199,7 @@ export function Header() {
           <button
             ref={hamburgerRef}
             onClick={() => setMenuOpen(!menuOpen)}
-            className="relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-accent/10"
+            className="relative lg:hidden flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-accent/10"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
