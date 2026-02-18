@@ -31,7 +31,6 @@ export function BlogCard({ post }: { post: MediumPost }) {
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
         </div>

@@ -44,9 +44,12 @@ export function RiverScene() {
     const canvas = canvasRef.current;
     if (!canvas || prefersReduced) return;
 
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const manager = new SceneManager({
       canvas,
-      pixelRatio: device.pixelRatio,
+      pixelRatio: isMobile
+        ? Math.min(window.devicePixelRatio, 1.5)
+        : Math.min(window.devicePixelRatio, 2),
     });
 
     // Add subtle ambient light
