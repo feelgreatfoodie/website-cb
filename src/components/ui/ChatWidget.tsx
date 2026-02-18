@@ -104,6 +104,7 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      inputRef.current?.focus();
     }
   }, [input, messages, isLoading]);
 
