@@ -34,7 +34,6 @@ export function TestimonialCarousel({
 }: TestimonialCarouselProps) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
   const prefersReduced = useReducedMotion();
 
   const goTo = useCallback(
@@ -57,16 +56,11 @@ export function TestimonialCarousel({
     );
   }, [testimonials.length]);
 
-  const togglePause = useCallback(() => {
-    setIsPaused((prev) => !prev);
-  }, []);
-
   // Auto-advance
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(goNext, 6000);
     return () => clearInterval(timer);
-  }, [isPaused, goNext]);
+  }, [goNext]);
 
   // Touch: distinguish tap (pause) from swipe (navigate)
   const touchStartX = useRef(0);
@@ -80,24 +74,17 @@ export function TestimonialCarousel({
   const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
       const diff = touchStartX.current - e.changedTouches[0].clientX;
-      const elapsed = Date.now() - touchStartTime.current;
-
       if (Math.abs(diff) > 50) {
-        // Swipe — navigate
         if (diff > 0) goNext();
         else goPrev();
-      } else if (elapsed < 300) {
-        // Quick tap — toggle pause
-        togglePause();
       }
     },
-    [goNext, goPrev, togglePause]
+    [goNext, goPrev]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight') { goNext(); e.preventDefault(); }
     if (e.key === 'ArrowLeft') { goPrev(); e.preventDefault(); }
-    if (e.key === ' ') { togglePause(); e.preventDefault(); }
   };
 
   const current = testimonials[index];
@@ -107,8 +94,6 @@ export function TestimonialCarousel({
       className="mx-auto max-w-2xl focus-visible:outline-none"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       role="region"
@@ -169,7 +154,7 @@ export function TestimonialCarousel({
               aria-label={`Go to testimonial ${i + 1}`}
             >
               {/* Progress animation on active dot */}
-              {i === index && !isPaused && !prefersReduced && (
+              {i === index && !prefersReduced && (
                 <motion.span
                   className="absolute inset-0 rounded-full bg-accent/40"
                   initial={{ scaleX: 0, originX: 0 }}
@@ -194,24 +179,6 @@ export function TestimonialCarousel({
           </svg>
         </button>
 
-        {/* Pause / Play toggle */}
-        <button
-          onClick={togglePause}
-          type="button"
-          className="flex h-6 w-6 items-center justify-center rounded-full text-foreground/30 transition-colors hover:text-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          aria-label={isPaused ? 'Resume auto-advance' : 'Pause auto-advance'}
-        >
-          {isPaused ? (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
-              <polygon points="2,0 12,6 2,12" />
-            </svg>
-          ) : (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
-              <rect x="1" y="0" width="3.5" height="12" rx="1" />
-              <rect x="7.5" y="0" width="3.5" height="12" rx="1" />
-            </svg>
-          )}
-        </button>
       </div>
     </div>
   );
