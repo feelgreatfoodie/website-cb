@@ -1,7 +1,7 @@
 'use client';
 
 import { useKonami } from '@/lib/hooks/useKonami';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useEffect } from 'react';
 
 // Pre-computed outside render to satisfy React Compiler purity rules
@@ -17,7 +17,7 @@ function ParticleBurst() {
   return (
     <>
       {particles.map((p, i) => (
-        <motion.div
+        <m.div
           key={i}
           className="absolute h-2 w-2 rounded-full"
           style={{ background: `hsl(${p.hue}, 100%, 60%)` }}
@@ -59,14 +59,14 @@ export function KonamiOverlay() {
       `}</style>
       <AnimatePresence>
         {activated && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center"
+            className="fixed inset-0 z-[9999] flex items-center justify-center"
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 1.5, opacity: 0 }}
@@ -76,13 +76,20 @@ export function KonamiOverlay() {
               <p className="font-mono text-2xl font-bold tracking-[0.2em] text-cta sm:text-4xl">
                 CHEAT CODE ACTIVATED
               </p>
-              <p className="mt-2 text-center font-mono text-xs text-foreground/50">
-                +30 lives
-              </p>
-            </motion.div>
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="pointer-events-auto mt-3 block text-center font-mono text-sm text-foreground/70 transition-colors hover:text-accent"
+              >
+                Send Christian a pastel de nata
+              </a>
+            </m.div>
             {/* Particle burst */}
             <ParticleBurst />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
