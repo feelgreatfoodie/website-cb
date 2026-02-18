@@ -192,7 +192,7 @@ export const workshop = {
   projects: [
     {
       name: 'Rezzed.ai',
-      description: 'Tools for developers who code with AI',
+      description: 'Rezzing tools and systems for developers who code with AI',
       problem:
         'AI-assisted development is exploding but tooling for multi-agent orchestration barely exists.',
       whyNow: 'Developers need infrastructure that keeps up with how they actually build.',
@@ -202,9 +202,9 @@ export const workshop = {
     },
     {
       name: 'CacheBash',
-      description: 'Async dispatch for AI agents — monitor, message, respond from your phone.',
+      description: 'Your AI agents control panel, from your phone.',
       problem:
-        'AI coding agents need you at your desk. Step away and the conversation stops — questions unanswered, sessions stalled, momentum lost.',
+        'AI agents need you at your desk. Leave and the conversation ends — questions unanswered, sessions hang, momentum lost.',
       whyNow: 'AI-assisted development is exploding. The tooling assumes you never leave your chair.',
       tags: ['MCP Server', 'Mobile', 'AI DevTools'],
       image: '/cachebash-preview.svg',
@@ -218,7 +218,7 @@ export const workshop = {
     },
     {
       name: 'OptiMeasure',
-      description: 'Cookieless attribution engine — MMM lite',
+      description: 'Cookieless attribution engine — Marketing Mix Modeling lite',
       problem:
         'Cookie deprecation is breaking attribution; black-box solutions self-inflate contribution.',
       whyNow: 'Privacy regs accelerating — marketers need trust.',
