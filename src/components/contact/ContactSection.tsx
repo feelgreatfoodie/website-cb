@@ -150,13 +150,13 @@ export function ContactSection() {
         >
           <motion.p
             variants={fadeInUp}
-            className="mb-2 font-mono text-xs tracking-[0.4em] text-accent"
+            className="mb-2 font-mono text-sm tracking-[0.3em] text-accent"
           >
             {contact.subtitle}
           </motion.p>
           <motion.h2
             variants={fadeInUp}
-            className="mb-12 font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
+            className="mb-12 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-4xl md:text-5xl"
           >
             {contact.title}
           </motion.h2>
@@ -399,7 +399,12 @@ export function ContactSection() {
                     type="submit"
                     variant="primary"
                     disabled={!canSubmitContact}
-                    className={cn(!canSubmitContact && 'opacity-40 cursor-not-allowed')}
+                    className={cn(
+                      'px-10 py-4 text-base font-semibold sm:text-lg',
+                      !canSubmitContact
+                        ? 'opacity-40 cursor-not-allowed'
+                        : 'shadow-[0_0_20px_color-mix(in_srgb,var(--cta)_30%,transparent)] animate-[ctaPulse_3s_ease-in-out_infinite]'
+                    )}
                   >
                     {formState === 'submitting' ? 'Sending...' : solverResult ? 'Send to Christian' : contact.ctaLabel}
                   </Button>

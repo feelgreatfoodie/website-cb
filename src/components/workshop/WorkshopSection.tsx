@@ -2,13 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
-import { TypewriterCLI } from './TypewriterCLI';
 import { workshop } from '@/config/content';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 
 export function WorkshopSection() {
-  const cachebash = workshop.projects.find((p) => p.name === 'CacheBash');
-
   return (
     <section
       id="workshop"
@@ -57,20 +54,6 @@ export function WorkshopSection() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* CacheBash CLI demo */}
-        {cachebash && 'cliCommands' in cachebash && (
-          <motion.div
-            className="mx-auto mt-12 max-w-xl"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-          >
-            <TypewriterCLI commands={cachebash.cliCommands} />
-          </motion.div>
-        )}
-
       </div>
     </section>
   );

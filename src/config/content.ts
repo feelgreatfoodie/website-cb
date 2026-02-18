@@ -210,7 +210,7 @@ export const workshop = {
         'AI-assisted development is exploding but tooling for multi-agent orchestration barely exists.',
       whyNow: 'Developers need infrastructure that keeps up with how they actually build.',
       tags: ['AI/ML', 'Developer Tools', 'MCP'],
-      image: '/cachebash-icon.webp',
+      image: '/rezzed-screenshot.svg',
       url: 'https://rezzed.ai',
     },
     {
