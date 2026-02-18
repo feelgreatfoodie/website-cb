@@ -101,7 +101,7 @@ export function TestimonialCarousel({
       aria-roledescription="carousel"
     >
       <div className="relative min-h-[220px] sm:min-h-[200px]">
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence initial={false} mode="wait" custom={direction}>
           <m.blockquote
             key={index}
             custom={direction}
