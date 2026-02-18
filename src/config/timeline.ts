@@ -9,7 +9,7 @@ export interface TimelineEntry {
 
 export const timeline: TimelineEntry[] = [
   {
-    year: 2005,
+    year: 2004,
     endYear: 2014,
     title: 'Professional Poker',
     org: 'Self-Employed',
@@ -22,20 +22,7 @@ export const timeline: TimelineEntry[] = [
     ],
   },
   {
-    year: 2009,
-    endYear: 2012,
-    title: 'District Sales Manager',
-    org: 'Verizon 4G Wireless',
-    stream: 'sales',
-    highlights: [
-      'Turned worst-performing store to #1 in region',
-      'Led teams of 15+; P&L ownership',
-      'Enterprise B2B & solution selling',
-      'Hiring, training, and KPI management',
-    ],
-  },
-  {
-    year: 2012,
+    year: 2013,
     endYear: 2014,
     title: 'Real Estate & Investment',
     org: 'Big Dog Investment Properties',
@@ -49,12 +36,24 @@ export const timeline: TimelineEntry[] = [
   },
   {
     year: 2014,
+    title: 'District Sales Manager',
+    org: 'Verizon 4G Wireless',
+    stream: 'sales',
+    highlights: [
+      'Turned worst-performing store to #1 in region',
+      'Led teams of 15+; P&L ownership',
+      'Enterprise B2B & solution selling',
+      'Hiring, training, and KPI management',
+    ],
+  },
+  {
+    year: 2016,
     endYear: 2018,
     title: 'Strategy & Operations Lead',
     org: 'Dream Stay',
     stream: 'sales',
     highlights: [
-      'Scaled portfolio from 10 to 50 properties (5× growth)',
+      'Scaled portfolio from 10 to 50 properties (5\u00D7 growth)',
       'Pricing optimization & operations systems',
       'Guest communications & revenue management',
       'Built processes that ran at scale without added headcount',
@@ -81,7 +80,7 @@ export const timeline: TimelineEntry[] = [
     highlights: [
       'Data science models (scikit-learn, TensorFlow)',
       'Marketing attribution & audience insights',
-      'Automated reporting — BigQuery, Data Studio, Python',
+      'Automated reporting \u2014 BigQuery, Data Studio, Python',
       'Technical solutions bridging client needs & engineering',
     ],
   },
@@ -100,15 +99,26 @@ export const timeline: TimelineEntry[] = [
   },
   {
     year: 2025,
-    endYear: 'Present',
-    title: 'Principal Architect',
+    title: 'Co-founder & Principal Architect',
     org: 'Three Bears Data',
     stream: 'data',
     highlights: [
-      'OptiMeasure — cookieless attribution engine',
-      'CacheBash — MCP Server with 16 tools',
+      'OptiMeasure \u2014 cookieless attribution engine',
       'AI-Augmentation Portal for non-technical users',
       'Full-stack platform: Next.js, Three.js, GA4, AI',
+    ],
+  },
+  {
+    year: 2025,
+    endYear: 'Present',
+    title: 'Founder & Principal Architect',
+    org: 'Rezzed.ai',
+    stream: 'data',
+    highlights: [
+      'Building tools for developers who code with AI',
+      'CacheBash \u2014 MCP server with 16 tools',
+      'Multi-agent orchestration & developer workflows',
+      'TypeScript, Cloud Run, Firestore, Flutter',
     ],
   },
 ];
