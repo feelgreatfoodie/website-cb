@@ -38,12 +38,39 @@ export function useEngagementTracker() {
   const activeSectionRef = useRef<string | null>(null);
   const sectionStartRef = useRef<number>(0);
 
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastSaveRef = useRef<number>(0);
+
   const save = useCallback(() => {
-    dataRef.current.lastUpdated = new Date().toISOString();
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(dataRef.current));
-    } catch {
-      /* ignore */
+    const now = Date.now();
+    const timeSinceLastSave = now - lastSaveRef.current;
+    const MIN_SAVE_INTERVAL = 1000;
+
+    if (saveTimerRef.current !== null) {
+      clearTimeout(saveTimerRef.current);
+    }
+
+    if (timeSinceLastSave >= MIN_SAVE_INTERVAL) {
+      // Enough time has passed — write immediately
+      lastSaveRef.current = now;
+      dataRef.current.lastUpdated = new Date().toISOString();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataRef.current));
+      } catch {
+        /* ignore */
+      }
+    } else {
+      // Too soon — schedule a deferred write for when the interval elapses
+      saveTimerRef.current = setTimeout(() => {
+        saveTimerRef.current = null;
+        lastSaveRef.current = Date.now();
+        dataRef.current.lastUpdated = new Date().toISOString();
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(dataRef.current));
+        } catch {
+          /* ignore */
+        }
+      }, MIN_SAVE_INTERVAL - timeSinceLastSave);
     }
   }, []);
 
@@ -90,13 +117,20 @@ export function useEngagementTracker() {
     [save]
   );
 
-  // Track scroll depth
+  // Track scroll depth — rAF gated to avoid firing every frame
   useEffect(() => {
+    const ticking = { current: false };
     const handler = () => {
-      const depth = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-      );
-      trackScrollDepth(depth);
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(() => {
+          const depth = Math.round(
+            (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+          );
+          trackScrollDepth(depth);
+          ticking.current = false;
+        });
+      }
     };
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);

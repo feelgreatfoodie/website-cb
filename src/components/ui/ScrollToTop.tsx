@@ -1,13 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
+  const ticking = useRef(false);
 
   useEffect(() => {
-    const handler = () => setVisible(window.scrollY > window.innerHeight);
+    const handler = () => {
+      if (!ticking.current) {
+        ticking.current = true;
+        requestAnimationFrame(() => {
+          setVisible(window.scrollY > window.innerHeight);
+          ticking.current = false;
+        });
+      }
+    };
     window.addEventListener('scroll', handler, { passive: true });
     handler();
     return () => window.removeEventListener('scroll', handler);
