@@ -32,7 +32,7 @@ npx playwright test  # E2E tests
 3. Competencies — Radial hub SVG
 4. Open To — 4 role cards
 5. Workshop — Project cards (click-to-unfurl previews, LiveStatusBadge) + video demos
-6. Boss Fight — Testimonial carousel (tap-to-pause, progress indicator), equation reveal, architecture map
+6. Endgame — Testimonial carousel (tap-to-pause, progress indicator), equation reveal, architecture map
 7. Implementation — Skills pills + GCP cert badges + PipelineDemo
 8. Writing — Medium blog cards (fetched via RSS)
 9. One-Sheeter — PDF preview + download (themed print styles)

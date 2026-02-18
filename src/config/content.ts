@@ -385,7 +385,7 @@ export const footer = {
     { label: 'Journey', anchor: '#journey' },
     { label: 'Open To', anchor: '#opento' },
     { label: 'Workshop', anchor: '#workshop' },
-    { label: 'Boss Fight', anchor: '#bossfight' },
+    { label: 'Endgame', anchor: '#bossfight' },
     { label: 'Writing', anchor: '#writing' },
     { label: 'Contact', anchor: '#contact' },
   ],
