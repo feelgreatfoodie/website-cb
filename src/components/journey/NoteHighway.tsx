@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import { SceneManager } from '@/lib/three/scene-manager';
 import { AmbientStream } from '@/lib/three/ambient-stream';
@@ -20,10 +20,37 @@ const PARTICLE_COUNTS = { desktop: 40, tablet: 25, mobile: 15 };
 
 export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const streamsRef = useRef<Map<string, AmbientStream>>(new Map());
+  const managerRef = useRef<SceneManager | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [initialized, setInitialized] = useState(false);
   const prefersReduced = useReducedMotion();
   const device = useDeviceType();
   const { int: intColors } = usePalette();
+
+  // Observe container visibility — start loading 200px before entering viewport
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: '200px' }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  // Pause/resume render loop based on visibility
+  useEffect(() => {
+    const manager = managerRef.current;
+    if (!manager) return;
+    if (isVisible) {
+      manager.start();
+    } else {
+      manager.stop();
+    }
+  }, [isVisible]);
 
   const initScene = useCallback(() => {
     const streamColors = [intColors.stream1, intColors.stream2, intColors.stream3];
@@ -57,6 +84,7 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
       });
     });
 
+    managerRef.current = manager;
     manager.start();
 
     const handleResize = () => {
@@ -75,13 +103,18 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
       streamsRef.current.forEach((s) => s.dispose());
       streamsRef.current.clear();
       manager.dispose();
+      managerRef.current = null;
     };
   }, [prefersReduced, device, scrollSpeed, intColors]);
 
+  // Only initialize when first visible
   useEffect(() => {
-    const cleanup = initScene();
-    return cleanup;
-  }, [initScene]);
+    if (isVisible && !initialized && !prefersReduced) {
+      const cleanup = initScene();
+      setInitialized(true);
+      return cleanup;
+    }
+  }, [isVisible, initialized, prefersReduced, initScene]);
 
   // Sync pause state
   useEffect(() => {
@@ -96,10 +129,12 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 h-full w-full"
-      aria-hidden="true"
-    />
+    <div ref={containerRef} className="absolute inset-0">
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 h-full w-full"
+        aria-hidden="true"
+      />
+    </div>
   );
 }

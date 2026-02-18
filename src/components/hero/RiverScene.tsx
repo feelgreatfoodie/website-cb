@@ -15,6 +15,12 @@ export function RiverScene() {
   const device = useDeviceType();
   const { colors, int: intColors } = usePalette();
 
+  const isSlowConnection = typeof navigator !== 'undefined' &&
+    'connection' in navigator &&
+    ((navigator as any).connection?.effectiveType === '2g' ||
+     (navigator as any).connection?.effectiveType === 'slow-2g' ||
+     (navigator as any).connection?.saveData === true);
+
   // Check WebGL on mount
   useEffect(() => {
     import('@/lib/three/scene-manager').then(({ SceneManager }) => {
@@ -48,7 +54,7 @@ export function RiverScene() {
   // Deferred init — only create meshes/materials when first visible
   const initScene = useCallback(async () => {
     const canvas = canvasRef.current;
-    if (!canvas || initialized || prefersReduced || webglFailed) return;
+    if (!canvas || initialized || prefersReduced || webglFailed || isSlowConnection) return;
 
     const [THREE, { SceneManager }, { createRiverMesh, updateRiverTime }, { ParticleSystem }] =
       await Promise.all([
@@ -127,19 +133,19 @@ export function RiverScene() {
       manager.dispose();
       managerRef.current = null;
     };
-  }, [initialized, prefersReduced, webglFailed, device, intColors]);
+  }, [initialized, prefersReduced, webglFailed, isSlowConnection, device, intColors]);
 
   // Trigger init when first visible
   useEffect(() => {
-    if (isVisible && !initialized && !prefersReduced && !webglFailed) {
+    if (isVisible && !initialized && !prefersReduced && !webglFailed && !isSlowConnection) {
       const cleanup = initScene();
       return () => {
         cleanup?.then((fn) => fn?.());
       };
     }
-  }, [isVisible, initialized, prefersReduced, webglFailed, initScene]);
+  }, [isVisible, initialized, prefersReduced, webglFailed, isSlowConnection, initScene]);
 
-  if (prefersReduced || webglFailed) {
+  if (prefersReduced || webglFailed || isSlowConnection) {
     return (
       <div
         className="absolute inset-0"
