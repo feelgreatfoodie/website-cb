@@ -15,11 +15,12 @@ export function RiverScene() {
   const device = useDeviceType();
   const { colors, int: intColors } = usePalette();
 
-  const isSlowConnection = typeof navigator !== 'undefined' &&
-    'connection' in navigator &&
-    ((navigator as any).connection?.effectiveType === '2g' ||
-     (navigator as any).connection?.effectiveType === 'slow-2g' ||
-     (navigator as any).connection?.saveData === true);
+  const nav = typeof navigator !== 'undefined' ? navigator as Navigator & {
+    connection?: { effectiveType?: string; saveData?: boolean };
+  } : null;
+  const isSlowConnection = nav?.connection?.effectiveType === '2g' ||
+    nav?.connection?.effectiveType === 'slow-2g' ||
+    nav?.connection?.saveData === true;
 
   // Check WebGL on mount
   useEffect(() => {

@@ -24,7 +24,7 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
   const streamsRef = useRef<Map<string, AmbientStream>>(new Map());
   const managerRef = useRef<SceneManager | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+  const initializedRef = useRef(false);
   const prefersReduced = useReducedMotion();
   const device = useDeviceType();
   const { int: intColors } = usePalette();
@@ -109,12 +109,12 @@ export function NoteHighway({ scrollSpeed, pausedStreams }: NoteHighwayProps) {
 
   // Only initialize when first visible
   useEffect(() => {
-    if (isVisible && !initialized && !prefersReduced) {
+    if (isVisible && !initializedRef.current && !prefersReduced) {
+      initializedRef.current = true;
       const cleanup = initScene();
-      setInitialized(true);
       return cleanup;
     }
-  }, [isVisible, initialized, prefersReduced, initScene]);
+  }, [isVisible, prefersReduced, initScene]);
 
   // Sync pause state
   useEffect(() => {
