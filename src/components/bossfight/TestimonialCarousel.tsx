@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
 interface Testimonial {
@@ -102,7 +102,7 @@ export function TestimonialCarousel({
     >
       <div className="relative min-h-[220px] sm:min-h-[200px]">
         <AnimatePresence mode="wait" custom={direction}>
-          <motion.blockquote
+          <m.blockquote
             key={index}
             custom={direction}
             variants={slideVariants}
@@ -120,7 +120,7 @@ export function TestimonialCarousel({
               — {current.author},{' '}
               <span className="text-foreground/60">{current.role}</span>
             </footer>
-          </motion.blockquote>
+          </m.blockquote>
         </AnimatePresence>
       </div>
 
@@ -155,7 +155,7 @@ export function TestimonialCarousel({
             >
               {/* Progress animation on active dot */}
               {i === index && !prefersReduced && (
-                <motion.span
+                <m.span
                   className="absolute inset-0 rounded-full bg-accent/40"
                   initial={{ scaleX: 0, originX: 0 }}
                   animate={{ scaleX: 1 }}

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import type { MediumPost } from '@/lib/medium';
 
 function formatDate(dateStr: string): string {
@@ -15,7 +15,7 @@ function formatDate(dateStr: string): string {
 
 export function BlogCard({ post }: { post: MediumPost }) {
   return (
-    <motion.a
+    <m.a
       href={post.link}
       target="_blank"
       rel="noopener noreferrer"
@@ -78,6 +78,6 @@ export function BlogCard({ post }: { post: MediumPost }) {
           <span aria-hidden="true">&rarr;</span>
         </span>
       </div>
-    </motion.a>
+    </m.a>
   );
 }

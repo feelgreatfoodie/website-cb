@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { fadeInUp } from '@/lib/animations/scroll-variants';
 
 interface CertBadgeProps {
@@ -16,7 +16,7 @@ export function CertBadge({ name, badge }: CertBadgeProps) {
   const line2 = parts ? parts[2] : '';
 
   return (
-    <motion.div
+    <m.div
       variants={fadeInUp}
       className="flex flex-col items-center gap-3"
     >
@@ -36,6 +36,6 @@ export function CertBadge({ name, badge }: CertBadgeProps) {
         <p>{line1}</p>
         {line2 && <p>{line2}</p>}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

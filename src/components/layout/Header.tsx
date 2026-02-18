@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { footer, decodeEmail } from '@/config/content';
 import { useActiveSection } from '@/lib/hooks/useActiveSection';
 import { PaletteSwitcher } from './PaletteSwitcher';
@@ -212,7 +212,7 @@ export function Header() {
       {/* Compact nav dropdown — right-anchored, auto-height */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -8, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
@@ -238,7 +238,7 @@ export function Header() {
                 </a>
               ))}
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

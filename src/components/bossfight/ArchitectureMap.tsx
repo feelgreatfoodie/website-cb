@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { bossfight } from '@/config/content';
 import { usePalette } from '@/lib/palette-context';
 
@@ -32,7 +32,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
             <g key={step}>
               {/* Connection line */}
               {i > 0 && (
-                <motion.line
+                <m.line
                   x1={x - gap + 2}
                   y1={centerY}
                   x2={x - 2}
@@ -51,7 +51,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
 
               {/* Arrow head */}
               {i > 0 && (
-                <motion.polygon
+                <m.polygon
                   points={`${x - 8},${centerY - 4} ${x - 2},${centerY} ${x - 8},${centerY + 4}`}
                   fill={colors.accent}
                   initial={{ opacity: 0 }}
@@ -61,7 +61,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
               )}
 
               {/* Node box */}
-              <motion.rect
+              <m.rect
                 x={x}
                 y={centerY - 20}
                 width={nodeWidth}
@@ -84,7 +84,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
               />
 
               {/* Node text */}
-              <motion.text
+              <m.text
                 x={x + nodeWidth / 2}
                 y={centerY + 5}
                 textAnchor="middle"
@@ -97,7 +97,7 @@ export function ArchitectureMap({ isVisible }: ArchitectureMapProps) {
                 transition={{ delay: i * 0.3 + 0.1, duration: 0.3 }}
               >
                 {step}
-              </motion.text>
+              </m.text>
             </g>
           );
         })}

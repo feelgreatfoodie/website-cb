@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useActiveSection } from '@/lib/hooks/useActiveSection';
 import { trackEvent } from '@/lib/analytics';
@@ -116,7 +116,7 @@ export function SmartCTA() {
 
   return (
     <AnimatePresence mode="wait">
-      <motion.a
+      <m.a
         key={currentStage.target}
         href={currentStage.target}
         onClick={handleClick}
@@ -140,7 +140,7 @@ export function SmartCTA() {
       >
         <CtaIcon icon={currentStage.icon} />
         <span>{currentStage.label}</span>
-      </motion.a>
+      </m.a>
     </AnimatePresence>
   );
 }

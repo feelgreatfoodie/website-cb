@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { BlogCard } from './BlogCard';
 import { writing } from '@/config/content';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
@@ -36,29 +36,29 @@ export function WritingSection({ posts }: { posts: MediumPost[] }) {
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Header */}
-        <motion.div
+        <m.div
           className="mb-8 text-center sm:mb-16"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <motion.p
+          <m.p
             variants={fadeInUp}
             className="mb-2 font-mono text-xs tracking-[0.4em] text-cta"
           >
             {writing.subtitle}
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             variants={fadeInUp}
             className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {writing.title}
-          </motion.h2>
-        </motion.div>
+          </m.h2>
+        </m.div>
 
         {/* Cards grid or ghost fallback */}
-        <motion.div
+        <m.div
           className="grid gap-4 sm:gap-6 md:grid-cols-3"
           variants={staggerContainer}
           initial="hidden"
@@ -67,20 +67,20 @@ export function WritingSection({ posts }: { posts: MediumPost[] }) {
         >
           {hasPosts ? (
             posts.map((post) => (
-              <motion.div key={post.link} variants={fadeInUp} className="h-full">
+              <m.div key={post.link} variants={fadeInUp} className="h-full">
                 <BlogCard post={post} />
-              </motion.div>
+              </m.div>
             ))
           ) : (
             <>
               {[0, 1, 2].map((i) => (
-                <motion.div key={i} variants={fadeInUp}>
+                <m.div key={i} variants={fadeInUp}>
                   <GhostCard />
-                </motion.div>
+                </m.div>
               ))}
             </>
           )}
-        </motion.div>
+        </m.div>
 
         {/* Status message when posts unavailable */}
         {!hasPosts && (
@@ -90,7 +90,7 @@ export function WritingSection({ posts }: { posts: MediumPost[] }) {
         )}
 
         {/* CTA link — always visible */}
-        <motion.div
+        <m.div
           className="mt-8 text-center sm:mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -112,7 +112,7 @@ export function WritingSection({ posts }: { posts: MediumPost[] }) {
               &rarr;
             </span>
           </a>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

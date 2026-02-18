@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils/cn';
 
 interface StreamCardProps {
@@ -30,7 +30,7 @@ export function StreamCard({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.button
+    <m.button
       className={cn(
         'glass relative flex h-full w-full flex-col cursor-pointer rounded-xl p-3 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:p-4',
         isRevealed && 'ring-1'
@@ -87,7 +87,7 @@ export function StreamCard({
 
       <AnimatePresence>
         {isRevealed && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -95,7 +95,7 @@ export function StreamCard({
           >
             <div className="flex flex-wrap gap-1.5 pt-3">
               {skills.map((skill, i) => (
-                <motion.span
+                <m.span
                   key={skill}
                   initial={{ opacity: 0, scale: 0.8, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -108,11 +108,11 @@ export function StreamCard({
                   }}
                 >
                   {skill}
-                </motion.span>
+                </m.span>
               ))}
             </div>
             {testimonial && (
-              <motion.blockquote
+              <m.blockquote
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -129,11 +129,11 @@ export function StreamCard({
                   <span style={{ color }}>{testimonial.author}</span>
                   <span className="text-foreground/50"> — {testimonial.role}</span>
                 </footer>
-              </motion.blockquote>
+              </m.blockquote>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.button>
+    </m.button>
   );
 }

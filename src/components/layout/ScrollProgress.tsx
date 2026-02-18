@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { m, useScroll, useSpring } from 'framer-motion';
 import { usePalette } from '@/lib/palette-context';
 
 export function ScrollProgress() {
@@ -13,7 +13,7 @@ export function ScrollProgress() {
   const { colors } = usePalette();
 
   return (
-    <motion.div
+    <m.div
       className="fixed top-0 left-0 right-0 z-50 h-[2px] origin-left print:hidden"
       style={{
         scaleX,

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 
 interface PDFPreviewProps {
   previewSrc: string;
@@ -59,7 +59,7 @@ export function PDFPreview({ previewSrc, alt }: PDFPreviewProps) {
   const isInView = useInView(wrapperRef, { once: true });
 
   return (
-    <motion.div
+    <m.div
       ref={wrapperRef}
       className="relative mx-auto w-48 sm:w-56"
       style={{ perspective: '800px' }}
@@ -98,6 +98,6 @@ export function PDFPreview({ previewSrc, alt }: PDFPreviewProps) {
             'color-mix(in srgb, var(--accent) 20%, transparent)',
         }}
       />
-    </motion.div>
+    </m.div>
   );
 }

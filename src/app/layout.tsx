@@ -7,6 +7,7 @@ import { WebVitals } from '@/components/layout/WebVitals';
 import { CookieConsent } from '@/components/ui/CookieConsent';
 import { ToastProvider } from '@/components/ui/Toast';
 import { getStructuredData } from '@/lib/seo/structured-data';
+import { MotionProvider } from '@/components/providers/MotionProvider';
 import './globals.css';
 
 const inter = Inter({
@@ -130,9 +131,11 @@ export default async function RootLayout({
       >
         <WebVitals />
         <CookieConsent />
-        <ThemeProvider paletteId={paletteId} colors={palette.colors}>
-          <ToastProvider>{children}</ToastProvider>
-        </ThemeProvider>
+        <MotionProvider>
+          <ThemeProvider paletteId={paletteId} colors={palette.colors}>
+            <ToastProvider>{children}</ToastProvider>
+          </ThemeProvider>
+        </MotionProvider>
       </body>
     </html>
   );

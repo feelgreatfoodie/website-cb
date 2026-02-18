@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils/cn';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { m, type HTMLMotionProps } from 'framer-motion';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
@@ -25,7 +25,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   return (
-    <motion.button
+    <m.button
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.97 }}
       className={cn(
@@ -37,6 +37,6 @@ export function Button({
       {...props}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 }

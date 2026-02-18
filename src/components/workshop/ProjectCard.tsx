@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { LiveStatusBadge } from '@/components/ui/LiveStatusBadge';
 import { trackEvent } from '@/lib/analytics';
 
@@ -28,7 +28,7 @@ export function ProjectCard({
   const [showImage, setShowImage] = useState(false);
 
   return (
-    <motion.button
+    <m.button
       type="button"
       className="glass group flex h-full w-full flex-col gap-6 rounded-xl p-6 text-left transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:p-8 cursor-pointer"
       aria-label={showImage ? `${name}: collapse preview` : `${name}: show preview`}
@@ -41,7 +41,7 @@ export function ProjectCard({
     >
       <AnimatePresence>
         {image && showImage && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -58,7 +58,7 @@ export function ProjectCard({
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -121,6 +121,6 @@ export function ProjectCard({
           {image ? '[ CLICK TO SEE PREVIEW ]' : '[ PREVIEW COMING SOON ]'}
         </div>
       )}
-    </motion.button>
+    </m.button>
   );
 }

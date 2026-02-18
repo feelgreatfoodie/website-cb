@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { footer, decodeEmail } from '@/config/content';
 import { onesheetMap } from '@/config/palettes';
 import { usePalette } from '@/lib/palette-context';
@@ -70,7 +70,7 @@ export function Footer() {
         }}
       />
 
-      <motion.div
+      <m.div
         className="mx-auto max-w-4xl px-6 text-center"
         variants={staggerContainer}
         initial="hidden"
@@ -78,7 +78,7 @@ export function Footer() {
         viewport={{ once: true }}
       >
         {/* Section nav */}
-        <motion.nav
+        <m.nav
           variants={fadeInUp}
           className="mb-6 flex flex-wrap items-center justify-center gap-1.5 sm:mb-10 sm:gap-3"
           aria-label="Footer navigation"
@@ -98,13 +98,13 @@ export function Footer() {
                 )}
               </span>
             ))}
-        </motion.nav>
+        </m.nav>
 
         {/* Signature animation */}
         <SignatureReveal />
 
         {/* Contact links */}
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:mb-8 sm:flex-nowrap sm:gap-6"
         >
@@ -184,9 +184,9 @@ export function Footer() {
               One-Sheeter
             </span>
           </a>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="mt-2 flex items-center justify-center gap-2"
         >
@@ -202,7 +202,7 @@ export function Footer() {
           >
             Analytics Settings
           </button>
-        </motion.div>
+        </m.div>
 
         {/* Hidden admin link — subtle, visible on hover */}
         <a
@@ -224,7 +224,7 @@ export function Footer() {
             <circle cx="12" cy="12" r="3" />
           </svg>
         </a>
-      </motion.div>
+      </m.div>
     </footer>
   );
 }

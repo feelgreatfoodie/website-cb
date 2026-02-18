@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { trackEvent } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
@@ -89,7 +89,7 @@ function ROASChart() {
             </span>
           </div>
           <div className="h-3 rounded-full bg-foreground/10 overflow-hidden">
-            <motion.div
+            <m.div
               className="h-full rounded-full bg-accent"
               initial={{ width: 0 }}
               animate={{ width: `${(item.value / maxValue) * 100}%` }}
@@ -160,13 +160,13 @@ export const PipelineDemo = () => {
               <span className="font-mono text-[11px] font-semibold tracking-[0.3em] uppercase text-accent">
                 Live Demo
               </span>
-              <motion.span
+              <m.span
                 className="text-accent font-mono text-sm"
                 animate={{ x: [0, 6, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
               >
                 ——&gt;
-              </motion.span>
+              </m.span>
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
               Interactive Data Pipeline
@@ -206,7 +206,7 @@ export const PipelineDemo = () => {
       </div>
 
       {/* Collapsible body */}
-      <motion.div
+      <m.div
         initial={false}
         animate={{
           height: isOpen ? 'auto' : 0,
@@ -224,7 +224,7 @@ export const PipelineDemo = () => {
             >
               {/* Timeline rail */}
               <div className="flex flex-col items-center">
-                <motion.div
+                <m.div
                   className={cn(
                     'flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-500',
                     isActive(i) && 'border-accent bg-accent/10 text-accent',
@@ -243,7 +243,7 @@ export const PipelineDemo = () => {
                   }}
                 >
                   {stage.icon}
-                </motion.div>
+                </m.div>
 
                 {i < STAGES.length - 1 && (
                   <div
@@ -282,7 +282,7 @@ export const PipelineDemo = () => {
 
                 {/* Data bubble — appears when stage activates, persists after */}
                 {isVisible(i) && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{
                       opacity: isActive(i) ? 1 : 0.5,
@@ -303,14 +303,14 @@ export const PipelineDemo = () => {
                     ) : (
                       <ROASChart />
                     )}
-                  </motion.div>
+                  </m.div>
                 )}
               </div>
             </div>
           ))}
         </div>
 
-      </motion.div>
+      </m.div>
     </div>
   );
 };

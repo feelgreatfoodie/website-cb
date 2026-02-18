@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const categoryColorVar: Record<string, string> = {
   language: 'var(--stream1)',
@@ -19,7 +19,7 @@ export function SkillPill({ name, category, index }: SkillPillProps) {
   const color = categoryColorVar[category] ?? 'var(--accent)';
 
   return (
-    <motion.span
+    <m.span
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -36,6 +36,6 @@ export function SkillPill({ name, category, index }: SkillPillProps) {
       }}
     >
       {name}
-    </motion.span>
+    </m.span>
   );
 }

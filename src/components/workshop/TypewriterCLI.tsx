@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { usePalette } from '@/lib/palette-context';
 
 interface TypewriterCLIProps {
@@ -107,7 +107,7 @@ export function TypewriterCLI({
   }, [lines, currentLine]);
 
   return (
-    <motion.div
+    <m.div
       ref={containerRef}
       className="glass overflow-hidden rounded-lg"
       initial={{ opacity: 0, y: 20 }}
@@ -147,6 +147,6 @@ export function TypewriterCLI({
           </span>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

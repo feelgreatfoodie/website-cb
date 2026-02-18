@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import {
@@ -37,7 +37,7 @@ const itemVariants = {
 function SkillsCard() {
   const categories = [...new Set(implementation.skills.map((s) => s.category))];
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">Technical Skills</h2>
       <div className="space-y-4">
         {categories.map((cat) => (
@@ -58,13 +58,13 @@ function SkillsCard() {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
 function CertificationsCard() {
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">Certifications</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {implementation.certifications.map((cert) => (
@@ -77,13 +77,13 @@ function CertificationsCard() {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
 function ProjectsCard() {
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">Key Projects</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {workshop.projects.map((project) => (
@@ -104,13 +104,13 @@ function ProjectsCard() {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
 function TestimonialsCard({ title }: { title: string }) {
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">{title}</h2>
       <div className="space-y-4">
         {bossfight.testimonials.slice(0, 3).map((t) => (
@@ -124,13 +124,13 @@ function TestimonialsCard({ title }: { title: string }) {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
 function RolesCard() {
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">Roles I Excel In</h2>
       <div className="space-y-3">
         {openTo.roles.map((role) => (
@@ -140,7 +140,7 @@ function RolesCard() {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
@@ -153,7 +153,7 @@ function ApproachCard() {
   ];
 
   return (
-    <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+    <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
       <h2 className="mb-4 text-2xl font-bold text-foreground">My Approach</h2>
       <div className="space-y-4">
         {steps.map((s) => (
@@ -163,7 +163,7 @@ function ApproachCard() {
           </div>
         ))}
       </div>
-    </motion.section>
+    </m.section>
   );
 }
 
@@ -175,13 +175,13 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
   };
 
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       className="space-y-6"
     >
-      <motion.div variants={itemVariants} className="mb-8">
+      <m.div variants={itemVariants} className="mb-8">
         <Button
           onClick={onBack}
           variant="secondary"
@@ -193,7 +193,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
         <h2 className="text-3xl font-bold text-foreground">
           {personaTitles[persona]}
         </h2>
-      </motion.div>
+      </m.div>
 
       {persona === 'recruiter' && (
         <>
@@ -201,7 +201,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
           <CertificationsCard />
           <ProjectsCard />
           <TestimonialsCard title="What Others Say" />
-          <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+          <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
             <h2 className="mb-2 text-2xl font-bold text-foreground">Download Resume</h2>
             <p className="mb-4 text-sm text-foreground/70">
               Get a comprehensive overview of my experience and qualifications.
@@ -211,7 +211,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
                 View One-Sheeter
               </Button>
             </Link>
-          </motion.section>
+          </m.section>
         </>
       )}
 
@@ -221,7 +221,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
           <ApproachCard />
           <RolesCard />
           <TestimonialsCard title="Client Feedback" />
-          <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+          <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
             <h2 className="mb-2 text-2xl font-bold text-foreground">Start a Conversation</h2>
             <p className="mb-4 text-sm text-foreground/70">
               Let&apos;s discuss how we can work together to solve your technical challenges.
@@ -231,7 +231,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
                 Get in Touch
               </Button>
             </Link>
-          </motion.section>
+          </m.section>
         </>
       )}
 
@@ -239,7 +239,7 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
         <>
           <SkillsCard />
           <ProjectsCard />
-          <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+          <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
             <h2 className="mb-4 text-2xl font-bold text-foreground">Technical Writing</h2>
             <p className="mb-4 text-sm text-foreground/70">
               Insights on technical problem-solving, architecture decisions, and lessons learned.
@@ -249,8 +249,8 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
                 Browse Articles
               </Button>
             </Link>
-          </motion.section>
-          <motion.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
+          </m.section>
+          <m.section variants={itemVariants} className="glass rounded-lg border border-accent/20 p-6">
             <h2 className="mb-2 text-2xl font-bold text-foreground">Let&apos;s Connect</h2>
             <p className="mb-4 text-sm text-foreground/70">
               Always open to discussing new ideas, potential collaborations, or geeking out about technology.
@@ -260,9 +260,9 @@ export function ExperienceFlow({ persona, onBack }: ExperienceFlowProps) {
                 Reach Out
               </Button>
             </Link>
-          </motion.section>
+          </m.section>
         </>
       )}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils/cn';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { m, type HTMLMotionProps } from 'framer-motion';
 import { usePalette } from '@/lib/palette-context';
 
 interface GlowTextProps extends HTMLMotionProps<'span'> {
@@ -27,7 +27,7 @@ export function GlowText({
   const alpha = intensityMap[intensity];
 
   return (
-    <motion.span
+    <m.span
       className={cn('inline-block', className)}
       style={{
         color: resolvedColor,
@@ -42,6 +42,6 @@ export function GlowText({
       {...props}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 }

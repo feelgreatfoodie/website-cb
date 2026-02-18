@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { GlowText } from '@/components/ui/GlowText';
 import { bossfight } from '@/config/content';
 import { usePalette } from '@/lib/palette-context';
@@ -24,7 +24,7 @@ export function EquationVisual({ isRevealed }: EquationVisualProps) {
             const isOperator = !isResult && i > 0;
 
             return (
-              <motion.div
+              <m.div
                 key={el}
                 className="flex items-center gap-3 sm:gap-4"
                 initial={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -50,7 +50,7 @@ export function EquationVisual({ isRevealed }: EquationVisualProps) {
                 >
                   {el}
                 </GlowText>
-              </motion.div>
+              </m.div>
             );
           })}
       </AnimatePresence>

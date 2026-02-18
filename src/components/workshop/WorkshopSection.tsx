@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
 import { workshop } from '@/config/content';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
@@ -12,28 +12,28 @@ export function WorkshopSection() {
       className="relative min-h-[70vh] bg-background py-16 sm:min-h-screen sm:py-24"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <motion.div
+        <m.div
           className="mb-8 text-center sm:mb-16"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <motion.p
+          <m.p
             variants={fadeInUp}
             className="mb-2 font-mono text-xs tracking-[0.4em] text-cta"
           >
             {workshop.tagline}
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             variants={fadeInUp}
             className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {workshop.title}
-          </motion.h2>
-        </motion.div>
+          </m.h2>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="grid gap-4 sm:gap-6 md:grid-cols-3"
           variants={staggerContainer}
           initial="hidden"
@@ -41,7 +41,7 @@ export function WorkshopSection() {
           viewport={{ once: true, margin: '-50px' }}
         >
           {workshop.projects.map((project) => (
-            <motion.div key={project.name} variants={fadeInUp} className="h-full">
+            <m.div key={project.name} variants={fadeInUp} className="h-full">
               <ProjectCard
                 name={project.name}
                 description={project.description}
@@ -51,9 +51,9 @@ export function WorkshopSection() {
                 image={'image' in project ? project.image : undefined}
                 url={'url' in project ? project.url : undefined}
               />
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

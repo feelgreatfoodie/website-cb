@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { usePalette } from '@/lib/palette-context';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
@@ -102,7 +102,7 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
       >
         {/* Connecting lines */}
         {positions.map((pos, i) => (
-          <motion.line
+          <m.line
             key={`line-${items[i].id}`}
             x1={cx}
             y1={cy}
@@ -118,7 +118,7 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
         ))}
 
         {/* Center circle */}
-        <motion.circle
+        <m.circle
           cx={cx}
           cy={cy}
           r={centerRadius}
@@ -130,7 +130,7 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           style={{ transformOrigin: `${cx}px ${cy}px` }}
         />
-        <motion.text
+        <m.text
           x={cx}
           y={cy - 6}
           textAnchor="middle"
@@ -142,8 +142,8 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
           transition={{ delay: 0.3 }}
         >
           CHRISTIAN
-        </motion.text>
-        <motion.text
+        </m.text>
+        <m.text
           x={cx}
           y={cy + 8}
           textAnchor="middle"
@@ -155,13 +155,13 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
           transition={{ delay: 0.35 }}
         >
           BOURLIER
-        </motion.text>
+        </m.text>
 
         {/* Satellites */}
         {positions.map((pos, i) => {
           const item = items[i];
           return (
-            <motion.g
+            <m.g
               key={item.id}
               initial={{ scale: 0, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
@@ -200,7 +200,7 @@ export function RadialHub({ items }: { items: readonly Competency[] }) {
                   </tspan>
                 ))}
               </text>
-            </motion.g>
+            </m.g>
           );
         })}
       </svg>

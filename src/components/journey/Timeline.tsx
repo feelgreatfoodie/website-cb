@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { timeline, type TimelineEntry } from '@/config/timeline';
 import { cn } from '@/lib/utils/cn';
 import { fadeInUp } from '@/lib/animations/scroll-variants';
@@ -24,7 +24,7 @@ export function Timeline() {
   const expanded = expandedIndex !== null ? timeline[expandedIndex] : null;
 
   return (
-    <motion.div
+    <m.div
       variants={fadeInUp}
       initial="hidden"
       whileInView="visible"
@@ -77,7 +77,7 @@ export function Timeline() {
                   />
                   {/* Pulse on last node */}
                   {isLast && !reducedMotion && (
-                    <motion.span
+                    <m.span
                       className="absolute inset-[-3px] rounded-full border"
                       style={{ borderColor: streamColors[entry.stream] }}
                       animate={{
@@ -110,7 +110,7 @@ export function Timeline() {
         {/* Expanded detail card (desktop) */}
         <AnimatePresence mode="wait">
           {expanded && expandedIndex !== null && (
-            <motion.div
+            <m.div
               key={expandedIndex}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -150,7 +150,7 @@ export function Timeline() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>
@@ -174,7 +174,7 @@ export function Timeline() {
                     style={{ backgroundColor: streamColors[entry.stream] }}
                   />
                   {isLast && !reducedMotion && (
-                    <motion.span
+                    <m.span
                       className="absolute inset-[-3px] rounded-full border"
                       style={{ borderColor: streamColors[entry.stream] }}
                       animate={{
@@ -216,7 +216,7 @@ export function Timeline() {
 
                 <AnimatePresence>
                   {isActive && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
@@ -234,7 +234,7 @@ export function Timeline() {
                           </li>
                         ))}
                       </ul>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -242,6 +242,6 @@ export function Timeline() {
           })}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 interface LootBoxProps {
   skills: readonly string[];
@@ -12,7 +12,7 @@ export function LootBox({ skills, color, isOpen }: LootBoxProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -21,7 +21,7 @@ export function LootBox({ skills, color, isOpen }: LootBoxProps) {
         >
           <div className="flex flex-wrap gap-2 pt-4">
             {skills.map((skill, i) => (
-              <motion.span
+              <m.span
                 key={skill}
                 initial={{ opacity: 0, scale: 0.8, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -34,10 +34,10 @@ export function LootBox({ skills, color, isOpen }: LootBoxProps) {
                 }}
               >
                 {skill}
-              </motion.span>
+              </m.span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

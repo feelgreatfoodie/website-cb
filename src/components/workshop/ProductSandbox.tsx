@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { trackEvent } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
 
@@ -127,7 +127,7 @@ function CLISimulator({
             <span className="text-green-400">$</span>
             <span className="text-white">
               {displayedCommand}
-              <motion.span
+              <m.span
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
                 className="inline-block w-2 h-4 bg-green-400 ml-1"
@@ -140,7 +140,7 @@ function CLISimulator({
         {!isTyping && currentCommandIndex < commands.length && commandHistory.length > 0 && (
           <div className="flex items-start gap-2">
             <span className="text-green-400">$</span>
-            <motion.span
+            <m.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 0.8, repeat: Infinity }}
               className="inline-block w-2 h-4 bg-green-400"

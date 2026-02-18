@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { CanvasErrorBoundary } from './CanvasErrorBoundary';
 import { AvailabilityPill } from './AvailabilityPill';
@@ -70,37 +70,37 @@ export function HeroSection() {
       {/* Overlay gradient for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
 
-      <motion.div
+      <m.div
         className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6"
         variants={staggerContainer}
         initial={false}
         animate="visible"
       >
-        <motion.h1
+        <m.h1
           variants={fadeInUp}
           className="mb-2 font-mono text-3xl font-bold tracking-[0.15em] text-foreground sm:text-5xl sm:tracking-[0.2em] md:text-6xl lg:text-7xl"
         >
           {hero.headline}
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           variants={fadeInUp}
           className="mb-8 font-mono text-sm tracking-[0.3em] text-accent sm:text-base"
         >
           {subheadline}
-        </motion.p>
+        </m.p>
 
-        <motion.div variants={fadeInUp}>
+        <m.div variants={fadeInUp}>
           <AvailabilityPill status={hero.availability} />
-        </motion.div>
+        </m.div>
 
-        <motion.p variants={fadeInUp} className="mb-12 text-xl sm:text-2xl">
+        <m.p variants={fadeInUp} className="mb-12 text-xl sm:text-2xl">
           <span className="text-foreground">I build the system </span>
           <GlowText intensity="high">AND</GlowText>
           <span className="text-foreground"> close the deal.</span>
-        </motion.p>
+        </m.p>
 
-        <motion.div variants={fadeInUp}>
+        <m.div variants={fadeInUp}>
           <Button
             variant="primary"
             onClick={handleQuestStart}
@@ -109,12 +109,12 @@ export function HeroSection() {
           >
             {ctaLabel}
           </Button>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={fadeInUp} className="mt-12">
+        <m.div variants={fadeInUp} className="mt-12">
           <TestimonialCarousel testimonials={bossfight.testimonials} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Scroll indicator — CSS animation to avoid FM in critical path */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-[fadeIn_1s_2s_both]">

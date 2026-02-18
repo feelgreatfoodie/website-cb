@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { openTo, oneSheeter } from '@/config/content';
 import { onesheetMap, onesheetPreviewMap } from '@/config/palettes';
 import { usePalette } from '@/lib/palette-context';
@@ -22,30 +22,30 @@ export function OpenToSection() {
   return (
     <section id="opento" className="relative bg-background py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <motion.div
+        <m.div
           className="mb-16 text-center"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          <motion.p
+          <m.p
             variants={fadeInUp}
             className="mb-2 font-mono text-xs tracking-[0.4em] text-accent"
           >
             {openTo.subtitle}
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             variants={fadeInUp}
             className="font-mono text-2xl font-bold tracking-[0.15em] text-foreground sm:text-3xl md:text-4xl"
           >
             {openTo.title}
-          </motion.h2>
-        </motion.div>
+          </m.h2>
+        </m.div>
 
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
           {/* Left 60%: Role cards */}
-          <motion.div
+          <m.div
             className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:w-3/5"
             variants={staggerContainer}
             initial="hidden"
@@ -58,10 +58,10 @@ export function OpenToSection() {
                 description={role.description}
               />
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Right 40%: One-sheeter */}
-          <motion.div
+          <m.div
             id="onesheeter"
             className="flex flex-col items-center justify-center lg:w-2/5"
             variants={staggerContainer}
@@ -69,25 +69,25 @@ export function OpenToSection() {
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
           >
-            <motion.p
+            <m.p
               variants={fadeInUp}
               className="mb-2 font-mono text-xs tracking-[0.4em] text-accent"
             >
               {oneSheeter.subtitle}
-            </motion.p>
-            <motion.h3
+            </m.p>
+            <m.h3
               variants={fadeInUp}
               className="mb-8 font-mono text-xl font-bold tracking-[0.15em] text-foreground sm:text-2xl"
             >
               {oneSheeter.title}
-            </motion.h3>
-            <motion.div variants={fadeInUp} className="mb-8">
+            </m.h3>
+            <m.div variants={fadeInUp} className="mb-8">
               <PDFPreview
                 previewSrc={previewUrl}
                 alt="Christian Bourlier one-sheeter preview"
               />
-            </motion.div>
-            <motion.div variants={fadeInUp}>
+            </m.div>
+            <m.div variants={fadeInUp}>
               <a
                 href={pdfUrl}
                 download
@@ -101,8 +101,8 @@ export function OpenToSection() {
                   {oneSheeter.ctaLabel}
                 </Button>
               </a>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>
