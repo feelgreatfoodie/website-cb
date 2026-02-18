@@ -309,8 +309,8 @@ export const implementation = {
     { name: 'TensorFlow', category: 'ai' },
   ],
   certifications: [
-    { name: 'GCP Professional Data Engineer', badge: '/gcp-pde.png' },
-    { name: 'GCP Professional Cloud Architect', badge: '/gcp-pca.png' },
+    { name: 'GCP Professional Data Engineer', badge: '/gcp-pde.webp' },
+    { name: 'GCP Professional Cloud Architect', badge: '/gcp-pca.webp' },
   ],
 } as const;
 

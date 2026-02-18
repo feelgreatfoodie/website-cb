@@ -26,7 +26,7 @@ function SignatureReveal() {
   return (
     <div ref={ref} className="relative mx-auto mb-6 h-[6.6rem] w-full max-w-[22rem] sm:mb-8 sm:h-[21rem] sm:max-w-[78rem]">
       <Image
-        src="/signature-white.png"
+        src="/signature-white.webp"
         alt="Christian Bourlier signature"
         fill
         sizes="(max-width: 640px) 22rem, 78rem"
