@@ -4,12 +4,6 @@ export const hero = {
   hook: 'I build the system AND close the deal.',
   cta: 'Journey Onward',
   availability: 'Open to opportunities',
-  metrics: [
-    { value: 8, suffix: '+', label: 'YRS ENGINEERING' },
-    { value: 20, suffix: '+', label: 'YRS SALES' },
-    { value: 3, suffix: '', label: 'PRODUCTS SHIPPING' },
-    { value: 2, suffix: '', label: 'GCP CERTS' },
-  ],
 } as const;
 
 export const journey = {
@@ -203,7 +197,7 @@ export const workshop = {
         'AI-assisted development is exploding but tooling for multi-agent orchestration barely exists.',
       whyNow: 'Developers need infrastructure that keeps up with how they actually build.',
       tags: ['AI/ML', 'Developer Tools', 'MCP'],
-      image: '/rezzed-screenshot.svg',
+      image: '/rezzed-preview.svg',
       url: 'https://rezzed.ai',
     },
     {
@@ -213,7 +207,7 @@ export const workshop = {
         'AI coding agents need you at your desk. Step away and the conversation stops — questions unanswered, sessions stalled, momentum lost.',
       whyNow: 'AI-assisted development is exploding. The tooling assumes you never leave your chair.',
       tags: ['MCP Server', 'Mobile', 'AI DevTools'],
-      image: '/cachebash-icon.webp',
+      image: '/cachebash-preview.svg',
       url: 'https://rezzed.ai/cachebash',
       cliCommands: [
         'cachebash sync --remote',

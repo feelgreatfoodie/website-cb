@@ -31,6 +31,10 @@ const JourneySection = dynamic(
   () => import('@/components/journey/JourneySection').then((m) => ({ default: m.JourneySection })),
   { loading: () => <SectionPlaceholder height="min-h-[80vh]" /> }
 );
+const CompetencyHubSection = dynamic(
+  () => import('@/components/competencies/CompetencyHubSection').then((m) => ({ default: m.CompetencyHubSection })),
+  { loading: () => <SectionPlaceholder height="min-h-[50vh]" /> }
+);
 const OpenToSection = dynamic(
   () => import('@/components/opento/OpenToSection').then((m) => ({ default: m.OpenToSection })),
   { loading: () => <SectionPlaceholder height="min-h-[50vh]" /> }
@@ -56,6 +60,8 @@ export function BelowFold({ posts }: { posts: MediumPost[] }) {
   return (
     <>
       <JourneySection />
+      <SectionDivider />
+      <CompetencyHubSection />
       <SectionDivider />
       <OpenToSection />
       <SectionDivider />

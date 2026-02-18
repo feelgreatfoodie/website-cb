@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { CanvasErrorBoundary } from './CanvasErrorBoundary';
 import { AvailabilityPill } from './AvailabilityPill';
-import { MetricsBar } from './MetricsBar';
 import { Button } from '@/components/ui/Button';
 import { GlowText } from '@/components/ui/GlowText';
 import { TestimonialCarousel } from '@/components/bossfight/TestimonialCarousel';
@@ -94,8 +93,6 @@ export function HeroSection() {
         <motion.div variants={fadeInUp}>
           <AvailabilityPill status={hero.availability} />
         </motion.div>
-
-        <MetricsBar metrics={hero.metrics} />
 
         <motion.p variants={fadeInUp} className="mb-12 text-xl sm:text-2xl">
           <span className="text-foreground">I build the system </span>

@@ -21,29 +21,6 @@ const RATE_LIMIT = isDev ? 100 : 15;
 const RATE_WINDOW_MS = isDev ? 5 * 60 * 1000 : 60 * 60 * 1000; // 5min dev, 1hr prod
 const MAX_ENTRIES = 1000;
 
-// Fun facts served when AI can't answer well
-const funFacts = [
-  'Christian once turned the worst-performing Verizon store into #1 in the region.',
-  'Before engineering, Christian played professional poker for a decade.',
-  'Christian was featured in Card Player Magazine during his poker career.',
-  'CacheBash started because Christian got tired of being desk-bound while using Claude Code.',
-  'Christian holds both GCP Professional Data Engineer and Cloud Architect certifications.',
-  'Christian scaled a vacation rental portfolio from 10 to 50 properties in two years.',
-  'The first app Christian co-founded was a React Native travel app called Let\'s Go!',
-  'Christian has built pipelines processing 60M+ records per day on GCP.',
-  'Christian speaks both English and French fluently.',
-  'Christian led $1M+ contract expansions at Monks through technical demos alone.',
-  'OptiMeasure was born from frustration with black-box attribution tools that self-inflate results.',
-  'Christian\'s approach: diagnose first, build second. POCs in days, not quarters.',
-  'Christian believes the best engineers are the ones who can also close the deal.',
-  'Three Bears Data was co-founded to bridge the gap between AI hype and real implementation.',
-  'Christian\'s poker background taught him that knowing when to fold matters as much as knowing when to bet.',
-];
-
-function getRandomFunFact(): string {
-  return funFacts[Math.floor(Math.random() * funFacts.length)];
-}
-
 function pruneRateMap() {
   if (rateMap.size <= MAX_ENTRIES) return;
   const now = Date.now();
@@ -180,12 +157,9 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error('AI provider error:', err);
 
-    // Serve a fun fact instead of a generic error
-    const funFact = getRandomFunFact();
-    const fallbackMessage = `I'm having trouble answering that right now. Here's a fun fact instead: ${funFact}`;
+    const fallbackMessage = "I'm sorry, I'm having trouble answering that right now. Please try again in a moment, or reach out to Christian directly through the contact form below.";
     recordRequest(ip);
 
-    // Log the fallback (fire-and-forget)
     logChatToSheet(lastUserMessage, fallbackMessage, false, ip);
 
     return NextResponse.json({ message: fallbackMessage });
