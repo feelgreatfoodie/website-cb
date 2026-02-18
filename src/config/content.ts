@@ -202,7 +202,7 @@ export const workshop = {
     },
     {
       name: 'CacheBash',
-      description: 'Async dispatch for AI agents — monitor, message, and respond from your phone.',
+      description: 'Async dispatch for AI agents — monitor, message, respond from your phone.',
       problem:
         'AI coding agents need you at your desk. Step away and the conversation stops — questions unanswered, sessions stalled, momentum lost.',
       whyNow: 'AI-assisted development is exploding. The tooling assumes you never leave your chair.',
