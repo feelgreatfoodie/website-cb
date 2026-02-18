@@ -209,22 +209,6 @@ export const workshop = {
       image: '/ai-augmentation-hub.webp',
     },
   ],
-  videos: [
-    {
-      title: '"Let\'s Go!" Capstone Presentation',
-      description:
-        'A mobile app for spontaneous social planning — events within 72 hours, because beyond that window people are non-committal.',
-      videoId: 'DLkih2xIRQQ',
-      start: 743,
-      end: 1234,
-    },
-    {
-      title: 'Motivational Selling',
-      description:
-        'Galvanize Web Dev Immersive, Boulder — a talk on sales and finding your product to share with the world.',
-      videoId: 'VcEotv_bc8g',
-    },
-  ],
 } as const;
 
 export const bossfight = {

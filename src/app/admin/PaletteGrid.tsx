@@ -29,14 +29,14 @@ export function PaletteGrid({
     setApplying(null);
   };
 
-  const categories = ['portuguese', 'tech'] as const;
+  const categories = ['portuguese'] as const;
 
   return (
     <div className="space-y-10">
       {categories.map((cat) => (
         <div key={cat}>
           <h2 className="mb-4 font-mono text-xs tracking-[0.3em] uppercase text-foreground/40">
-            {cat === 'portuguese' ? 'Portuguese Heritage' : 'Tech Aesthetics'}
+            Portuguese Heritage
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {palettes

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
 import { TypewriterCLI } from './TypewriterCLI';
-import { VideoCard } from './VideoCard';
 import { workshop } from '@/config/content';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 
@@ -72,34 +71,6 @@ export function WorkshopSection() {
           </motion.div>
         )}
 
-        {/* Video demos */}
-        <motion.div
-          className="mt-12"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-        >
-          <motion.p
-            variants={fadeInUp}
-            className="mb-6 text-center font-mono text-xs tracking-[0.4em] text-cta"
-          >
-            LIVE DEMOS
-          </motion.p>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            {workshop.videos.map((video) => (
-              <motion.div key={video.videoId} variants={fadeInUp}>
-                <VideoCard
-                  title={video.title}
-                  description={video.description}
-                  videoId={video.videoId}
-                  start={'start' in video ? video.start : undefined}
-                  end={'end' in video ? video.end : undefined}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
