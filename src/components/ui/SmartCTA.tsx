@@ -128,12 +128,14 @@ export function SmartCTA() {
         className={cn(
           'fixed bottom-6 left-6 z-50',
           'flex items-center gap-2 px-4 py-3',
-          'rounded-full border border-accent/20 bg-background/80 backdrop-blur-sm',
-          'text-[12px] font-medium text-foreground/80',
+          'rounded-full border backdrop-blur-sm',
+          'text-[12px] font-medium',
           'transition-all duration-200',
-          'hover:border-accent/40 hover:bg-background/90 hover:text-foreground',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-          'print:hidden'
+          'print:hidden',
+          currentStage.icon === 'envelope'
+            ? 'border-cta/40 bg-cta/15 text-cta hover:bg-cta/25 animate-[ctaPulse_3s_ease-in-out_infinite]'
+            : 'border-accent/20 bg-background/80 text-foreground/80 hover:border-accent/40 hover:bg-background/90 hover:text-foreground'
         )}
       >
         <CtaIcon icon={currentStage.icon} />

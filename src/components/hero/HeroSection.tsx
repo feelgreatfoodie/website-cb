@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic';
 import { CanvasErrorBoundary } from './CanvasErrorBoundary';
 import { Button } from '@/components/ui/Button';
 import { GlowText } from '@/components/ui/GlowText';
-import { hero, intentOverrides } from '@/config/content';
+import { TestimonialCarousel } from '@/components/bossfight/TestimonialCarousel';
+import { hero, intentOverrides, bossfight } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
 import { useVisitorIntent } from '@/lib/hooks/useVisitorIntent';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
@@ -103,6 +104,10 @@ export function HeroSection() {
           >
             {ctaLabel}
           </Button>
+        </motion.div>
+
+        <motion.div variants={fadeInUp} className="mt-12">
+          <TestimonialCarousel testimonials={bossfight.testimonials} />
         </motion.div>
       </motion.div>
 

@@ -84,7 +84,7 @@ export function Footer() {
           aria-label="Footer navigation"
         >
           {footer.sections
-            .filter((s) => s.label !== 'One-Sheeter' && s.label !== 'Contact')
+            .filter((s) => s.label !== 'Contact')
             .map((section, i, arr) => (
               <span key={section.anchor} className="flex items-center gap-3">
                 <a

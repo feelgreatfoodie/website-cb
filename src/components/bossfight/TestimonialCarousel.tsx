@@ -139,8 +139,20 @@ export function TestimonialCarousel({
         </AnimatePresence>
       </div>
 
-      {/* Controls: dots + pause/play */}
+      {/* Controls: arrows + dots + pause/play */}
       <div className="mt-6 flex items-center justify-center gap-3">
+        {/* Prev arrow */}
+        <button
+          onClick={goPrev}
+          type="button"
+          className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/25 transition-colors hover:text-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          aria-label="Previous testimonial"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <path d="M9 2L4 7l5 5" />
+          </svg>
+        </button>
+
         {/* Dot indicators */}
         <div className="flex items-center gap-2">
           {testimonials.map((_, i) => (
@@ -169,6 +181,18 @@ export function TestimonialCarousel({
             </button>
           ))}
         </div>
+
+        {/* Next arrow */}
+        <button
+          onClick={goNext}
+          type="button"
+          className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/25 transition-colors hover:text-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          aria-label="Next testimonial"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <path d="M5 2l5 5-5 5" />
+          </svg>
+        </button>
 
         {/* Pause / Play toggle */}
         <button

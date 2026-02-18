@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { implementation } from '@/config/content';
 import { SkillPill } from './SkillPill';
 import { CertBadge } from './CertBadge';
-import { PipelineDemo } from './PipelineDemo';
 import { fadeInUp, staggerContainer } from '@/lib/animations/scroll-variants';
 
 export function ImplementationSection() {
@@ -43,17 +42,6 @@ export function ImplementationSection() {
             />
           ))}
         </div>
-
-        {/* Pipeline Demo */}
-        <motion.div
-          className="mb-8 sm:mb-16"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-        >
-          <PipelineDemo />
-        </motion.div>
 
         {/* Certifications */}
         <motion.div

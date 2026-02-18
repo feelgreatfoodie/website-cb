@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { EquationVisual } from './EquationVisual';
 import { ArchitectureMap } from './ArchitectureMap';
-import { TestimonialCarousel } from './TestimonialCarousel';
 import { Button } from '@/components/ui/Button';
 import { bossfight } from '@/config/content';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
@@ -77,15 +76,6 @@ export function BossFightSection() {
           </motion.div>
         </motion.div>
 
-        {/* Testimonials */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <TestimonialCarousel testimonials={bossfight.testimonials} />
-        </motion.div>
       </div>
     </section>
   );

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none">
+  <rect width="400" height="200" rx="8" fill="#0A1628"/>
+  <rect x="1" y="1" width="398" height="198" rx="7" stroke="#20B2AA" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="200" y="90" text-anchor="middle" font-family="monospace" font-size="28" font-weight="bold" fill="#20B2AA">rezzed.ai</text>
+  <text x="200" y="120" text-anchor="middle" font-family="monospace" font-size="12" fill="#F8F9FA" opacity="0.5">Tools for developers who code with AI</text>
+  <circle cx="170" cy="155" r="3" fill="#20B2AA" opacity="0.4"/>
+  <circle cx="185" cy="155" r="3" fill="#FF5733" opacity="0.4"/>
+  <circle cx="200" cy="155" r="3" fill="#4DC8E0" opacity="0.4"/>
+  <circle cx="215" cy="155" r="3" fill="#20B2AA" opacity="0.4"/>
+  <circle cx="230" cy="155" r="3" fill="#FF5733" opacity="0.4"/>
+</svg>

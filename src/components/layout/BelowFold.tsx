@@ -55,10 +55,6 @@ const WritingSection = dynamic(
   () => import('@/components/writing/WritingSection').then((m) => ({ default: m.WritingSection })),
   { loading: () => <SectionPlaceholder height="min-h-[40vh]" /> }
 );
-const OneSheeterSection = dynamic(
-  () => import('@/components/download/OneSheeterSection').then((m) => ({ default: m.OneSheeterSection })),
-  { loading: () => <SectionPlaceholder height="min-h-[30vh]" /> }
-);
 const ContactSection = dynamic(
   () => import('@/components/contact/ContactSection').then((m) => ({ default: m.ContactSection })),
   { loading: () => <SectionPlaceholder height="min-h-[50vh]" /> }
@@ -80,8 +76,6 @@ export function BelowFold({ posts }: { posts: MediumPost[] }) {
       <ImplementationSection />
       <SectionDivider />
       <WritingSection posts={posts} />
-      <SectionDivider />
-      <OneSheeterSection />
       <SectionDivider />
       <ContactSection />
     </>

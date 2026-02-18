@@ -210,7 +210,7 @@ export const workshop = {
         'AI-assisted development is exploding but tooling for multi-agent orchestration barely exists.',
       whyNow: 'Developers need infrastructure that keeps up with how they actually build.',
       tags: ['AI/ML', 'Developer Tools', 'MCP'],
-      image: '/cachebash-icon.webp',
+      image: '/rezzed-screenshot.svg',
       url: 'https://rezzed.ai',
     },
     {
@@ -352,7 +352,7 @@ export const smartCta = {
     { sections: ['journey', 'competencies', 'opento'], label: "See What I'm Building", target: '#workshop', icon: 'arrow' },
     { sections: ['workshop'], label: 'The Proof', target: '#bossfight', icon: 'eye' },
     { sections: ['bossfight', 'implementation'], label: 'Grab the One-Sheeter', target: '#onesheeter', icon: 'download' },
-    { sections: ['writing', 'onesheeter'], label: "Let's Connect", target: '#contact', icon: 'envelope' },
+    { sections: ['writing'], label: "Let's Connect", target: '#contact', icon: 'envelope' },
   ],
   hiddenSections: ['hero', 'contact'],
 } as const;
@@ -388,7 +388,9 @@ export const footer = {
     // Base64-encoded to prevent scraping from static HTML
     emailEncoded: 'Y2hyaXN0aWFuYm91cmxpZXJAZ21haWwuY29t',
     linkedin: 'https://linkedin.com/in/christianbourlier',
+    github: 'https://github.com/feelgreatfoodie',
     medium: 'https://medium.com/@christianbourlier',
+    rezzedai: 'https://rezzed.ai',
     website: 'christianbourlier.com',
   },
   sections: [
@@ -400,7 +402,6 @@ export const footer = {
     { label: 'Boss Fight', anchor: '#bossfight' },
     { label: 'Skills', anchor: '#implementation' },
     { label: 'Writing', anchor: '#writing' },
-    { label: 'One-Sheeter', anchor: '#onesheeter' },
     { label: 'Contact', anchor: '#contact' },
   ],
 } as const;
