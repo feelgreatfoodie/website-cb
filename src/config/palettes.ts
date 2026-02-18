@@ -70,6 +70,6 @@ export const onesheetMap: Record<string, string> = {
 };
 
 export const onesheetPreviewMap: Record<string, string> = {
-  'nazare-wavefronts': '/onesheet-previews/preview-nazare-wavefronts.png',
-  'pastel-de-nata': '/onesheet-previews/preview-pastel-de-nata.png',
+  'nazare-wavefronts': '/onesheet-previews/preview-nazare-wavefronts.webp',
+  'pastel-de-nata': '/onesheet-previews/preview-pastel-de-nata.webp',
 };
