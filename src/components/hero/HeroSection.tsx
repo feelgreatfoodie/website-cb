@@ -73,7 +73,7 @@ export function HeroSection() {
       <motion.div
         className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6"
         variants={staggerContainer}
-        initial="hidden"
+        initial={false}
         animate="visible"
       >
         <motion.h1
