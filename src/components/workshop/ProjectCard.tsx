@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LiveStatusBadge } from '@/components/ui/LiveStatusBadge';
 import { trackEvent } from '@/lib/analytics';
 
@@ -23,39 +25,49 @@ export function ProjectCard({
   image,
   url,
 }: ProjectCardProps) {
-  return (
-    <div className="glass group flex h-full flex-col rounded-xl text-left transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40">
-      {/* Header area — fixed height */}
-      <div className="min-h-[120px] border-b border-accent/10 p-4 sm:p-6">
-        {image && (
-          <div className="mb-3 flex justify-center">
-            <Image
-              src={image}
-              alt={`${name} icon`}
-              width={40}
-              height={40}
-              className="h-10 w-10 object-contain"
-            />
-          </div>
-        )}
-        <h3 className="mb-1 font-mono text-lg font-bold text-cta">
-          {name}
-        </h3>
-        <p className="text-sm text-foreground/60">{description}</p>
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-md bg-accent/10 px-2 py-0.5 font-mono text-[10px] tracking-wide text-accent/70"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
+  const [showImage, setShowImage] = useState(false);
 
-      {/* Problem area — fixed height */}
-      <div className="min-h-[100px] border-b border-accent/10 p-4 sm:px-6">
+  return (
+    <motion.button
+      type="button"
+      className="glass group flex h-full w-full flex-col rounded-xl p-4 text-left transition-all duration-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_15%,transparent)] hover:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none sm:p-6 cursor-pointer"
+      aria-label={showImage ? `${name}: collapse preview` : `${name}: show preview`}
+      aria-expanded={showImage}
+      onClick={() => {
+        const next = !showImage;
+        setShowImage(next);
+        trackEvent('project_card_toggle', { project: name, action: next ? 'expand' : 'collapse' });
+      }}
+    >
+      <AnimatePresence>
+        {image && showImage && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="-mx-4 -mt-4 mb-4 overflow-hidden rounded-t-xl sm:-mx-6 sm:-mt-6 sm:mb-6"
+          >
+            <div className="aspect-[2/1] rounded-lg bg-black/30 p-[10px]">
+              <Image
+                src={image}
+                alt={`${name} screenshot`}
+                width={800}
+                height={400}
+                className="h-full w-full rounded object-contain"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <h3 className="mb-1 font-mono text-lg font-bold text-cta">
+        {name}
+      </h3>
+      <p className="mb-4 text-sm text-foreground/60">{description}</p>
+
+      <div className="mb-3">
         <span className="font-mono text-[11px] tracking-[0.3em] text-accent/70">
           PROBLEM
         </span>
@@ -64,8 +76,7 @@ export function ProjectCard({
         </p>
       </div>
 
-      {/* Why Now area — fixed height */}
-      <div className="min-h-[100px] p-4 sm:px-6">
+      <div className="mb-4">
         <span className="font-mono text-[11px] tracking-[0.3em] text-accent/70">
           WHY NOW
         </span>
@@ -74,21 +85,42 @@ export function ProjectCard({
         </p>
       </div>
 
-      {/* Footer: status + link */}
-      <div className="mt-auto flex items-center justify-between border-t border-accent/10 px-4 py-3 sm:px-6">
-        <LiveStatusBadge projectName={name} />
-        {url && (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent('project_cta_click', { project: name, url })}
-            className="font-mono text-[11px] tracking-wider text-cta transition-colors hover:text-accent"
+      <div className="flex-1" />
+
+      <div className="flex flex-wrap gap-1.5">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-md bg-accent/10 px-2 py-1 font-mono text-[11px] tracking-wide text-accent/70"
           >
-            Visit &rarr;
-          </a>
-        )}
+            {tag}
+          </span>
+        ))}
       </div>
-    </div>
+
+      {showImage ? (
+        <div className="mt-4 flex items-center justify-between">
+          <LiveStatusBadge projectName={name} />
+          {url && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.stopPropagation();
+                trackEvent('project_cta_click', { project: name, url: url! });
+              }}
+              className="font-mono text-[11px] tracking-wider text-cta transition-colors hover:text-accent"
+            >
+              [ EXPERIENCE IT LIVE &rarr; ]
+            </a>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4 text-center font-mono text-[11px] tracking-wider text-cta/50">
+          {image ? '[ CLICK TO SEE PREVIEW ]' : '[ PREVIEW COMING SOON ]'}
+        </div>
+      )}
+    </motion.button>
   );
 }

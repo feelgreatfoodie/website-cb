@@ -31,10 +31,6 @@ const JourneySection = dynamic(
   () => import('@/components/journey/JourneySection').then((m) => ({ default: m.JourneySection })),
   { loading: () => <SectionPlaceholder height="min-h-[80vh]" /> }
 );
-const CompetencyHubSection = dynamic(
-  () => import('@/components/competencies/CompetencyHubSection').then((m) => ({ default: m.CompetencyHubSection })),
-  { ssr: false, loading: () => <SectionPlaceholder height="min-h-[60vh]" /> }
-);
 const OpenToSection = dynamic(
   () => import('@/components/opento/OpenToSection').then((m) => ({ default: m.OpenToSection })),
   { loading: () => <SectionPlaceholder height="min-h-[50vh]" /> }
@@ -46,10 +42,6 @@ const WorkshopSection = dynamic(
 const BossFightSection = dynamic(
   () => import('@/components/bossfight/BossFightSection').then((m) => ({ default: m.BossFightSection })),
   { ssr: false, loading: () => <SectionPlaceholder height="min-h-[40vh]" /> }
-);
-const ImplementationSection = dynamic(
-  () => import('@/components/implementation/ImplementationSection').then((m) => ({ default: m.ImplementationSection })),
-  { loading: () => <SectionPlaceholder height="min-h-[50vh]" /> }
 );
 const WritingSection = dynamic(
   () => import('@/components/writing/WritingSection').then((m) => ({ default: m.WritingSection })),
@@ -65,15 +57,11 @@ export function BelowFold({ posts }: { posts: MediumPost[] }) {
     <>
       <JourneySection />
       <SectionDivider />
-      <CompetencyHubSection />
-      <SectionDivider />
       <OpenToSection />
       <SectionDivider />
       <WorkshopSection />
       <SectionDivider />
       <BossFightSection />
-      <SectionDivider />
-      <ImplementationSection />
       <SectionDivider />
       <WritingSection posts={posts} />
       <SectionDivider />

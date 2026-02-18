@@ -137,6 +137,19 @@ export function Footer() {
           <span className="text-foreground/20">|</span>
 
           <a
+            href="https://rezzed.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group font-mono text-xs text-foreground/60 transition-all duration-300 hover:text-accent sm:text-sm"
+          >
+            <span className="inline-block transition-shadow duration-300 group-hover:bloom-text">
+              Rezzed.ai
+            </span>
+          </a>
+
+          <span className="text-foreground/20">|</span>
+
+          <a
             href={footer.links.medium}
             target="_blank"
             rel="noopener noreferrer"

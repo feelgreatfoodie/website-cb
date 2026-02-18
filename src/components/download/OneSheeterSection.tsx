@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { oneSheeter } from '@/config/content';
+import { oneSheeter, implementation } from '@/config/content';
 import { onesheetMap, onesheetPreviewMap } from '@/config/palettes';
 import { usePalette } from '@/lib/palette-context';
 import { useQuestStore } from '@/lib/hooks/useQuestStore';
@@ -61,6 +62,24 @@ export function OneSheeterSection() {
                 {oneSheeter.ctaLabel}
               </Button>
             </a>
+          </motion.div>
+
+          {/* GCP cert badges */}
+          <motion.div variants={fadeInUp} className="mt-8 flex items-center justify-center gap-6">
+            {implementation.certifications.map((cert) => (
+              <div key={cert.name} className="flex flex-col items-center gap-2">
+                <Image
+                  src={cert.badge}
+                  alt={cert.name}
+                  width={56}
+                  height={56}
+                  className="opacity-70 transition-opacity hover:opacity-100"
+                />
+                <span className="font-mono text-[11px] tracking-wider text-foreground/40">
+                  {cert.name.replace('GCP ', '')}
+                </span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
