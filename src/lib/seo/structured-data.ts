@@ -9,19 +9,21 @@ export function getStructuredData() {
         givenName: 'Christian',
         familyName: 'Bourlier',
         description:
-          'Solutions Architect, Data Engineer, AI/ML Engineer & Technical Account Manager with 8+ years data engineering on GCP and 20 years enterprise sales.',
+          'Principal AI & Data Solutions Architect. MCP Server Author. Production GenAI systems on Claude, Gemini & Vertex AI. I build the system AND close the deal.',
         jobTitle: [
-          'Solutions Architect',
+          'Principal AI & Data Solutions Architect',
+          'MCP Server Author',
+          'AI Solutions Architect',
           'Data Engineer',
-          'AI/ML Engineer',
           'Technical Account Manager',
-          'Technical Solutions Partner',
         ],
         url: 'https://christianbourlier.com',
         image: 'https://christianbourlier.com/opengraph-image',
         sameAs: [
           'https://linkedin.com/in/christianbourlier',
           'https://medium.com/@christianbourlier',
+          'https://rezzed.ai',
+          'https://github.com/feelgreatfoodie',
         ],
         knowsAbout: [
           'Technical Engineering',
@@ -43,6 +45,18 @@ export function getStructuredData() {
           'Terraform',
           'Next.js',
           'Technical Account Management',
+          'Model Context Protocol (MCP)',
+          'MCP Server Development',
+          'Production GenAI Systems',
+          'Claude API',
+          'Gemini',
+          'Anthropic',
+          'LLM Orchestration',
+          'Agentic Workflows',
+          'Multi-Agent Systems',
+          'RAG Pipelines',
+          'Prompt Engineering',
+          'AI Strategy',
         ],
         hasCredential: [
           {
@@ -67,13 +81,13 @@ export function getStructuredData() {
         hasOccupation: [
           {
             '@type': 'Occupation',
-            name: 'Solutions Architect',
+            name: 'Principal AI & Data Solutions Architect',
             occupationLocation: {
               '@type': 'Country',
               name: 'US',
             },
             skills:
-              'Cloud Architecture, GCP, Vertex AI, BigQuery, Terraform, Python, TypeScript',
+              'Cloud Architecture, GCP, Vertex AI, BigQuery, Terraform, Python, TypeScript, MCP Server Development, Claude API, LLM Orchestration, Agentic Workflows',
           },
           {
             '@type': 'Occupation',
@@ -91,7 +105,7 @@ export function getStructuredData() {
         '@type': 'WebSite',
         name: 'Christian Bourlier',
         description:
-          'Personal portfolio of Christian Bourlier — Solutions Architect, Data Engineer, AI/ML Engineer & Technical Account Manager.',
+          'Personal portfolio of Christian Bourlier — Principal AI & Data Solutions Architect, MCP Server Author. Production GenAI systems on Claude, Gemini & Vertex AI.',
         url: 'https://christianbourlier.com',
         publisher: {
           '@id': 'https://christianbourlier.com/#person',
@@ -126,6 +140,27 @@ export function getStructuredData() {
         author: { '@type': 'Person', name: 'Eric Budd' },
         reviewBody: 'Christian has been terrific to work with. I value his energy for learning, teaching others, and creating an environment where everyone has fun. His thoroughness and attention to detail were key to making a great product.',
         itemReviewed: { '@id': 'https://christianbourlier.com/#person' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is an MCP Server and why does it matter?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'MCP (Model Context Protocol) servers let AI agents like Claude access external tools, data, and services securely. As an MCP Server Author, Christian builds production-grade MCP servers that give AI agents real-world capabilities — from database access to API orchestration.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What are production GenAI systems?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Production GenAI systems go beyond prototypes — they are enterprise-grade AI applications built on Claude, Gemini, and Vertex AI that handle real workloads at scale. This includes RAG pipelines, multi-agent orchestration, agentic workflows, and LLM-powered automation with proper monitoring, error handling, and cost optimization.',
+            },
+          },
+        ],
       },
     ],
   };

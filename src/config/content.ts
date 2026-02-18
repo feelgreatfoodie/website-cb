@@ -1,6 +1,6 @@
 export const hero = {
   headline: 'CHRISTIAN BOURLIER',
-  subheadline: 'AI SOLUTIONS ARCHITECT',
+  subheadline: 'ARCHITECT. STRATEGIST. OPERATOR.',
   hook: 'I build the system AND close the deal.',
   cta: 'Journey Onward',
   availability: 'Open to opportunities',
@@ -350,16 +350,16 @@ export const intentOverrides: Record<string, {
   ctaLabel?: string;
 }> = {
   recruiter: {
-    subheadline: 'AI SOLUTIONS ARCHITECT & DATA ENGINEER',
+    subheadline: 'PRINCIPAL AI ARCHITECT | MCP SERVER AUTHOR',
     availability: 'Available for Q2 2026 engagements',
   },
   client: {
-    subheadline: 'AI SOLUTIONS ARCHITECT',
+    subheadline: 'AI SOLUTIONS ARCHITECT | PRODUCTION GENAI SYSTEMS',
     availability: 'Booking discovery calls',
     ctaLabel: 'See My Work',
   },
   engineer: {
-    subheadline: 'AI ARCHITECT & FULL-STACK ENGINEER',
+    subheadline: 'AI ARCHITECT & MCP SERVER AUTHOR',
     availability: 'Open to collaborations',
   },
 };

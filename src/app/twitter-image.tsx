@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
-export const alt = 'Christian Bourlier | Solutions Architect & Data Engineer';
+export const alt = 'Christian Bourlier | Architect. Strategist. Operator.';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -61,15 +61,15 @@ export default async function Image() {
           </p>
           <p
             style={{
-              fontSize: '28px',
+              fontSize: '24px',
               fontFamily: 'Inter',
               fontWeight: 700,
               color: '#1E90FF',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.15em',
               margin: 0,
             }}
           >
-            TECHNICAL SOLUTIONS PARTNER
+            ARCHITECT · STRATEGIST · OPERATOR
           </p>
           <p
             style={{
