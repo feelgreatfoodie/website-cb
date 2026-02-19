@@ -16,7 +16,7 @@ const WELCOME_SHOWN_KEY = 'cb-chat-welcome-shown';
 const WELCOME_MESSAGE: Message = {
   role: 'assistant',
   content:
-    "Welcome! You probably got here from a resume link — this site is an interactive look at Christian's work, skills, and the kinds of problems he solves. Feel free to ask me anything.",
+    "Welcome! Enjoy your visit exploring Christian's approach to work and problem solving. Please feel free to ask me about Christian, too — if you'd like a guided tour.",
 };
 
 export function ChatWidget() {

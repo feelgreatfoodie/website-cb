@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Script from 'next/script';
 import { useToast } from '@/components/ui/Toast';
 
@@ -40,11 +40,14 @@ function shouldLoadGA(consent: 'granted' | 'denied' | null, isGdpr: boolean): bo
 }
 
 export function CookieConsent() {
-  const [consent, setConsent] = useState<'granted' | 'denied' | null>(getStoredConsent);
-  const [isGdpr] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return isGdprRegion();
-  });
+  const [consent, setConsent] = useState<'granted' | 'denied' | null>(null);
+  const [isGdpr, setIsGdpr] = useState(false);
+
+  // Hydrate consent + region after mount
+  useEffect(() => {
+    setConsent(getStoredConsent());
+    setIsGdpr(isGdprRegion());
+  }, []);
 
   const accept = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, 'granted');
