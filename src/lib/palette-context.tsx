@@ -3,7 +3,8 @@
 import {
   createContext,
   useContext,
-  useState,
+  useSyncExternalStore,
+  useMemo,
   useEffect,
   useCallback,
   type ReactNode,
@@ -43,6 +44,23 @@ function computeInts(colors: PaletteColors) {
   ) as Record<keyof PaletteColors, number>;
 }
 
+function subscribePalette(callback: () => void) {
+  window.addEventListener('cb-palette-change', callback);
+  return () => window.removeEventListener('cb-palette-change', callback);
+}
+
+function getStoredPaletteId(): string | null {
+  try {
+    return localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function getServerPaletteId(): string | null {
+  return null;
+}
+
 export function ThemeProvider({
   paletteId: serverPaletteId,
   colors: serverColors,
@@ -52,41 +70,45 @@ export function ThemeProvider({
   colors: PaletteColors;
   children: ReactNode;
 }) {
-  const [paletteId, setPaletteId] = useState(serverPaletteId);
-  const [colors, setColors] = useState(serverColors);
-  const [int, setInt] = useState(() => computeInts(serverColors));
+  const storedId = useSyncExternalStore(subscribePalette, getStoredPaletteId, getServerPaletteId);
 
-  // Hydrate localStorage palette override after mount
+  const activePaletteId = useMemo(() => {
+    if (storedId && storedId !== serverPaletteId) {
+      const palette = getPalette(storedId);
+      if (palette.id === storedId) return storedId;
+    }
+    return serverPaletteId;
+  }, [storedId, serverPaletteId]);
+
+  const activeColors = useMemo(() => {
+    if (activePaletteId !== serverPaletteId) {
+      return getPalette(activePaletteId).colors;
+    }
+    return serverColors;
+  }, [activePaletteId, serverPaletteId, serverColors]);
+
+  const activeInt = useMemo(() => computeInts(activeColors), [activeColors]);
+
+  // Apply CSS variables when palette changes from server default
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored && stored !== serverPaletteId) {
-        const palette = getPalette(stored);
-        if (palette.id === stored) {
-          setPaletteId(stored);
-          setColors(palette.colors);
-          setInt(computeInts(palette.colors));
-          applyColorsToDOM(palette.colors);
-        }
-      }
-    } catch { /* localStorage unavailable */ }
-  }, [serverPaletteId]);
+    if (activePaletteId !== serverPaletteId) {
+      applyColorsToDOM(activeColors);
+    }
+  }, [activePaletteId, serverPaletteId, activeColors]);
 
   const switchPalette = useCallback((id: string) => {
     const palette = getPalette(id);
-    setPaletteId(palette.id);
-    setColors(palette.colors);
-    setInt(computeInts(palette.colors));
     applyColorsToDOM(palette.colors);
     try {
       localStorage.setItem(STORAGE_KEY, palette.id);
     } catch {
       // localStorage unavailable
     }
+    window.dispatchEvent(new Event('cb-palette-change'));
   }, []);
 
   return (
-    <Ctx.Provider value={{ paletteId, colors, int, switchPalette }}>
+    <Ctx.Provider value={{ paletteId: activePaletteId, colors: activeColors, int: activeInt, switchPalette }}>
       {children}
     </Ctx.Provider>
   );

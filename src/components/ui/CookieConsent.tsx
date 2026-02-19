@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useSyncExternalStore, useCallback } from 'react';
 import Script from 'next/script';
 import { useToast } from '@/components/ui/Toast';
 
@@ -20,11 +20,23 @@ function isGdprRegion(): boolean {
   }
 }
 
-function getStoredConsent(): 'granted' | 'denied' | null {
-  if (typeof window === 'undefined') return null;
+function readConsent(): 'granted' | 'denied' | null {
   const stored = localStorage.getItem(CONSENT_KEY);
   if (stored === 'granted' || stored === 'denied') return stored;
   return null;
+}
+
+function subscribeConsent(callback: () => void) {
+  window.addEventListener('cb-consent-change', callback);
+  return () => window.removeEventListener('cb-consent-change', callback);
+}
+
+function notifyConsentChange() {
+  window.dispatchEvent(new Event('cb-consent-change'));
+}
+
+function subscribeNoop() {
+  return () => {};
 }
 
 /**
@@ -35,28 +47,21 @@ function getStoredConsent(): 'granted' | 'denied' | null {
 function shouldLoadGA(consent: 'granted' | 'denied' | null, isGdpr: boolean): boolean {
   if (consent === 'denied') return false;
   if (consent === 'granted') return true;
-  // No stored preference: load for non-GDPR, block for GDPR
   return !isGdpr;
 }
 
 export function CookieConsent() {
-  const [consent, setConsent] = useState<'granted' | 'denied' | null>(null);
-  const [isGdpr, setIsGdpr] = useState(false);
-
-  // Hydrate consent + region after mount
-  useEffect(() => {
-    setConsent(getStoredConsent());
-    setIsGdpr(isGdprRegion());
-  }, []);
+  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => null);
+  const isGdpr = useSyncExternalStore(subscribeNoop, isGdprRegion, () => false);
 
   const accept = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, 'granted');
-    setConsent('granted');
+    notifyConsentChange();
   }, []);
 
   const decline = useCallback(() => {
     localStorage.setItem(CONSENT_KEY, 'denied');
-    setConsent('denied');
+    notifyConsentChange();
   }, []);
 
   const loadGA = shouldLoadGA(consent, isGdpr);
@@ -118,7 +123,7 @@ export function useAnalyticsToggle() {
   const toast = useToast();
 
   const toggle = useCallback(() => {
-    const current = getStoredConsent();
+    const current = readConsent();
     if (current === 'denied' || current === null) {
       localStorage.setItem(CONSENT_KEY, 'granted');
       toast('Analytics enabled — reload to apply.');

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useSyncExternalStore } from 'react';
+import { useEffect, useCallback } from 'react';
 import { create } from 'zustand';
 
 const STORAGE_KEY = 'cb-reduced-motion';
@@ -23,18 +24,27 @@ export const useReducedMotionStore = create<ReducedMotionStore>((set) => ({
   },
 }));
 
+function subscribeMotion(callback: () => void) {
+  const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mql.addEventListener('change', callback);
+  return () => mql.removeEventListener('change', callback);
+}
+
+function getMotionSnapshot() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function getMotionServerSnapshot() {
+  return false;
+}
+
 /**
  * Returns true if reduced motion should be active.
  * Priority: manual override > OS preference.
  */
-function getOsPreference() {
-  if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
 export function useReducedMotion(): boolean {
   const override = useReducedMotionStore((s) => s.override);
-  const [osPrefers, setOsPrefers] = useState(false);
+  const osPrefers = useSyncExternalStore(subscribeMotion, getMotionSnapshot, getMotionServerSnapshot);
 
   // Hydrate from localStorage on mount
   useEffect(() => {
@@ -42,15 +52,6 @@ export function useReducedMotion(): boolean {
     if (stored !== null) {
       useReducedMotionStore.setState({ override: stored === '1' });
     }
-  }, []);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setOsPrefers(mql.matches);
-
-    const handler = (e: MediaQueryListEvent) => setOsPrefers(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
   }, []);
 
   return override !== null ? override : osPrefers;
@@ -64,8 +65,6 @@ export function useReducedMotionToggle() {
   const isReduced = useReducedMotion();
 
   const toggle = useCallback(() => {
-    // If currently reduced, turn animations on (override = false)
-    // If currently not reduced, turn animations off (override = true)
     setOverride(!isReduced);
   }, [isReduced, setOverride]);
 
