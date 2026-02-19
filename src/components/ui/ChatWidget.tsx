@@ -11,9 +11,17 @@ interface Message {
   content: string;
 }
 
+const WELCOME_SHOWN_KEY = 'cb-chat-welcome-shown';
+
+const WELCOME_MESSAGE: Message = {
+  role: 'assistant',
+  content:
+    "Welcome! You probably got here from a resume link — this site is an interactive look at Christian's work, skills, and the kinds of problems he solves. Feel free to ask me anything.",
+};
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -32,6 +40,23 @@ export function ChatWidget() {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Auto-open on first visit
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!localStorage.getItem(WELCOME_SHOWN_KEY)) {
+      localStorage.setItem(WELCOME_SHOWN_KEY, '1');
+      setTimeout(() => setIsOpen(true), 750);
+      trackEvent('ai_chat_welcome_auto_open');
+    }
+  }, []);
+
+  // Re-focus input after loading completes
+  useEffect(() => {
+    if (!isLoading && isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading, isOpen]);
 
   // Escape to close
   useEffect(() => {
@@ -70,7 +95,7 @@ export function ChatWidget() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: newMessages,
+          messages: newMessages.filter((m) => m !== WELCOME_MESSAGE),
           context: 'chat',
         }),
       });
@@ -104,7 +129,6 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
-      inputRef.current?.focus();
     }
   }, [input, messages, isLoading]);
 
@@ -205,12 +229,6 @@ export function ChatWidget() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
-              {messages.length === 0 && (
-                <p className="text-[13px] text-foreground/50 text-center mt-8">
-                  Ask me anything about Christian&apos;s experience, projects, or expertise.
-                </p>
-              )}
-
               {messages.map((message, index) => (
                 <div
                   key={index}

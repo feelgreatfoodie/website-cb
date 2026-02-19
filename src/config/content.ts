@@ -284,6 +284,12 @@ export const bossfight = {
       author: 'Matthew Walvick',
       role: 'Healthcare Technology Physician',
     },
+    {
+      quote:
+        'He has a quality that\'s hard to teach and even harder to find. He is genuine. He is outcome-driven. And he makes the people around him feel seen, heard, and respected. You don\'t just get someone who does the job. You get someone who improves the room. That\'s what creates lasting results.',
+      author: 'Rich Luby',
+      role: 'Career Services Director',
+    },
   ],
 } as const;
 
