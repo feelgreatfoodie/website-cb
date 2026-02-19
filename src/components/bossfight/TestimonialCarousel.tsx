@@ -34,6 +34,7 @@ export function TestimonialCarousel({
 }: TestimonialCarouselProps) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
   const prefersReduced = useReducedMotion();
 
   const goTo = useCallback(
@@ -56,11 +57,12 @@ export function TestimonialCarousel({
     );
   }, [testimonials.length]);
 
-  // Auto-advance
+  // Auto-advance (pauses on hover)
   useEffect(() => {
+    if (paused) return;
     const timer = setInterval(goNext, 6000);
     return () => clearInterval(timer);
-  }, [goNext]);
+  }, [goNext, paused]);
 
   // Touch: distinguish tap (pause) from swipe (navigate)
   const touchStartX = useRef(0);
@@ -96,6 +98,8 @@ export function TestimonialCarousel({
       onKeyDown={handleKeyDown}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
       role="region"
       aria-label="Testimonials"
       aria-roledescription="carousel"
@@ -154,7 +158,7 @@ export function TestimonialCarousel({
               aria-label={`Go to testimonial ${i + 1}`}
             >
               {/* Progress animation on active dot */}
-              {i === index && !prefersReduced && (
+              {i === index && !prefersReduced && !paused && (
                 <m.span
                   className="absolute inset-0 rounded-full bg-accent/40"
                   initial={{ scaleX: 0, originX: 0 }}
