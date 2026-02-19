@@ -91,8 +91,8 @@ export function RiverScene() {
       count: device.particleCount,
       spread: { x: 10, y: 4, z: 6 },
       color: new THREE.Color(intColors.accent),
-      size: device.type === 'mobile' ? 0.04 : 0.03,
-      speed: 0.2,
+      size: device.type === 'mobile' ? 0.07 : 0.05,
+      speed: 0.5,
     });
     manager.scene.add(particles.points);
 
@@ -101,8 +101,8 @@ export function RiverScene() {
       count: Math.floor(device.particleCount * 0.3),
       spread: { x: 8, y: 3, z: 4 },
       color: new THREE.Color(intColors.stream1),
-      size: 0.02,
-      speed: 0.15,
+      size: 0.04,
+      speed: 0.35,
     });
     manager.scene.add(accentParticles.points);
 
