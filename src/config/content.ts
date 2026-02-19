@@ -226,6 +226,15 @@ export const workshop = {
       image: '/optimeasure-preview.svg',
       url: 'https://optimeasure.io',
     },
+    {
+      name: 'christianbourlier.com',
+      description: 'The site you\'re on — built from scratch, not a template.',
+      problem:
+        'Portfolio sites are static brochures. They don\'t show how someone actually builds.',
+      whyNow: 'If the portfolio is the pitch, the engineering should be the proof.',
+      tags: ['Next.js', 'Gemini AI', 'Three.js', '8-Palette Engine', 'PWA'],
+      image: '/site-preview.svg',
+    },
   ],
 } as const;
 

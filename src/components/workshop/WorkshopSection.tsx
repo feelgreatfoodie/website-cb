@@ -34,7 +34,7 @@ export function WorkshopSection() {
         </m.div>
 
         <m.div
-          className="grid gap-4 sm:gap-6 md:grid-cols-3"
+          className="grid gap-4 sm:gap-6 md:grid-cols-2"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
