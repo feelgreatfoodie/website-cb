@@ -45,14 +45,40 @@ export class ParticleSystem {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('alpha', new THREE.BufferAttribute(alphas, 1));
 
-    const material = new THREE.PointsMaterial({
-      color,
-      size,
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        color: { value: color },
+        size: { value: size },
+        opacity: { value: 0.6 },
+      },
+      vertexShader: `
+        attribute float alpha;
+        uniform float size;
+        varying float vAlpha;
+
+        void main() {
+          vAlpha = alpha;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (300.0 / length(mvPosition.xyz));
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+        uniform float opacity;
+        varying float vAlpha;
+
+        void main() {
+          // Make round particles
+          vec2 center = gl_PointCoord - vec2(0.5);
+          if (length(center) > 0.5) discard;
+
+          gl_FragColor = vec4(color, opacity * vAlpha);
+        }
+      `,
       transparent: true,
-      opacity: 0.6,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      sizeAttenuation: true,
     });
 
     this.points = new THREE.Points(geometry, material);
@@ -92,6 +118,6 @@ export class ParticleSystem {
 
   dispose() {
     this.points.geometry.dispose();
-    (this.points.material as THREE.PointsMaterial).dispose();
+    (this.points.material as THREE.ShaderMaterial).dispose();
   }
 }
