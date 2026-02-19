@@ -52,31 +52,25 @@ export function ThemeProvider({
   colors: PaletteColors;
   children: ReactNode;
 }) {
-  const [paletteId, setPaletteId] = useState(() => {
-    if (typeof window === 'undefined') return serverPaletteId;
+  const [paletteId, setPaletteId] = useState(serverPaletteId);
+  const [colors, setColors] = useState(serverColors);
+  const [int, setInt] = useState(() => computeInts(serverColors));
+
+  // Hydrate localStorage palette override after mount
+  useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
+      if (stored && stored !== serverPaletteId) {
         const palette = getPalette(stored);
-        if (palette.id === stored) return stored;
+        if (palette.id === stored) {
+          setPaletteId(stored);
+          setColors(palette.colors);
+          setInt(computeInts(palette.colors));
+          applyColorsToDOM(palette.colors);
+        }
       }
     } catch { /* localStorage unavailable */ }
-    return serverPaletteId;
-  });
-
-  const initialColors = paletteId !== serverPaletteId
-    ? getPalette(paletteId).colors
-    : serverColors;
-
-  const [colors, setColors] = useState(initialColors);
-  const [int, setInt] = useState(() => computeInts(initialColors));
-
-  // Apply localStorage override to DOM on mount
-  useEffect(() => {
-    if (paletteId !== serverPaletteId) {
-      applyColorsToDOM(colors);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [serverPaletteId]);
 
   const switchPalette = useCallback((id: string) => {
     const palette = getPalette(id);

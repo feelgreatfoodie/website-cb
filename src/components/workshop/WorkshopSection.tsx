@@ -9,7 +9,7 @@ export function WorkshopSection() {
   return (
     <section
       id="workshop"
-      className="relative min-h-[70vh] bg-background py-16 sm:min-h-screen sm:py-24"
+      className="relative bg-background py-16 sm:py-24"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <m.div

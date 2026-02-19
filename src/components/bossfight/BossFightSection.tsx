@@ -14,7 +14,7 @@ export function BossFightSection() {
   return (
     <section
       id="bossfight"
-      className="relative min-h-[70vh] bg-background py-16 sm:min-h-screen sm:py-24"
+      className="relative bg-background py-16 sm:py-24"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <m.div
